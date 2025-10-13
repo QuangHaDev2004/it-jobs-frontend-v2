@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1216px;
+  --breakpoint-2xl: 1216px;
+}
+
+* {
+  font-family: "Lexend", sans-serif;
+}
+
+select, input, button, textarea {
+  outline: none;
+}
+
+select {
+  appearance: none;
+}
+
+.custom-select {
+  position: relative;
+}
+
+.custom-select::before {
+  content: "\f107";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 15px;
+  font-size: 16px;
+  color: #121212;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.just-validate-error-label {
+  font-size: 12px;
+}
+
+.filepond--credits {
+  display: none;
+}
+
+
+
+
