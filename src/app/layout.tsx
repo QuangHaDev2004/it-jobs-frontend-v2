@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "./components/header/Header";
 import { Footer } from "./components/footer/Footer";
+import { QueryProvider } from "@/providers/QueryProvider";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
-  title: "28IT Jobs",
+  title: "IT Jobs",
   description: "Trang tuyển dụng việc làm IT tại Việt Nam",
 };
 
@@ -14,17 +16,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
-      </head>
-
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <Header />
+        <QueryProvider>
+          <Header />
 
-        {children}
+          {children}
 
-        <Footer />
+          <Footer />
+
+          <Toaster
+            position="top-right"
+            richColors
+            closeButton
+            duration={3000}
+          />
+        </QueryProvider>
       </body>
     </html>
   );

@@ -1,118 +1,86 @@
-"use client"
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import JustValidate from "just-validate";
-import { useEffect } from "react";
+"use client";
+import { registerUser } from "@/services/auth";
+import { RegisterInputs, registerSchema } from "@/validates/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { InputField } from "@/components/forms/auth/InputField";
+import { PasswordField } from "@/components/forms/auth/PasswordField";
+import { ButtonSubmit } from "@/components/forms/auth/ButtonSubmit";
+import { AuthRedirect } from "@/components/forms/auth/AuthRedirect";
 
 export const FormRegister = () => {
-  useEffect(() => {
-    const validator = new JustValidate("#registerForm");
+  const router = useRouter();
 
-    validator
-      .addField("#fullName", [
-        {
-          rule: "required",
-          errorMessage: "Vui lòng nhập họ tên!"
-        },
-        {
-          rule: "minLength",
-          value: 5,
-          errorMessage: "Họ tên phải có ít nhất 5 ký tự!"
-        },
-        {
-          rule: "maxLength",
-          value: 50,
-          errorMessage: "Họ tên không được vượt quá 50 ký tự!"
-        }
-      ])
-      .addField("#email", [
-        {
-          rule: "required",
-          errorMessage: "Vui lòng nhập email của bạn!"
-        },
-        {
-          rule: "email",
-          errorMessage: "Email không đúng định dạng!"
-        }
-      ])
-      .addField("#password", [
-        {
-          rule: "required",
-          errorMessage: "Vui lòng nhập mật khẩu!"
-        },
-        {
-          rule: 'minLength',
-          value: 8,
-          errorMessage: "Mật khẩu phải chứa ít nhất 8 ký tự!"
-        },
-        {
-          validator: (value: string) => /[A-Z]/.test(value),
-          errorMessage: "Mật khẩu phải chứa ít nhất một chữ cái in hoa!"
-        },
-        {
-          validator: (value: string) => /[a-z]/.test(value),
-          errorMessage: "Mật khẩu phải chứa ít nhất một chữ cái in thường!"
-        },
-        {
-          validator: (value: string) => /\d/.test(value),
-          errorMessage: "Mật khẩu phải chứa ít nhất một chữ số!"
-        },
-        {
-          validator: (value: string) => /[@$!%*?&]/.test(value),
-          errorMessage: "Mật khẩu phải chứa ít nhất một ký tự đặc biệt!"
-        }
-      ])
-      .onSuccess((event: any) => {
-        const fullName = event.target.fullName.value;
-        const email = event.target.email.value;
-        const password = event.target.password.value;
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<RegisterInputs>({
+    resolver: zodResolver(registerSchema),
+  });
 
-        console.log(fullName);
-        console.log(email);
-        console.log(password);
+  const { mutate, isPending } = useMutation({
+    mutationFn: registerUser,
+    onSuccess: (data) => {
+      if (data.code === "error") {
+        toast.error(data.message);
+      }
 
-      })
-  }, []);
+      if (data.code === "success") {
+        reset();
+        toast.success(data.message);
+        router.push("/user/login");
+      }
+    },
+    onError: (errors) => {
+      toast.error(errors.message || "Đăng ký thất bại. Vui lòng thử lại.");
+    },
+  });
+
+  const handleRegisterForm: SubmitHandler<RegisterInputs> = (data) => {
+    mutate(data);
+  };
 
   return (
     <>
-      <form id="registerForm" action="" className="grid grid-cols-1 gap-[15px]">
-        <div className="">
-          <label htmlFor="fullName" className="font-[500] text-[14px] block mb-[5px]">
-            Họ tên *
-          </label>
-          <input
-            type="text"
-            id="fullName"
-            name="fullName"
-            className="border border-[#DEDEDE] rounded-[4px] w-full h-[46px] px-[20px] font-[500] text-[14px]"
-          />
-        </div>
-        <div className="">
-          <label htmlFor="email" className="font-[500] text-[14px] block mb-[5px]">
-            Email *
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            className="border border-[#DEDEDE] rounded-[4px] w-full h-[46px] px-[20px] font-[500] text-[14px]"
-          />
-        </div>
-        <div className="">
-          <label htmlFor="password" className="font-[500] text-[14px] block mb-[5px]">
-            Mật khẩu *
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            className="border border-[#DEDEDE] rounded-[4px] w-full h-[46px] px-[20px] font-[500] text-[14px]"
-          />
-        </div>
-        <button className="bg-[#0088FF] rounded-[4px] h-[48px] font-[700] text-[16px] text-white cursor-pointer">
-          Đăng ký
-        </button>
+      <form
+        onSubmit={handleSubmit(handleRegisterForm)}
+        className="grid grid-cols-1 gap-[15px]"
+      >
+        <InputField
+          id="fullName"
+          label="Họ tên"
+          placeholder="Nhập họ và tên"
+          register={register("fullName")}
+          error={errors.fullName}
+        />
+
+        <InputField
+          id="email"
+          label="Email"
+          type="email"
+          placeholder="Nhập email"
+          register={register("email")}
+          error={errors.email}
+        />
+
+        <PasswordField
+          label="Mật khẩu"
+          register={register("password")}
+          error={errors.password}
+        />
+
+        <ButtonSubmit isPending={isPending} text="Đăng ký" />
       </form>
+      <AuthRedirect
+        message="Bạn đã có tài khoản?"
+        linkText="Đăng nhập ngay!"
+        href="/user/login"
+      />
     </>
-  )
-}
+  );
+};

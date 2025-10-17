@@ -1,6 +1,6 @@
-import { CardCompanyItem } from "./components/card/CardCompanyItem";
-import { Section1 } from "./components/section/Section1";
-import { Title } from "./components/title/Title";
+import { CardCompanyItem } from "../../components/card/CardCompanyItem";
+import { Section1 } from "../../components/section/Section1";
+import { Title } from "../../components/title/Title";
 
 export default function HomePage() {
   const companyList = [
@@ -9,23 +9,23 @@ export default function HomePage() {
       image: "/assets/images/demo-cong-ty-1.jpg",
       name: "LG Electronics Development Vietnam (LGEDV)",
       address: "Ho Chi Minh",
-      quantity: 5
+      quantity: 5,
     },
     {
       link: "#",
       image: "/assets/images/demo-cong-ty-2.jpg",
       name: "MB Bank",
       address: "Ho Chi Minh",
-      quantity: 5
+      quantity: 5,
     },
     {
       link: "#",
       image: "/assets/images/demo-cong-ty-3.jpg",
       name: "FPT Software",
       address: "Ho Chi Minh",
-      quantity: 5
-    }
-  ]
+      quantity: 5,
+    },
+  ];
 
   return (
     <>
@@ -39,13 +39,10 @@ export default function HomePage() {
           <Title text="Nhà tuyển dụng hàng đầu" />
 
           {/* Wrap */}
-          <div className="grid lg:grid-cols-3 grid-cols-2 sm:gap-x-[20px] gap-x-[10px] gap-y-[20px]">
+          <div className="grid grid-cols-2 gap-x-[10px] gap-y-[20px] sm:gap-x-[20px] lg:grid-cols-3">
             {/* Item */}
             {companyList.map((item, index) => (
-              <CardCompanyItem
-                key={index}
-                {...item}
-              />
+              <CardCompanyItem key={index} {...item} />
             ))}
           </div>
         </div>

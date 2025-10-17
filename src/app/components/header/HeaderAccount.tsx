@@ -1,20 +1,18 @@
-import Link from "next/link"
+import Link from "next/link";
 
 export const HeaderAccount = () => {
   return (
     <>
-      <div className="flex items-center gap-x-[5px] font-[600] sm:text-[16px] text-[12px] text-white relative group/sub-1">
+      <div className="group/sub-1 relative flex items-center gap-x-[5px] text-xs font-semibold text-white sm:text-[16px]">
         {/* Chưa đăng nhập */}
-        {/* <Link href="#">
-          Đăng Nhập
-        </Link>
-        <span className="">/</span>
-        <Link href="#">
-          Đăng Ký
-        </Link> */}
+        <Link href="/user/login">Đăng Nhập</Link>
+        <div className="hidden lg:block">
+          <span className="">/ </span>
+          <Link href="/user/register">Đăng Ký</Link>
+        </div>
 
         {/* Đã đăng nhập */}
-        <Link href="#">
+        {/* <Link href="#">
           LG Elect...
         </Link>
         <ul className="bg-[#000065] absolute top-[100%] right-0 w-[220px] rounded-[4px] hidden group-hover/sub-1:block">
@@ -38,8 +36,8 @@ export const HeaderAccount = () => {
               Đăng xuất
             </Link>
           </li>
-        </ul>
+        </ul> */}
       </div>
     </>
-  )
-}
+  );
+};

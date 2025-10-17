@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap");
 
 @import "tailwindcss";
 
@@ -8,13 +8,22 @@
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1216px;
   --breakpoint-2xl: 1216px;
+
+  --color-header: #000071;
+  --color-primary: #000065;
+  --color-blue: #0088ff;
+  --color-gray: #dedede;
+  --color-red: #ff0000;
 }
 
 * {
   font-family: "Lexend", sans-serif;
 }
 
-select, input, button, textarea {
+select,
+input,
+button,
+textarea {
   outline: none;
 }
 
@@ -52,7 +61,3 @@ select {
 .filepond--credits {
   display: none;
 }
-
-
-
-
