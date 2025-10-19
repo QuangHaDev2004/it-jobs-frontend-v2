@@ -26,10 +26,7 @@ export const FormRegister = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: registerUser,
     onSuccess: (data) => {
-      if (data.code === "error") {
-        toast.error(data.message);
-      }
-
+      if (data.code === "error") toast.error(data.message);
       if (data.code === "success") {
         reset();
         toast.success(data.message);
@@ -37,7 +34,7 @@ export const FormRegister = () => {
       }
     },
     onError: (errors) => {
-      toast.error(errors.message || "Đăng ký thất bại. Vui lòng thử lại.");
+      toast.error(errors.message);
     },
   });
 
@@ -78,7 +75,7 @@ export const FormRegister = () => {
       </form>
       <AuthRedirect
         message="Bạn đã có tài khoản?"
-        linkText="Đăng nhập ngay!"
+        linkText="Đăng nhập ngay"
         href="/user/login"
       />
     </>

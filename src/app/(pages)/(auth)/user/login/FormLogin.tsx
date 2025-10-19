@@ -1,89 +1,76 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use client"
-import JustValidate from "just-validate";
-import { useEffect } from "react";
+"use client";
+import { AuthRedirect } from "@/components/forms/auth/AuthRedirect";
+import { ButtonSubmit } from "@/components/forms/auth/ButtonSubmit";
+import { InputField } from "@/components/forms/auth/InputField";
+import { PasswordField } from "@/components/forms/auth/PasswordField";
+import { loginUser } from "@/services/auth";
+import { LoginInputs, loginSchema } from "@/validates/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 export const FormLogin = () => {
-  useEffect(() => {
-    const validator = new JustValidate("#loginForm");
+  const router = useRouter();
 
-    validator
-      .addField("#email", [
-        {
-          rule: "required",
-          errorMessage: "Vui lòng nhập email của bạn!"
-        },
-        {
-          rule: "email",
-          errorMessage: "Email không đúng định dạng!"
-        }
-      ])
-      .addField("#password", [
-        {
-          rule: "required",
-          errorMessage: "Vui lòng nhập mật khẩu!"
-        },
-        {
-          rule: 'minLength',
-          value: 8,
-          errorMessage: "Mật khẩu phải chứa ít nhất 8 ký tự!"
-        },
-        {
-          validator: (value: string) => /[A-Z]/.test(value),
-          errorMessage: "Mật khẩu phải chứa ít nhất một chữ cái in hoa!"
-        },
-        {
-          validator: (value: string) => /[a-z]/.test(value),
-          errorMessage: "Mật khẩu phải chứa ít nhất một chữ cái in thường!"
-        },
-        {
-          validator: (value: string) => /\d/.test(value),
-          errorMessage: "Mật khẩu phải chứa ít nhất một chữ số!"
-        },
-        {
-          validator: (value: string) => /[@$!%*?&]/.test(value),
-          errorMessage: "Mật khẩu phải chứa ít nhất một ký tự đặc biệt!"
-        }
-      ])
-      .onSuccess((event: any) => {
-        const email = event.target.email.value;
-        const password = event.target.password.value;
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<LoginInputs>({
+    resolver: zodResolver(loginSchema),
+  });
 
-        console.log(email);
-        console.log(password);
+  const { mutate, isPending } = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (data) => {
+      if (data.code === "error") toast.error(data.message);
+      if (data.code === "success") {
+        reset();
+        localStorage.setItem("accessToken", data.accessToken);
+        toast.success(data.message);
+        router.push("/");
+      }
+    },
+    onError: (errors) => {
+      toast.error(errors.message);
+    },
+  });
 
-      })
-  }, []);
+  const handleLoginForm: SubmitHandler<LoginInputs> = (data) => {
+    mutate(data);
+  };
 
   return (
     <>
-      <form id="loginForm" action="" className="grid grid-cols-1 gap-[15px]">
-        <div className="">
-          <label htmlFor="email" className="font-[500] text-[14px] block mb-[5px]">
-            Email *
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            className="border border-[#DEDEDE] rounded-[4px] w-full h-[46px] px-[20px] font-[500] text-[14px]"
-          />
-        </div>
-        <div className="">
-          <label htmlFor="password" className="font-[500] text-[14px] block mb-[5px]">
-            Mật khẩu *
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            className="border border-[#DEDEDE] rounded-[4px] w-full h-[46px] px-[20px] font-[500] text-[14px]"
-          />
-        </div>
-        <button className="bg-[#0088FF] rounded-[4px] h-[48px] font-[700] text-[16px] text-white cursor-pointer">
-          Đăng nhập
-        </button>
+      <form
+        onSubmit={handleSubmit(handleLoginForm)}
+        className="grid grid-cols-1 gap-[15px]"
+      >
+        <InputField
+          id="email"
+          label="Email"
+          type="email"
+          placeholder="Nhập email"
+          register={register("email")}
+          error={errors.email}
+        />
+
+        <PasswordField
+          label="Mật khẩu"
+          register={register("password")}
+          error={errors.password}
+        />
+
+        <ButtonSubmit isPending={isPending} text="Đăng nhập" />
       </form>
+      <AuthRedirect
+        message="Bạn chưa có tài khoản?"
+        linkText="Đăng ký ngay"
+        href="/user/register"
+      />
     </>
-  )
-}
+  );
+};

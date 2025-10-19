@@ -11,8 +11,8 @@ export default function CompanyLoginPage() {
     <>
       <div className="py-[60px]">
         <div className="container">
-          <div className="max-w-[602px] mx-auto border border-[#DEDEDE] rounded-[8px] px-[20px] py-[50px]">
-            <h1 className="font-[700] text-[20px] text-center mb-[20px]">
+          <div className="border-gray mx-auto max-w-[602px] rounded-lg border px-5 py-[50px]">
+            <h1 className="mb-5 text-center text-xl font-bold">
               Đăng nhập (Ứng viên)
             </h1>
             <FormLogin />
@@ -20,5 +20,5 @@ export default function CompanyLoginPage() {
         </div>
       </div>
     </>
-  )
+  );
 }
