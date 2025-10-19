@@ -4,7 +4,7 @@ import { ButtonSubmit } from "@/components/forms/auth/ButtonSubmit";
 import { InputField } from "@/components/forms/auth/InputField";
 import { PasswordField } from "@/components/forms/auth/PasswordField";
 import { loginUser } from "@/services/auth";
-import { LoginInputs, loginSchema } from "@/validates/auth";
+import { LoginUserInputs, loginUserSchema } from "@/validates/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -19,8 +19,8 @@ export const FormLogin = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<LoginInputs>({
-    resolver: zodResolver(loginSchema),
+  } = useForm<LoginUserInputs>({
+    resolver: zodResolver(loginUserSchema),
   });
 
   const { mutate, isPending } = useMutation({
@@ -39,7 +39,7 @@ export const FormLogin = () => {
     },
   });
 
-  const handleLoginForm: SubmitHandler<LoginInputs> = (data) => {
+  const handleLoginForm: SubmitHandler<LoginUserInputs> = (data) => {
     mutate(data);
   };
 

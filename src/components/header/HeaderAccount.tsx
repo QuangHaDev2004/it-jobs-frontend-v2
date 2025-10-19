@@ -1,11 +1,22 @@
 import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import { Loading } from "../loading/Loading";
+import { api } from "@/libs/axios";
+import { useRouter } from "next/navigation";
 
 export const HeaderAccount = () => {
   const { isLogin, infoUser, isLoading } = useAuth();
+  const router = useRouter();
 
-  if (isLoading) return <Loading isLoading={isLoading} />;
+  if (isLoading) return <Loading />;
+
+  const handleLogout = async (url: string) => {
+    const res = await api.get("/auth/logout");
+    if (res.data.code === "success") {
+      localStorage.removeItem("accessToken");
+      router.push(url);
+    }
+  };
 
   return (
     <>
@@ -31,7 +42,10 @@ export const HeaderAccount = () => {
                   Quản lý CV đã gửi
                 </Link>
               </li>
-              <li className="hover:bg-hover flex cursor-pointer flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
+              <li
+                onClick={() => handleLogout("/user/login")}
+                className="hover:bg-hover flex cursor-pointer flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300"
+              >
                 Đăng xuất
               </li>
             </ul>
