@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Header } from "./components/header/Header";
 import { Footer } from "./components/footer/Footer";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { Toaster } from "sonner";
+import { Header } from "@/components/header/Header";
 
 export const metadata: Metadata = {
   title: "IT Jobs",

@@ -1,7 +1,17 @@
 import { api } from "@/libs/axios";
-import { RegisterRequest } from "@/types/api";
+import { LoginRequest, RegisterRequest } from "@/types/api";
 
 export const registerUser = async (dataFinal: RegisterRequest) => {
   const res = await api.post("/user/register", dataFinal);
+  return res.data;
+};
+
+export const loginUser = async (dataFinal: LoginRequest) => {
+  const res = await api.post("/user/login", dataFinal);
+  return res.data;
+};
+
+export const checkAuth = async () => {
+  const res = await api.get("/auth/check");
   return res.data;
 };
