@@ -10,8 +10,6 @@ export const useAuth = () => {
     queryFn: checkAuth,
   });
 
-  // console.log(data);
-
   const isLogin = data?.code === "success";
   const infoUser = data?.infoUser || null;
   const infoCompany = data?.infoCompany || null;

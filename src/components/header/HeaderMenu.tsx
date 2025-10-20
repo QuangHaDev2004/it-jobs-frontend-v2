@@ -1,5 +1,7 @@
+import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import { FaAngleDown, FaAngleRight } from "react-icons/fa6";
+import { menuList } from "./menuList";
 
 export const HeaderMenu = ({
   showMenu,
@@ -8,83 +10,10 @@ export const HeaderMenu = ({
   showMenu: boolean;
   setShowMenu: (value: boolean) => void;
 }) => {
-  const menuList = [
-    {
-      name: "Việc Làm IT",
-      link: "#",
-      children: [
-        {
-          name: "Việc làm IT theo kỹ năng",
-          link: "#",
-          children: [
-            {
-              name: "ReactJS",
-              link: "#",
-            },
-            {
-              name: "NodeJS",
-              link: "#",
-            },
-            {
-              name: "Javascript",
-              link: "#",
-            },
-            {
-              name: "HTML5",
-              link: "#",
-            },
-            {
-              name: "CSS3",
-              link: "#",
-            },
-          ],
-        },
-        {
-          name: "Việc làm IT theo công ty",
-          link: "#",
-        },
-        {
-          name: "Việc làm IT theo thành phố",
-          link: "#",
-        },
-      ],
-    },
-    {
-      name: "Top Công Ty IT",
-      link: "#",
-      children: [
-        {
-          name: "FPT Software",
-          link: "#",
-        },
-        {
-          name: "Techcombank",
-          link: "#",
-        },
-        {
-          name: "MB Bank",
-          link: "#",
-        },
-      ],
-    },
-    {
-      name: "Nhà Tuyển Dụng",
-      link: "#",
-      children: [
-        {
-          name: "Đăng Nhập",
-          link: "/company/login",
-        },
-        {
-          name: "Đăng Ký",
-          link: "/company/register",
-        },
-      ],
-    },
-  ];
+  const { isLogin } = useAuth();
 
   const handleCloseMenu = () => {
-    setShowMenu(!showMenu);
+    setShowMenu(false);
   };
 
   return (
@@ -101,7 +30,7 @@ export const HeaderMenu = ({
           {menuList.map((menu, index) => (
             <li
               key={index}
-              className="group/sub-1 relative flex w-full flex-wrap items-center justify-between gap-x-2 p-[10px] lg:w-auto lg:justify-start lg:p-0"
+              className={`group/sub-1 relative flex w-full flex-wrap items-center justify-between gap-x-2 p-[10px] lg:w-auto lg:justify-start lg:p-0 ${menu.isLogin !== undefined && menu.isLogin !== isLogin ? "hidden" : ""}`}
             >
               <Link
                 href={menu.link}
@@ -112,30 +41,30 @@ export const HeaderMenu = ({
               {menu.children && (
                 <>
                   <FaAngleDown className="text-[16px] text-white" />
-                  <ul className="relative top-full left-0 hidden w-[280px] rounded-[4px] bg-primary group-hover/sub-1:block lg:absolute">
+                  <ul className="bg-primary relative top-full left-0 hidden w-[280px] rounded-sm shadow-2xl group-hover/sub-1:block lg:absolute">
                     {menu.children.map((menuSub1, indexSub1) => (
                       <li
                         key={indexSub1}
-                        className="group/sub-2 flex flex-wrap items-center justify-between rounded-[4px] px-[16px] py-[10px] hover:bg-[#000096]"
+                        className="group/sub-2 hover:bg-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px]"
                       >
                         <Link
                           href={menuSub1.link}
-                          className="text-[16px] font-[600] text-white"
+                          className="flex-1 text-[16px] font-semibold text-white"
                         >
                           {menuSub1.name}
                         </Link>
                         {menuSub1.children && (
                           <>
                             <FaAngleRight className="text-[16px] text-white" />
-                            <ul className="relative top-0 left-0 hidden w-full rounded-[4px] bg-[#000065] group-hover/sub-2:block lg:absolute lg:left-[100%] lg:w-[280px]">
+                            <ul className="bg-primary relative top-0 left-0 hidden w-full rounded-sm shadow-2xl group-hover/sub-2:block lg:absolute lg:left-full lg:w-[280px]">
                               {menuSub1.children.map((menuSub2, indexSub2) => (
                                 <li
                                   key={indexSub2}
-                                  className="flex items-center justify-between rounded-[4px] px-[16px] py-[10px] hover:bg-[#000096]"
+                                  className="hover:bg-hover flex items-center justify-between rounded-sm px-4 py-[10px]"
                                 >
                                   <Link
                                     href={menuSub2.link}
-                                    className="text-[16px] font-[600] text-white"
+                                    className="flex-1 text-[16px] font-semibold text-white"
                                   >
                                     {menuSub2.name}
                                   </Link>

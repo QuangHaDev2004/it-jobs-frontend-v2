@@ -1,5 +1,6 @@
 import { api } from "@/libs/axios";
 import {
+  LoginCompanyRequest,
   LoginUserRequest,
   RegisterCompanyRequest,
   RegisterUserRequest,
@@ -17,6 +18,11 @@ export const loginUser = async (dataFinal: LoginUserRequest) => {
 
 export const registerCompany = async (dataFinal: RegisterCompanyRequest) => {
   const res = await api.post("/company/register", dataFinal);
+  return res.data;
+};
+
+export const loginCompany = async (dataFinal: LoginCompanyRequest) => {
+  const res = await api.post("/company/login", dataFinal);
   return res.data;
 };
 

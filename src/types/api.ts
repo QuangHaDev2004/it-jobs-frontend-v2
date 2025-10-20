@@ -15,3 +15,8 @@ export type RegisterCompanyRequest = {
   email: string;
   password: string;
 };
+
+export type LoginCompanyRequest = {
+  email: string;
+  password: string;
+};
