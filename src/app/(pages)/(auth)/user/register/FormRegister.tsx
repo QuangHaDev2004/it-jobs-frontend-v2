@@ -17,7 +17,6 @@ export const FormRegister = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<RegisterUserInputs>({
     resolver: zodResolver(registerUserSchema),
@@ -28,13 +27,12 @@ export const FormRegister = () => {
     onSuccess: (data) => {
       if (data.code === "error") toast.error(data.message);
       if (data.code === "success") {
-        reset();
         toast.success(data.message);
         router.push("/user/login");
       }
     },
     onError: (errors) => {
-      toast.error(errors.message);
+      console.log(errors.message);
     },
   });
 

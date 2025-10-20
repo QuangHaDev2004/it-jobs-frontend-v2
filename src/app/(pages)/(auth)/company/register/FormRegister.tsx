@@ -7,9 +7,13 @@ import { registerCompany } from "@/services/auth";
 import { RegisterCompanyInputs, registerCompanySchema } from "@/validates/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 export const FormRegister = () => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -21,14 +25,21 @@ export const FormRegister = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: registerCompany,
     onSuccess: (data) => {
-      console.log(data);
+      if (data.code === "error") toast.error(data.message);
+      if (data.code === "success") {
+        toast.success(data.message);
+        router.push("/company/login");
+      }
+    },
+    onError: (errors) => {
+      console.log(errors.message);
     },
   });
 
   const handleRegisterCompany: SubmitHandler<RegisterCompanyInputs> = (
     data,
   ) => {
-    console.log(data);
+    mutate(data);
   };
 
   return (
