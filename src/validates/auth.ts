@@ -54,3 +54,13 @@ export const registerCompanySchema = z.object({
 });
 
 export type RegisterCompanyInputs = z.infer<typeof registerCompanySchema>;
+
+export const loginCompanySchema = z.object({
+  email: z
+    .string()
+    .min(1, "Vui lòng nhập email!")
+    .email("Email không đúng định dạng!"),
+  password: z.string().min(1, "Vui lòng nhập mật khẩu!"),
+});
+
+export type loginCompanyInputs = z.infer<typeof loginCompanySchema>;

@@ -11,14 +11,15 @@ export default function CompanyLoginPage() {
     <>
       <div className="py-[60px]">
         <div className="container">
-          <div className="max-w-[602px] mx-auto border border-[#DEDEDE] rounded-[8px] px-[20px] py-[50px]">
-            <h1 className="font-[700] text-[20px] text-center mb-[20px]">
-              Đăng nhập (Nhà tuyển dụng)
+          <div className="mx-auto max-w-[602px] rounded-[8px] border border-gray px-5 py-[50px]">
+            <h1 className="mb-5 flex items-center justify-center gap-1 text-center text-[20px] font-bold">
+              <span>Đăng nhập</span>
+              <span className="text-red">(Nhà tuyển dụng)</span>
             </h1>
             <FormLogin />
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
