@@ -11,14 +11,12 @@ export default function UserManageProfilePage() {
     <>
       <div className="py-[60px]">
         <div className="container">
-          <div className="bg-white border border-[#DEDEDE] rounded-[8px] p-[20px]">
-            <h1 className="font-[700] text-[20px] mb-[20px]">
-              Thông tin cá nhân
-            </h1>
+          <div className="border-gray rounded-lg border bg-white p-5">
+            <h1 className="mb-5 text-[20px] font-bold">Thông tin cá nhân</h1>
             <FormProfile />
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }

@@ -63,4 +63,4 @@ export const loginCompanySchema = z.object({
   password: z.string().min(1, "Vui lòng nhập mật khẩu!"),
 });
 
-export type loginCompanyInputs = z.infer<typeof loginCompanySchema>;
+export type LoginCompanyInputs = z.infer<typeof loginCompanySchema>;

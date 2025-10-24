@@ -1,8 +1,8 @@
 "use client";
-import { AuthRedirect } from "@/components/forms/auth/AuthRedirect";
-import { ButtonSubmit } from "@/components/forms/auth/ButtonSubmit";
-import { InputField } from "@/components/forms/auth/InputField";
-import { PasswordField } from "@/components/forms/auth/PasswordField";
+import { AuthRedirect } from "@/components/form/auth/AuthRedirect";
+import { ButtonSubmit } from "@/components/form/auth/ButtonSubmit";
+import { InputField } from "@/components/form/auth/InputField";
+import { PasswordField } from "@/components/form/auth/PasswordField";
 import { loginUser } from "@/services/auth";
 import { LoginUserInputs, loginUserSchema } from "@/validates/auth";
 import { zodResolver } from "@hookform/resolvers/zod";

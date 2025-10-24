@@ -3,6 +3,14 @@ import Link from "next/link";
 import { api } from "@/libs/axios";
 import { useRouter } from "next/navigation";
 import { Spinner } from "../loading/Spinner";
+import { toast } from "sonner";
+import {
+  FaArrowRightFromBracket,
+  FaBriefcase,
+  FaBuildingColumns,
+  FaRegCircleUser,
+  FaRegFileLines,
+} from "react-icons/fa6";
 
 export const HeaderAccount = () => {
   const { isLogin, infoUser, infoCompany, isLoading } = useAuth();
@@ -13,6 +21,7 @@ export const HeaderAccount = () => {
   const handleLogout = async (url: string) => {
     const res = await api.get("/auth/logout");
     if (res.data.code === "success") {
+      toast.error(res.data.message);
       localStorage.removeItem("accessToken");
       router.push(url);
     }
@@ -26,28 +35,31 @@ export const HeaderAccount = () => {
             {/* Đã đăng nhập */}
             {infoUser && (
               <>
-                <Link href="#">{infoUser?.fullName}</Link>
+                <Link href="/user-manage/profile">{infoUser?.fullName}</Link>
                 <ul className="bg-primary invisible absolute top-full right-0 w-[220px] translate-y-2 rounded-sm opacity-0 shadow-2xl transition-all duration-300 group-hover/sub-1:visible group-hover/sub-1:translate-y-0 group-hover/sub-1:opacity-100">
                   <li className="hover:bg-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
                     <Link
-                      href="/company-manage/profile"
-                      className="w-full text-sm font-semibold text-white sm:text-[16px]"
+                      href="/user-manage/profile"
+                      className="flex w-full items-center gap-3 text-sm font-semibold text-white sm:text-[16px]"
                     >
+                      <FaRegCircleUser />
                       Thông tin cá nhân
                     </Link>
                   </li>
                   <li className="hover:bg-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
                     <Link
-                      href="/company-manage/cv/list"
-                      className="w-full text-sm font-semibold text-white sm:text-[16px]"
+                      href="/user-manage/cv/list"
+                      className="flex w-full items-center gap-3 text-sm font-semibold text-white sm:text-[16px]"
                     >
+                      <FaRegFileLines />
                       Quản lý CV đã gửi
                     </Link>
                   </li>
                   <li
                     onClick={() => handleLogout("/user/login")}
-                    className="hover:bg-hover flex cursor-pointer flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300"
+                    className="hover:bg-hover flex cursor-pointer flex-wrap items-center gap-3 rounded-sm px-4 py-[10px] transition-all duration-300"
                   >
+                    <FaArrowRightFromBracket />
                     Đăng xuất
                   </li>
                 </ul>
@@ -56,36 +68,42 @@ export const HeaderAccount = () => {
 
             {infoCompany && (
               <>
-                <Link href="#">{infoCompany?.companyName}</Link>
+                <Link href="/company-manage/profile">
+                  {infoCompany?.companyName}
+                </Link>
                 <ul className="bg-primary invisible absolute top-full right-0 w-[220px] translate-y-2 rounded-sm opacity-0 shadow-2xl transition-all duration-300 group-hover/sub-1:visible group-hover/sub-1:translate-y-0 group-hover/sub-1:opacity-100">
                   <li className="hover:bg-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
                     <Link
                       href="/company-manage/profile"
-                      className="w-full text-sm font-semibold text-white sm:text-[16px]"
+                      className="flex w-full items-center gap-3 text-sm font-semibold text-white sm:text-[16px]"
                     >
+                      <FaBuildingColumns />
                       Thông tin công ty
                     </Link>
                   </li>
                   <li className="hover:bg-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
                     <Link
-                      href="/company-manage/profile"
-                      className="w-full text-sm font-semibold text-white sm:text-[16px]"
+                      href="/company-manage/job/list"
+                      className="flex w-full items-center gap-3 text-sm font-semibold text-white sm:text-[16px]"
                     >
+                      <FaBriefcase />
                       Quản lý công việc
                     </Link>
                   </li>
                   <li className="hover:bg-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
                     <Link
-                      href="/company-manage/profile"
-                      className="w-full text-sm font-semibold text-white sm:text-[16px]"
+                      href="/company-manage/cv/list"
+                      className="flex w-full items-center gap-3 text-sm font-semibold text-white sm:text-[16px]"
                     >
+                      <FaRegFileLines />
                       Quản lý CV
                     </Link>
                   </li>
                   <li
                     onClick={() => handleLogout("/company/login")}
-                    className="hover:bg-hover flex cursor-pointer flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300"
+                    className="hover:bg-hover flex cursor-pointer flex-wrap items-center gap-3 rounded-sm px-4 py-[10px] transition-all duration-300"
                   >
+                    <FaArrowRightFromBracket />
                     Đăng xuất
                   </li>
                 </ul>
