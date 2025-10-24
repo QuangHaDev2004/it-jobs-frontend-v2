@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { FaUserTie } from "react-icons/fa6";
 
 export const CardCompanyItem = ({
   link,

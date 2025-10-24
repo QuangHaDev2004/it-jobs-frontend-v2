@@ -14,57 +14,81 @@ export default function CompanyManageJobListPage() {
     <>
       <div className="py-[60px]">
         <div className="container">
-          <div className="flex flex-wrap items-center justify-between gap-[20px] mb-[20px]">
-            <h1 className="font-[700] text-[24px] text-[#121212]">Quản lý công việc</h1>
-            <Link href="#" className="bg-[#0088FF] rounded-[4px] px-[20px] py-[8px] font-[400] text-[14px] text-white">
+          <div className="mb-[20px] flex flex-wrap items-center justify-between gap-[20px]">
+            <h1 className="text-[24px] font-[700] text-[#121212]">
+              Quản lý công việc
+            </h1>
+            <Link
+              href="#"
+              className="rounded-[4px] bg-[#0088FF] px-[20px] py-[8px] text-[14px] font-[400] text-white"
+            >
               Thêm mới
             </Link>
           </div>
 
           {/* Danh sách công việc */}
-          <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 sm:gap-x-[20px] gap-x-[10px] gap-y-[20px]">
+          <div className="grid grid-cols-1 gap-x-[10px] gap-y-[20px] sm:grid-cols-2 sm:gap-x-[20px] lg:grid-cols-3">
             <div
-              className="border border-[#DEDEDE] rounded-[8px] relative truncate"
+              className="relative overflow-hidden rounded-[8px] border border-[#DEDEDE]"
               style={{
-                background: "linear-gradient(180deg, #F6F6F6 2.38%, #FFFFFF 70.43%)"
+                background:
+                  "linear-gradient(180deg, #F6F6F6 2.38%, #FFFFFF 70.43%)",
               }}
             >
               <img
                 src="/assets/images/cart-bg.svg"
                 alt=""
-                className="absolute top-0 left-0 w-full h-auto"
+                className="absolute top-0 left-0 h-auto w-full"
               />
               <div className="relative text-center">
-                <h3 className="font-[700] text-[18px] text-[#121212] text-center sm:mx-[16px] mx-[8px] mb-[6px] line-clamp-2 mt-[20px]">
+                <div
+                  className="mx-auto mt-5 mb-4 aspect-square w-[125px] overflow-hidden rounded-lg bg-white sm:mt-8 sm:mb-6 sm:w-[160px]"
+                  style={{
+                    boxShadow: "0px 4px 24px 0px #0000001F",
+                  }}
+                >
+                  <img
+                    src="/assets/images/demo-cong-ty-1.jpg"
+                    alt=""
+                    className="h-full w-full object-contain p-[10px]"
+                  />
+                </div>
+                <h3 className="mx-[8px] mt-[20px] mb-[6px] line-clamp-2 text-center text-[18px] font-[700] text-[#121212] sm:mx-[16px]">
                   Frontend Engineer (ReactJS)
                 </h3>
-                <div className="font-[600] text-[16px] text-[#0088FF] mb-[6px]">
+                <div className="mb-[6px] text-[16px] font-[600] text-[#0088FF]">
                   1.000$ - 1.500$
                 </div>
-                <div className="flex items-center justify-center gap-[8px] mb-[6px] font-[400] text-[14px] text-[#121212]">
+                <div className="mb-[6px] flex items-center justify-center gap-[8px] text-[14px] font-[400] text-[#121212]">
                   <FaUserTie className="text-[16px]" />
                   Fresher
                 </div>
-                <div className="flex items-center justify-center gap-[8px] font-[400] text-[14px] text-[#121212]">
+                <div className="flex items-center justify-center gap-[8px] text-[14px] font-[400] text-[#121212]">
                   <FaBriefcase className="text-[16px]" />
                   Tại văn phòng
                 </div>
-                <div className="flex flex-wrap items-center justify-center gap-[8px] mt-[12px] mb-[20px]">
-                  <div className="border border-[#DEDEDE] rounded-[20px] font-[400] text-[12px] text-[#414042] px-[16px] py-[6px]">
+                <div className="mt-[12px] mb-[20px] flex flex-wrap items-center justify-center gap-[8px]">
+                  <div className="rounded-[20px] border border-[#DEDEDE] px-[16px] py-[6px] text-[12px] font-[400] text-[#414042]">
                     ReactJS
                   </div>
-                  <div className="border border-[#DEDEDE] rounded-[20px] font-[400] text-[12px] text-[#414042] px-[16px] py-[6px]">
+                  <div className="rounded-[20px] border border-[#DEDEDE] px-[16px] py-[6px] text-[12px] font-[400] text-[#414042]">
                     NextJS
                   </div>
-                  <div className="border border-[#DEDEDE] rounded-[20px] font-[400] text-[12px] text-[#414042] px-[16px] py-[6px]">
+                  <div className="rounded-[20px] border border-[#DEDEDE] px-[16px] py-[6px] text-[12px] font-[400] text-[#414042]">
                     Javascript
                   </div>
                 </div>
-                <div className="flex flex-wrap items-center justify-center gap-[12px] mb-[20px]">
-                  <Link href="#" className="bg-[#FFB200] inline-block px-[20px] py-[8px] rounded-[4px] font-[400] text-[14px]">
+                <div className="mb-[20px] flex flex-wrap items-center justify-center gap-[12px]">
+                  <Link
+                    href="#"
+                    className="inline-block rounded-[4px] bg-[#FFB200] px-[20px] py-[8px] text-[14px] font-[400]"
+                  >
                     Sửa
                   </Link>
-                  <Link href="#" className="bg-[#FF0000] inline-block px-[20px] py-[8px] rounded-[4px] font-[400] text-[14px] text-white">
+                  <Link
+                    href="#"
+                    className="inline-block rounded-[4px] bg-[#FF0000] px-[20px] py-[8px] text-[14px] font-[400] text-white"
+                  >
                     Xóa
                   </Link>
                 </div>
@@ -77,5 +101,5 @@ export default function CompanyManageJobListPage() {
         </div>
       </div>
     </>
-  )
+  );
 }

@@ -3,9 +3,13 @@ import { FilePond } from "react-filepond";
 import "@/libs/filepond";
 
 export const FileUploader = ({
+  id,
+  label,
   files,
   setFiles,
 }: {
+  id: string;
+  label: string;
   files: any[];
   setFiles: React.Dispatch<React.SetStateAction<any[]>>;
 }) => {
@@ -13,13 +17,13 @@ export const FileUploader = ({
     <>
       <div className="sm:col-span-2">
         <label
-          htmlFor="avatar"
+          htmlFor={id}
           className="mb-[5px] block text-sm font-medium text-black"
         >
-          Avatar
+          {label}
         </label>
         <FilePond
-          name="avatar"
+          name={id}
           allowMultiple={false} // Chỉ chọn 1 ảnh
           allowRemove={true} // Cho phép xóa ảnh
           labelIdle="+"

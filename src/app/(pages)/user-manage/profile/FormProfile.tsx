@@ -105,7 +105,7 @@ export const FormProfile = () => {
             error={errors.phone}
           />
 
-          <FileUploader files={avatars} setFiles={setAvatars} />
+          <FileUploader id="avatar" label="Avatar" files={avatars} setFiles={setAvatars} />
 
           <ButtonSubmit isPending={isPending} text="Cập nhật" />
         </form>

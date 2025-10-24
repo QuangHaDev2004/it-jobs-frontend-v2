@@ -35,31 +35,11 @@ select {
   appearance: none;
 }
 
-.custom-select {
-  position: relative;
-}
-
-.custom-select::before {
-  content: "\f107";
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 15px;
-  font-size: 16px;
-  color: #121212;
-}
-
 .container {
   margin-left: auto;
   margin-right: auto;
   padding-left: 16px;
   padding-right: 16px;
-}
-
-.just-validate-error-label {
-  font-size: 12px;
 }
 
 /* Filepond */
@@ -111,24 +91,6 @@ select {
 
 .filepond--item-panel {
   display: none;
-}
-
-.filepond--image-clip {
-  height: 150px !important;
-}
-
-.filepond--image-canvas-wrapper {
-  transform: none !important;
-}
-
-.filepond--image-preview canvas {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-}
-
-.filepond--image-bitmap {
-  height: 150px;
 }
 
 .filepond--image-preview-overlay-idle {

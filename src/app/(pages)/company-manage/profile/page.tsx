@@ -11,8 +11,8 @@ export default function CompanyProfilePage() {
     <>
       <div className="py-[60px]">
         <div className="container">
-          <div className="bg-white border border-[#DEDEDE] rounded-[8px] p-[20px]">
-            <h1 className="font-[700] text-[20px] text-black mb-[20px]">
+          <div className="border-gray rounded-lg border bg-white p-5">
+            <h1 className="mb-5 text-[20px] font-bold text-black">
               Thông tin công ty
             </h1>
             <FormProfile />
@@ -20,5 +20,5 @@ export default function CompanyProfilePage() {
         </div>
       </div>
     </>
-  )
+  );
 }
