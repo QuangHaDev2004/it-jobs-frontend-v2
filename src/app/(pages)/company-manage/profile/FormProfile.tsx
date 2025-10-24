@@ -1,194 +1,209 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client"
-import JustValidate from "just-validate";
-import { useEffect, useRef } from "react";
-import { FilePond, registerPlugin } from 'react-filepond';
-import 'filepond/dist/filepond.min.css';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-import { EditorMCE } from "@/app/components/editor/EditorMCE";
+"use client";
+import { useEffect, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { ButtonSubmit } from "@/components/form/general/ButtonSubmit";
+import { FileUploader } from "@/components/form/general/FileUploader";
+import { InputField } from "@/components/form/general/InputField";
+import { useAuth } from "@/hooks/useAuth";
+import { companyProfile } from "@/services/company";
+import {
+  CompanyProfileInputs,
+  companyProfileSchema,
+} from "@/validates/company";
+import { toast } from "sonner";
 
-// Đăng ký plugin
-registerPlugin(
-  FilePondPluginImagePreview,
-  FilePondPluginFileValidateType
-)
+// import { EditorMCE } from "@/app/components/editor/EditorMCE";
 
 export const FormProfile = () => {
-  const editorRef = useRef(null);
+  // const editorRef = useRef(null);
+  const { infoCompany } = useAuth();
+  const [logos, setLogos] = useState<any[]>([]);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
-    const validator = new JustValidate("#formProfile");
-
-    validator
-      .addField("#companyName", [
+    if (infoCompany) {
+      setLogos([
         {
-          rule: "required",
-          errorMessage: "Vui lòng nhập tên công ty!"
+          source: infoCompany.logo,
         },
-        {
-          rule: "maxLength",
-          value: 200,
-          errorMessage: "Tên công ty không được vượt quá 200 ký tự!"
-        }
-      ])
-      .addField("#email", [
-        {
-          rule: "required",
-          errorMessage: "Vui lòng nhập email của bạn!"
-        },
-        {
-          rule: "email",
-          errorMessage: "Email không đúng định dạng!"
-        }
-      ])
-      .onSuccess((event: any) => {
-        const companyName = event.target.companyName.value;
-        const email = event.target.email.value;
+      ]);
+    }
+  }, [infoCompany]);
 
-        console.log(companyName);
-        console.log(email);
-      })
-  }, []);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CompanyProfileInputs>({
+    resolver: zodResolver(companyProfileSchema),
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: companyProfile,
+    onSuccess: (data) => {
+      if (data.code === "error") {
+        toast.error(data.message);
+      }
+
+      if (data.code === "success") {
+        toast.success(data.message);
+
+        queryClient.invalidateQueries({
+          predicate: (query) => query.queryKey[0] === "check-auth",
+        });
+      }
+    },
+    onError: (errors) => {
+      console.log(errors.message);
+    },
+  });
+
+  const handleCompanyProfileForm: SubmitHandler<CompanyProfileInputs> = (
+    data,
+  ) => {
+    data.logo = null;
+    if (logos.length > 0 && logos[0].file instanceof File) {
+      data.logo = logos[0].file;
+    }
+
+    const formData = new FormData();
+    formData.append("companyName", data.companyName);
+    formData.append("email", data.email);
+    formData.append("phone", data.phone || "");
+    formData.append("city", "");
+    formData.append("address", data.address || "");
+    formData.append("companyModel", data.companyModel || "");
+    formData.append("companyEmployees", data.companyEmployees || "");
+    formData.append("workingTime", data.workingTime || "");
+    formData.append("workOverTime", data.workOverTime || "");
+    formData.append("logo", data.logo);
+    formData.append("description", "");
+
+    mutate(formData);
+  };
 
   return (
     <>
-      <form
-        action=""
-        id="formProfile"
-        className="grid sm:grid-cols-2 grid-cols-1 gap-x-[20px] gap-y-[15px]"
-      >
-        <div className="sm:col-span-2">
-          <label htmlFor="companyName" className="font-[500] text-[14px] text-black mb-[5px] block">
-            Tên công ty *
-          </label>
-          <input
+      {infoCompany && (
+        <form
+          onSubmit={handleSubmit(handleCompanyProfileForm)}
+          className="grid grid-cols-1 gap-x-[20px] gap-y-[15px] sm:grid-cols-2"
+        >
+          <InputField
             id="companyName"
-            name="companyName"
-            type="text"
-            className="w-full border border-[#DEDEDE] rounded-[4px] px-[20px] h-[46px] font-[500] text-[14px] text-black"
+            label="Tên công ty"
+            register={register("companyName")}
+            defaultValue={infoCompany.companyName}
+            required
+            error={errors.companyName}
+            className="sm:col-span-2"
           />
-        </div>
-        <div className="sm:col-span-2">
-          <label htmlFor="logo" className="font-[500] text-[14px] text-black mb-[5px] block">
-            Logo
-          </label>
-          <FilePond
-            name="logo"
-            allowMultiple={false} // Chỉ chọn 1 ảnh
-            allowRemove={true} // Cho phép xóa ảnh
-            labelIdle="+"
-            acceptedFileTypes={['image/*']}
-            // files={logos}
-            // onupdatefiles={setLogos}
+
+          <InputField
+            id="email"
+            label="Email"
+            register={register("email")}
+            defaultValue={infoCompany.email}
+            required
+            error={errors.email}
+            type="email"
           />
-        </div>
-        <div className="">
-          <label htmlFor="city" className="font-[500] text-[14px] text-black mb-[5px] block">
-            Thành phố
-          </label>
-          <div className="custom-select">
+
+          <InputField
+            id="phone"
+            label="Số điện thoại"
+            register={register("phone")}
+            defaultValue={infoCompany.phone}
+            error={errors.phone}
+          />
+
+          <div className="">
+            <label
+              htmlFor="city"
+              className="mb-[5px] block text-[14px] font-[500] text-black"
+            >
+              Thành phố
+            </label>
             <select
               name="city"
               id="city"
-              className="w-full border border-[#DEDEDE] rounded-[4px] px-[20px] h-[46px] font-[500] text-[14px] text-black"
+              className="h-[46px] w-full rounded-[4px] border border-[#DEDEDE] px-[20px] text-[14px] font-[500] text-black"
             >
               <option value="">Hà Nội</option>
               <option value="">Đà Nẵng</option>
               <option value="">Hồ Chí Minh</option>
             </select>
           </div>
-        </div>
-        <div className="">
-          <label htmlFor="address" className="font-[500] text-[14px] text-black mb-[5px] block">
-            Địa chỉ
-          </label>
-          <input
+
+          <InputField
             id="address"
-            name="address"
-            type="text"
-            className="w-full border border-[#DEDEDE] rounded-[4px] px-[20px] h-[46px] font-[500] text-[14px] text-black"
+            label="Địa chỉ"
+            register={register("address")}
+            defaultValue={infoCompany.address}
+            error={errors.address}
           />
-        </div>
-        <div className="">
-          <label htmlFor="companyModel" className="font-[500] text-[14px] text-black mb-[5px] block">
-            Mô hình công ty
-          </label>
-          <input
+
+          <InputField
             id="companyModel"
-            name="companyModel"
-            type="text"
-            className="w-full border border-[#DEDEDE] rounded-[4px] px-[20px] h-[46px] font-[500] text-[14px] text-black"
+            label="Mô hình công ty"
+            register={register("companyModel")}
+            defaultValue={infoCompany.companyModel}
+            error={errors.companyModel}
           />
-        </div>
-        <div className="">
-          <label htmlFor="companyEmployee" className="font-[500] text-[14px] text-black mb-[5px] block">
-            Quy mô công ty
-          </label>
-          <input
+
+          <InputField
             id="companyEmployee"
-            name="companyEmployee"
-            type="text"
-            className="w-full border border-[#DEDEDE] rounded-[4px] px-[20px] h-[46px] font-[500] text-[14px] text-black"
+            label="Quy mô công ty"
+            register={register("companyEmployees")}
+            defaultValue={infoCompany.companyEmployees}
+            error={errors.companyEmployees}
           />
-        </div>
-        <div className="">
-          <label htmlFor="workTime" className="font-[500] text-[14px] text-black mb-[5px] block">
-            Thời gian làm việc
-          </label>
-          <input
+
+          <InputField
             id="workTime"
-            name="workTime"
-            type="text"
-            className="w-full border border-[#DEDEDE] rounded-[4px] px-[20px] h-[46px] font-[500] text-[14px] text-black"
+            label="Thời gian làm việc"
+            register={register("workingTime")}
+            defaultValue={infoCompany.workingTime}
+            error={errors.workingTime}
           />
-        </div>
-        <div className="">
-          <label htmlFor="workOverTime" className="font-[500] text-[14px] text-black mb-[5px] block">
-            Làm việc ngoài giờ
-          </label>
-          <input
+
+          <InputField
             id="workOverTime"
-            name="workOverTime"
-            type="text"
-            className="w-full border border-[#DEDEDE] rounded-[4px] px-[20px] h-[46px] font-[500] text-[14px] text-black"
+            label="Làm việc ngoài giờ"
+            register={register("workOverTime")}
+            defaultValue={infoCompany.workOverTime}
+            error={errors.workOverTime}
           />
-        </div>
-        <div className="">
-          <label htmlFor="email" className="font-[500] text-[14px] text-black mb-[5px] block">
-            Email *
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            className="w-full border border-[#DEDEDE] rounded-[4px] px-[20px] h-[46px] font-[500] text-[14px] text-black"
+
+          <FileUploader
+            id="logo"
+            label="Logo"
+            files={logos}
+            setFiles={setLogos}
           />
-        </div>
-        <div className="">
-          <label htmlFor="phone" className="font-[500] text-[14px] text-black mb-[5px] block">
-            Số điện thoại
-          </label>
-          <input
-            id="phone"
-            name="phone"
-            type="text"
-            className="w-full border border-[#DEDEDE] rounded-[4px] px-[20px] h-[46px] font-[500] text-[14px] text-black"
-          />
-        </div>
-        <div className="sm:col-span-2">
-          <label htmlFor="description" className="font-[500] text-[14px] text-black mb-[5px] block">
-            Mô tả chi tiết
-          </label>
-          <EditorMCE editorRef={editorRef} id="description" />
-        </div>
-        <div className="sm:col-span-2">
-          <button className="bg-[#0088FF] px-[20px] rounded-[4px] h-[48px] font-[700] text-[16px] text-white cursor-pointer">
-            Cập nhật
-          </button>
-        </div>
-      </form>
+
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="description"
+              className="mb-[5px] block text-[14px] font-[500] text-black"
+            >
+              Mô tả chi tiết
+            </label>
+            <textarea
+              defaultValue={infoCompany.description}
+              name="description"
+              id="description"
+              className="h-[350px] w-[100%] rounded-[4px] border border-[#DEDEDE] px-[20px] py-[14px] text-[14px] font-[500] text-black"
+            ></textarea>
+            {/* <EditorMCE editorRef={editorRef} id="description" /> */}
+          </div>
+
+          <ButtonSubmit isPending={isPending} text="Cập nhật" />
+        </form>
+      )}
     </>
-  )
-}
+  );
+};
