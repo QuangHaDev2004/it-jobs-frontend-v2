@@ -5,10 +5,10 @@ import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { InputField } from "@/components/forms/auth/InputField";
-import { PasswordField } from "@/components/forms/auth/PasswordField";
-import { ButtonSubmit } from "@/components/forms/auth/ButtonSubmit";
-import { AuthRedirect } from "@/components/forms/auth/AuthRedirect";
+import { InputField } from "@/components/form/auth/InputField";
+import { PasswordField } from "@/components/form/auth/PasswordField";
+import { ButtonSubmit } from "@/components/form/auth/ButtonSubmit";
+import { AuthRedirect } from "@/components/form/auth/AuthRedirect";
 import { RegisterUserInputs, registerUserSchema } from "@/validates/auth";
 
 export const FormRegister = () => {

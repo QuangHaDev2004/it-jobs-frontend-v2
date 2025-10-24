@@ -39,7 +39,7 @@ export default function HomePage() {
           <Title text="Nhà tuyển dụng hàng đầu" />
 
           {/* Wrap */}
-          <div className="grid grid-cols-2 gap-x-[10px] gap-y-[20px] sm:gap-x-[20px] lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-x-[10px] gap-y-5 sm:gap-x-5 lg:grid-cols-3">
             {/* Item */}
             {companyList.map((item, index) => (
               <CardCompanyItem key={index} {...item} />

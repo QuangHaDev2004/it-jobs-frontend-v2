@@ -1,126 +1,115 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client"
-import JustValidate from "just-validate";
-import { useEffect } from "react";
-import { FilePond, registerPlugin } from 'react-filepond';
-import 'filepond/dist/filepond.min.css';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-
-// Đăng ký plugin
-registerPlugin(
-  FilePondPluginImagePreview,
-  FilePondPluginFileValidateType
-)
+"use client";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useAuth } from "@/hooks/useAuth";
+import { useEffect, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { userProfile } from "@/services/user";
+import { UserProfileInputs, userProfileSchema } from "@/validates/user";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+import { InputField } from "@/components/form/general/InputField";
+import { FileUploader } from "@/components/form/general/FileUploader";
+import { ButtonSubmit } from "@/components/form/general/ButtonSubmit";
 
 export const FormProfile = () => {
+  const { infoUser } = useAuth();
+  const [avatars, setAvatars] = useState<any[]>([]);
+  const queryClient = useQueryClient();
+
   useEffect(() => {
-    const validator = new JustValidate("#profileForm");
+    if (infoUser) {
+      setAvatars([
+        {
+          source: infoUser.avatar,
+        },
+      ]);
+    }
+  }, [infoUser]);
 
-    validator
-      .addField('#fullName', [
-        {
-          rule: 'required',
-          errorMessage: 'Vui lòng nhập họ tên!'
-        },
-        {
-          rule: 'minLength',
-          value: 5,
-          errorMessage: 'Họ tên phải có ít nhất 5 ký tự!',
-        },
-        {
-          rule: 'maxLength',
-          value: 50,
-          errorMessage: 'Họ tên không được vượt quá 50 ký tự!',
-        },
-      ])
-      .addField('#email', [
-        {
-          rule: 'required',
-          errorMessage: 'Vui lòng nhập email của bạn!',
-        },
-        {
-          rule: 'email',
-          errorMessage: 'Email không đúng định dạng!',
-        },
-      ])
-      .onSuccess((event: any) => {
-        const fullName = event.target.fullName.value;
-        const email = event.target.email.value;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserProfileInputs>({
+    resolver: zodResolver(userProfileSchema),
+  });
 
-        console.log(fullName);
-        console.log(email);
-      })
-  }, []);
+  const { mutate, isPending } = useMutation({
+    mutationFn: userProfile,
+    onSuccess: (data) => {
+      if (data.code === "error") {
+        toast.error(data.message);
+      }
+
+      if (data.code === "success") {
+        toast.success(data.message);
+
+        // nếu ko có pathname: queryClient.invalidateQueries({ queryKey: ["check-auth"] });
+        queryClient.invalidateQueries({
+          predicate: (query) => query.queryKey[0] === "check-auth",
+        });
+      }
+    },
+    onError: (errors) => {
+      console.log(errors.message);
+    },
+  });
+
+  const handleUserProfileForm: SubmitHandler<UserProfileInputs> = (data) => {
+    data.avatar = null;
+    if (avatars.length > 0 && avatars[0].file instanceof File) {
+      data.avatar = avatars[0].file;
+    }
+
+    const formData = new FormData();
+    formData.append("fullName", data.fullName);
+    formData.append("email", data.email);
+    formData.append("phone", data.phone || "");
+    formData.append("avatar", data.avatar);
+
+    mutate(formData);
+  };
 
   return (
     <>
-      <form
-        action=""
-        id="profileForm"
-        className="grid sm:grid-cols-2 grid-cols-1 gap-x-[20px] gap-y-[15px]"
-      >
-        <div className="sm:col-span-2">
-          <label htmlFor="fullName" className="font-[500] text-[14px] text-black mb-[5px] block">
-            Họ tên *
-          </label>
-          <input
+      {infoUser && (
+        <form
+          onSubmit={handleSubmit(handleUserProfileForm)}
+          className="grid grid-cols-1 gap-x-5 gap-y-[15px] sm:grid-cols-2"
+        >
+          <InputField
             id="fullName"
-            name="fullName"
-            type="text"
-            className="w-full border border-[#DEDEDE] rounded-[4px] px-[20px] h-[46px] font-[500] text-[14px] text-black"
+            label="Họ tên"
+            register={register("fullName")}
+            required
+            defaultValue={infoUser.fullName}
+            error={errors.fullName}
           />
-        </div>
-        <div className="sm:col-span-2">
-          <label htmlFor="avatar" className="font-[500] text-[14px] text-black mb-[5px] block">
-            Avatar
-          </label>
-          <FilePond
-            name="avatar"
-            allowMultiple={false} // Chỉ chọn 1 ảnh
-            allowRemove={true} // Cho phép xóa ảnh
-            labelIdle="+"
-            acceptedFileTypes={['image/*']}
-            // files={avatars}
-            // onupdatefiles={setAvatars}
-          />
-          {/* <input
-            id="avatar"
-            name="avatar"
-            type="file"
-            accept="image/*"
-            className="file:py-[12px] w-full border border-[#DEDEDE] rounded-[4px] px-[20px] h-[46px] font-[500] text-[14px] text-black"
-          /> */}
-        </div>
-        <div className="">
-          <label htmlFor="email" className="font-[500] text-[14px] text-black mb-[5px] block">
-            Email *
-          </label>
-          <input
+
+          <InputField
             id="email"
-            name="email"
+            label="Email"
+            register={register("email")}
+            required
+            defaultValue={infoUser.email}
+            error={errors.email}
             type="email"
-            className="w-full border border-[#DEDEDE] rounded-[4px] px-[20px] h-[46px] font-[500] text-[14px] text-black"
           />
-        </div>
-        <div className="">
-          <label htmlFor="phone" className="font-[500] text-[14px] text-black mb-[5px] block">
-            Số điện thoại
-          </label>
-          <input
+
+          <InputField
             id="phone"
-            name="phone"
-            type="text"
-            className="w-full border border-[#DEDEDE] rounded-[4px] px-[20px] h-[46px] font-[500] text-[14px] text-black"
+            label="Số điện thoại"
+            register={register("phone")}
+            defaultValue={infoUser.phone}
+            error={errors.phone}
           />
-        </div>
-        <div className="sm:col-span-2">
-          <button className="bg-[#0088FF] px-[20px] rounded-[4px] h-[48px] font-[700] text-[16px] text-white cursor-pointer">
-            Cập nhật
-          </button>
-        </div>
-      </form>
+
+          <FileUploader files={avatars} setFiles={setAvatars} />
+
+          <ButtonSubmit isPending={isPending} text="Cập nhật" />
+        </form>
+      )}
     </>
-  )
-}
+  );
+};

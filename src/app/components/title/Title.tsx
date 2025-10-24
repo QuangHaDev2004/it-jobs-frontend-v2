@@ -1,15 +1,9 @@
-export const Title = (
-  props: {
-    text: string
-  }
-) => {
-  const { text } = props;
-
+export const Title = ({ text }: { text: string }) => {
   return (
     <>
-      <h2 className="font-[700] sm:text-[28px] text-[24px] text-[#121212] text-center mb-[30px]">
+      <h2 className="text-secondary mb-[30px] text-center text-2xl font-bold sm:text-[28px]">
         {text}
       </h2>
     </>
-  )
-}
+  );
+};
