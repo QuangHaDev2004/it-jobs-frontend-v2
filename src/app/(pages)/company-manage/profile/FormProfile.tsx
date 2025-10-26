@@ -1,26 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ButtonSubmit } from "@/components/form/general/ButtonSubmit";
 import { FileUploader } from "@/components/form/general/FileUploader";
 import { InputField } from "@/components/form/general/InputField";
 import { useAuth } from "@/hooks/useAuth";
 import { companyProfile } from "@/services/company";
+import { toast } from "sonner";
 import {
   CompanyProfileInputs,
   companyProfileSchema,
 } from "@/validates/company";
-import { toast } from "sonner";
+import { getCityList } from "@/services/city";
+import { CitySelect } from "./CitySelect";
 
 // import { EditorMCE } from "@/app/components/editor/EditorMCE";
 
 export const FormProfile = () => {
-  // const editorRef = useRef(null);
   const { infoCompany } = useAuth();
   const [logos, setLogos] = useState<any[]>([]);
+  const editorRef = useRef(null);
+
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -32,6 +35,13 @@ export const FormProfile = () => {
       ]);
     }
   }, [infoCompany]);
+
+  const { data } = useQuery({
+    queryKey: ["city-list"],
+    queryFn: getCityList,
+  });
+
+  const cityList = data?.cityList || [];
 
   const {
     register,
@@ -73,7 +83,7 @@ export const FormProfile = () => {
     formData.append("companyName", data.companyName);
     formData.append("email", data.email);
     formData.append("phone", data.phone || "");
-    formData.append("city", "");
+    formData.append("city", data.city || "");
     formData.append("address", data.address || "");
     formData.append("companyModel", data.companyModel || "");
     formData.append("companyEmployees", data.companyEmployees || "");
@@ -120,23 +130,11 @@ export const FormProfile = () => {
             error={errors.phone}
           />
 
-          <div className="">
-            <label
-              htmlFor="city"
-              className="mb-[5px] block text-[14px] font-[500] text-black"
-            >
-              Thành phố
-            </label>
-            <select
-              name="city"
-              id="city"
-              className="h-[46px] w-full rounded-[4px] border border-[#DEDEDE] px-[20px] text-[14px] font-[500] text-black"
-            >
-              <option value="">Hà Nội</option>
-              <option value="">Đà Nẵng</option>
-              <option value="">Hồ Chí Minh</option>
-            </select>
-          </div>
+          <CitySelect
+            register={register("city")}
+            cityList={cityList}
+            defaultValue={infoCompany.city}
+          />
 
           <InputField
             id="address"
