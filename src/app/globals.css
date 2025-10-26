@@ -39,6 +39,11 @@ textarea {
   padding-right: 16px;
 }
 
+/* TinyMCE */
+.tox-statusbar__branding {
+  display: none;
+}
+
 /* Filepond */
 .filepond--credits {
   display: none;

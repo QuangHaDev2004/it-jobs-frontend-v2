@@ -10,14 +10,13 @@ import { InputField } from "@/components/form/general/InputField";
 import { useAuth } from "@/hooks/useAuth";
 import { companyProfile } from "@/services/company";
 import { toast } from "sonner";
+import { getCityList } from "@/services/city";
+import { CitySelect } from "./CitySelect";
+import { EditorMCE } from "@/components/editor/EditorMCE";
 import {
   CompanyProfileInputs,
   companyProfileSchema,
 } from "@/validates/company";
-import { getCityList } from "@/services/city";
-import { CitySelect } from "./CitySelect";
-
-// import { EditorMCE } from "@/app/components/editor/EditorMCE";
 
 export const FormProfile = () => {
   const { infoCompany } = useAuth();
@@ -27,7 +26,7 @@ export const FormProfile = () => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    if (infoCompany) {
+    if (infoCompany && infoCompany.logo) {
       setLogos([
         {
           source: infoCompany.logo,
@@ -79,6 +78,11 @@ export const FormProfile = () => {
       data.logo = logos[0].file;
     }
 
+    data.description = "";
+    if (editorRef.current) {
+      data.description = (editorRef.current as any).getContent();
+    }
+
     const formData = new FormData();
     formData.append("companyName", data.companyName);
     formData.append("email", data.email);
@@ -90,7 +94,7 @@ export const FormProfile = () => {
     formData.append("workingTime", data.workingTime || "");
     formData.append("workOverTime", data.workOverTime || "");
     formData.append("logo", data.logo);
-    formData.append("description", "");
+    formData.append("description", data.description || "");
 
     mutate(formData);
   };
@@ -190,13 +194,11 @@ export const FormProfile = () => {
             >
               Mô tả chi tiết
             </label>
-            <textarea
-              defaultValue={infoCompany.description}
-              name="description"
+            <EditorMCE
+              editorRef={editorRef}
+              value={infoCompany.description}
               id="description"
-              className="h-[350px] w-[100%] rounded-[4px] border border-[#DEDEDE] px-[20px] py-[14px] text-[14px] font-[500] text-black"
-            ></textarea>
-            {/* <EditorMCE editorRef={editorRef} id="description" /> */}
+            />
           </div>
 
           <ButtonSubmit isPending={isPending} text="Cập nhật" />
