@@ -21,7 +21,7 @@ import {
 export const FormProfile = () => {
   const { infoCompany } = useAuth();
   const [logos, setLogos] = useState<any[]>([]);
-  const editorRef = useRef(null);
+  const editorRef = useRef<any>(null);
 
   const queryClient = useQueryClient();
 
@@ -80,7 +80,7 @@ export const FormProfile = () => {
 
     data.description = "";
     if (editorRef.current) {
-      data.description = (editorRef.current as any).getContent();
+      data.description = editorRef.current.getContent();
     }
 
     const formData = new FormData();

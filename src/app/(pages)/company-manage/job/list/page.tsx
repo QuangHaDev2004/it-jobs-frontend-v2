@@ -14,20 +14,20 @@ export default function CompanyManageJobListPage() {
     <>
       <div className="py-[60px]">
         <div className="container">
-          <div className="mb-[20px] flex flex-wrap items-center justify-between gap-[20px]">
-            <h1 className="text-[24px] font-[700] text-[#121212]">
+          <div className="mb-5 flex flex-wrap items-center justify-between gap-5">
+            <h1 className="text-job-secondary text-2xl font-bold">
               Quản lý công việc
             </h1>
             <Link
-              href="#"
-              className="rounded-[4px] bg-[#0088FF] px-[20px] py-[8px] text-[14px] font-[400] text-white"
+              href="/company-manage/job/create"
+              className="bg-job-blue rounded-sm px-5 py-2 text-sm font-normal text-white hover:brightness-95"
             >
               Thêm mới
             </Link>
           </div>
 
           {/* Danh sách công việc */}
-          <div className="grid grid-cols-1 gap-x-[10px] gap-y-[20px] sm:grid-cols-2 sm:gap-x-[20px] lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-x-[10px] gap-y-5 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-3">
             <div
               className="relative overflow-hidden rounded-[8px] border border-[#DEDEDE]"
               style={{
@@ -53,41 +53,41 @@ export default function CompanyManageJobListPage() {
                     className="h-full w-full object-contain p-[10px]"
                   />
                 </div>
-                <h3 className="mx-[8px] mt-[20px] mb-[6px] line-clamp-2 text-center text-[18px] font-[700] text-[#121212] sm:mx-[16px]">
+                <h3 className="text-job-secondary mx-[8px] mt-[20px] mb-[6px] line-clamp-2 text-center text-[18px] font-bold sm:mx-[16px]">
                   Frontend Engineer (ReactJS)
                 </h3>
                 <div className="mb-[6px] text-[16px] font-[600] text-[#0088FF]">
                   1.000$ - 1.500$
                 </div>
-                <div className="mb-[6px] flex items-center justify-center gap-[8px] text-[14px] font-[400] text-[#121212]">
+                <div className="text-job-secondary mb-[6px] flex items-center justify-center gap-[8px] text-sm font-normal">
                   <FaUserTie className="text-[16px]" />
                   Fresher
                 </div>
-                <div className="flex items-center justify-center gap-[8px] text-[14px] font-[400] text-[#121212]">
+                <div className="text-job-secondary flex items-center justify-center gap-[8px] text-sm font-normal">
                   <FaBriefcase className="text-[16px]" />
                   Tại văn phòng
                 </div>
                 <div className="mt-[12px] mb-[20px] flex flex-wrap items-center justify-center gap-[8px]">
-                  <div className="rounded-[20px] border border-[#DEDEDE] px-[16px] py-[6px] text-[12px] font-[400] text-[#414042]">
+                  <div className="border-job-gray rounded-[20px] border px-[16px] py-[6px] text-[12px] font-normal text-[#414042]">
                     ReactJS
                   </div>
-                  <div className="rounded-[20px] border border-[#DEDEDE] px-[16px] py-[6px] text-[12px] font-[400] text-[#414042]">
+                  <div className="border-job-gray rounded-[20px] border px-[16px] py-[6px] text-[12px] font-normal text-[#414042]">
                     NextJS
                   </div>
-                  <div className="rounded-[20px] border border-[#DEDEDE] px-[16px] py-[6px] text-[12px] font-[400] text-[#414042]">
+                  <div className="border-job-gray rounded-[20px] border px-[16px] py-[6px] text-[12px] font-normal text-[#414042]">
                     Javascript
                   </div>
                 </div>
                 <div className="mb-[20px] flex flex-wrap items-center justify-center gap-[12px]">
                   <Link
                     href="#"
-                    className="inline-block rounded-[4px] bg-[#FFB200] px-[20px] py-[8px] text-[14px] font-[400]"
+                    className="inline-block rounded-sm bg-[#FFB200] px-[20px] py-2 text-sm font-normal"
                   >
                     Sửa
                   </Link>
                   <Link
                     href="#"
-                    className="inline-block rounded-[4px] bg-[#FF0000] px-[20px] py-[8px] text-[14px] font-[400] text-white"
+                    className="inline-block rounded-sm bg-[#FF0000] px-[20px] py-2 text-sm font-normal text-white"
                   >
                     Xóa
                   </Link>
