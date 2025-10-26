@@ -11,7 +11,7 @@ export default function CompanyProfilePage() {
     <>
       <div className="py-[60px]">
         <div className="container">
-          <div className="border-gray rounded-lg border bg-white p-5">
+          <div className="border-job-gray rounded-lg border bg-white p-5">
             <h1 className="mb-5 text-[20px] font-bold text-black">
               Thông tin công ty
             </h1>

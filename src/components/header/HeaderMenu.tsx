@@ -1,7 +1,7 @@
 import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import { FaAngleDown, FaAngleRight } from "react-icons/fa6";
-import { menuList } from "./menuList";
+import { menuList } from "./MenuList";
 
 export const HeaderMenu = ({
   showMenu,
@@ -41,11 +41,11 @@ export const HeaderMenu = ({
               {menu.children && (
                 <>
                   <FaAngleDown className="text-[16px] text-white" />
-                  <ul className="bg-primary relative top-full left-0 hidden w-[280px] rounded-sm shadow-2xl group-hover/sub-1:block lg:absolute">
+                  <ul className="bg-job-primary relative top-full left-0 hidden w-[280px] rounded-sm shadow-2xl group-hover/sub-1:block lg:absolute">
                     {menu.children.map((menuSub1, indexSub1) => (
                       <li
                         key={indexSub1}
-                        className="group/sub-2 hover:bg-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px]"
+                        className="group/sub-2 hover:bg-job-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px]"
                       >
                         <Link
                           href={menuSub1.link}
@@ -56,11 +56,11 @@ export const HeaderMenu = ({
                         {menuSub1.children && (
                           <>
                             <FaAngleRight className="text-[16px] text-white" />
-                            <ul className="bg-primary relative top-0 left-0 hidden w-full rounded-sm shadow-2xl group-hover/sub-2:block lg:absolute lg:left-full lg:w-[280px]">
+                            <ul className="bg-job-primary relative top-0 left-0 hidden w-full rounded-sm shadow-2xl group-hover/sub-2:block lg:absolute lg:left-full lg:w-[280px]">
                               {menuSub1.children.map((menuSub2, indexSub2) => (
                                 <li
                                   key={indexSub2}
-                                  className="hover:bg-hover flex items-center justify-between rounded-sm px-4 py-[10px]"
+                                  className="hover:bg-job-hover flex items-center justify-between rounded-sm px-4 py-[10px]"
                                 >
                                   <Link
                                     href={menuSub2.link}

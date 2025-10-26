@@ -15,7 +15,7 @@ export const FileUploader = ({
 }) => {
   return (
     <>
-      <div className="sm:col-span-2">
+      <div className="sm:col-span-2 file-uploader">
         <label
           htmlFor={id}
           className="mb-[5px] block text-sm font-medium text-black"

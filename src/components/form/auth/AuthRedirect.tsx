@@ -14,7 +14,7 @@ export const AuthRedirect = ({
   return (
     <div className="mt-5 flex items-center justify-center gap-2 text-sm sm:text-[16px]">
       <span>{message}</span>
-      <Link href={href} className="text-blue font-medium hover:brightness-95">
+      <Link href={href} className="text-job-blue font-medium hover:brightness-95">
         {linkText}
       </Link>
     </div>

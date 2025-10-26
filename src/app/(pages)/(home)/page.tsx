@@ -1,6 +1,6 @@
+import { Section1 } from "@/components/section/Section1";
 import { CardCompanyItem } from "../../components/card/CardCompanyItem";
-import { Section1 } from "../../components/section/Section1";
-import { Title } from "../../components/title/Title";
+import { Title } from "@/components/title/Title";
 
 export default function HomePage() {
   const companyList = [
@@ -31,7 +31,6 @@ export default function HomePage() {
     <>
       {/* Section 1 */}
       <Section1 />
-      {/* End Section 1 */}
 
       {/* Section 2 */}
       <div className="py-[60px]">
@@ -47,7 +46,6 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      {/* End Section 2 */}
     </>
   );
 }

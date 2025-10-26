@@ -14,7 +14,7 @@ export const Header = () => {
 
   return (
     <>
-      <header className="bg-header border-gray/20 sticky top-0 left-0 z-[997] border-b py-[15px] shadow-md">
+      <header className="bg-job-header border-job-gray/20 sticky top-0 left-0 z-[997] border-b py-[15px] shadow-md">
         <div className="container">
           <div className="flex items-center justify-between">
             {/* Button Menu Mobile */}
