@@ -9,3 +9,8 @@ export const createJob = async (dataFinal: FormData) => {
   const res = await api.post("/company/job/create", dataFinal);
   return res.data;
 };
+
+export const getJobList = async () => {
+  const res = await api.get("/company/job/list");
+  return res.data;
+};
