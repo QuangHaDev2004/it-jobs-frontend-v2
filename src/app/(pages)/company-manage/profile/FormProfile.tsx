@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import { toast } from "sonner";
 import { useEffect, useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -9,7 +10,6 @@ import { FileUploader } from "@/components/form/general/FileUploader";
 import { InputField } from "@/components/form/general/InputField";
 import { useAuth } from "@/hooks/useAuth";
 import { companyProfile } from "@/services/company";
-import { toast } from "sonner";
 import { getCityList } from "@/services/city";
 import { CitySelect } from "./CitySelect";
 import { EditorMCE } from "@/components/editor/EditorMCE";
@@ -190,7 +190,7 @@ export const FormProfile = () => {
           <div className="sm:col-span-2">
             <label
               htmlFor="description"
-              className="mb-[5px] block text-[14px] font-[500] text-black"
+              className="mb-[5px] block text-sm font-medium text-black"
             >
               Mô tả chi tiết
             </label>
