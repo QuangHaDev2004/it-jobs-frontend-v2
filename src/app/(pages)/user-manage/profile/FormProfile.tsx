@@ -18,7 +18,7 @@ export const FormProfile = () => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    if (infoUser) {
+    if (infoUser && infoUser.avatar) {
       setAvatars([
         {
           source: infoUser.avatar,
