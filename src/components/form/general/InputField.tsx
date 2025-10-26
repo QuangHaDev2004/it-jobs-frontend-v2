@@ -36,6 +36,7 @@ export const InputField = ({
           id={id}
           type={type}
           className="border-job-gray h-[46px] w-full rounded-sm border px-5 text-sm font-medium text-black"
+          onWheel={(e) => e.currentTarget.blur()}
           defaultValue={defaultValue}
         />
         {error && (
