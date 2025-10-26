@@ -36,8 +36,8 @@ export const HeaderAccount = () => {
             {infoUser && (
               <>
                 <Link href="/user-manage/profile">{infoUser?.fullName}</Link>
-                <ul className="bg-primary invisible absolute top-full right-0 w-[220px] translate-y-2 rounded-sm opacity-0 shadow-2xl transition-all duration-300 group-hover/sub-1:visible group-hover/sub-1:translate-y-0 group-hover/sub-1:opacity-100">
-                  <li className="hover:bg-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
+                <ul className="bg-job-primary invisible absolute top-full right-0 w-[220px] translate-y-2 rounded-sm opacity-0 shadow-2xl transition-all duration-300 group-hover/sub-1:visible group-hover/sub-1:translate-y-0 group-hover/sub-1:opacity-100">
+                  <li className="hover:bg-job-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
                     <Link
                       href="/user-manage/profile"
                       className="flex w-full items-center gap-3 text-sm font-semibold text-white sm:text-[16px]"
@@ -46,7 +46,7 @@ export const HeaderAccount = () => {
                       Thông tin cá nhân
                     </Link>
                   </li>
-                  <li className="hover:bg-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
+                  <li className="hover:bg-job-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
                     <Link
                       href="/user-manage/cv/list"
                       className="flex w-full items-center gap-3 text-sm font-semibold text-white sm:text-[16px]"
@@ -57,7 +57,7 @@ export const HeaderAccount = () => {
                   </li>
                   <li
                     onClick={() => handleLogout("/user/login")}
-                    className="hover:bg-hover flex cursor-pointer flex-wrap items-center gap-3 rounded-sm px-4 py-[10px] transition-all duration-300"
+                    className="hover:bg-job-hover flex cursor-pointer flex-wrap items-center gap-3 rounded-sm px-4 py-[10px] transition-all duration-300"
                   >
                     <FaArrowRightFromBracket />
                     Đăng xuất
@@ -71,8 +71,8 @@ export const HeaderAccount = () => {
                 <Link href="/company-manage/profile">
                   {infoCompany?.companyName}
                 </Link>
-                <ul className="bg-primary invisible absolute top-full right-0 w-[220px] translate-y-2 rounded-sm opacity-0 shadow-2xl transition-all duration-300 group-hover/sub-1:visible group-hover/sub-1:translate-y-0 group-hover/sub-1:opacity-100">
-                  <li className="hover:bg-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
+                <ul className="bg-job-primary invisible absolute top-full right-0 w-[220px] translate-y-2 rounded-sm opacity-0 shadow-2xl transition-all duration-300 group-hover/sub-1:visible group-hover/sub-1:translate-y-0 group-hover/sub-1:opacity-100">
+                  <li className="hover:bg-job-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
                     <Link
                       href="/company-manage/profile"
                       className="flex w-full items-center gap-3 text-sm font-semibold text-white sm:text-[16px]"
@@ -81,7 +81,7 @@ export const HeaderAccount = () => {
                       Thông tin công ty
                     </Link>
                   </li>
-                  <li className="hover:bg-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
+                  <li className="hover:bg-job-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
                     <Link
                       href="/company-manage/job/list"
                       className="flex w-full items-center gap-3 text-sm font-semibold text-white sm:text-[16px]"
@@ -90,7 +90,7 @@ export const HeaderAccount = () => {
                       Quản lý công việc
                     </Link>
                   </li>
-                  <li className="hover:bg-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
+                  <li className="hover:bg-job-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
                     <Link
                       href="/company-manage/cv/list"
                       className="flex w-full items-center gap-3 text-sm font-semibold text-white sm:text-[16px]"
@@ -101,7 +101,7 @@ export const HeaderAccount = () => {
                   </li>
                   <li
                     onClick={() => handleLogout("/company/login")}
-                    className="hover:bg-hover flex cursor-pointer flex-wrap items-center gap-3 rounded-sm px-4 py-[10px] transition-all duration-300"
+                    className="hover:bg-job-hover flex cursor-pointer flex-wrap items-center gap-3 rounded-sm px-4 py-[10px] transition-all duration-300"
                   >
                     <FaArrowRightFromBracket />
                     Đăng xuất

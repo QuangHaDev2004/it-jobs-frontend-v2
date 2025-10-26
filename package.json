@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.9",
     "@hookform/resolvers": "^5.2.2",
     "@tanstack/react-query": "^5.90.4",
     "@tinymce/tinymce-react": "^6.2.1",
@@ -35,6 +34,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "daisyui": "^5.3.9",
     "eslint": "^9",
     "eslint-config-next": "^15.5.4",
     "prettier": "^3.6.2",

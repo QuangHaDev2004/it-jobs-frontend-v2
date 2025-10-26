@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap");
 @import "tailwindcss";
+@plugin "daisyui";
 
 @theme {
   --breakpoint-sm: 576px;
@@ -8,16 +9,16 @@
   --breakpoint-xl: 1216px;
   --breakpoint-2xl: 1216px;
 
-  --color-header: #000071;
-  --color-primary: #000065;
-  --color-secondary: #121212;
-  --color-blue: #0088ff;
-  --color-gray: #dedede;
-  --color-red: #ff0000;
-  --color-hover: #000096;
-  --color-gray-2: #a6a6a6;
-  --color-gray-3: #414042;
-  --color-green: #47be02;
+  --color-job-header: #000071;
+  --color-job-primary: #000065;
+  --color-job-secondary: #121212;
+  --color-job-blue: #0088ff;
+  --color-job-gray: #dedede;
+  --color-job-gray-2: #a6a6a6;
+  --color-job-gray-3: #414042;
+  --color-job-green: #47be02;
+  --color-job-red: #ff0000;
+  --color-job-hover: #000096;
 }
 
 * {
@@ -29,10 +30,6 @@ input,
 button,
 textarea {
   outline: none;
-}
-
-select {
-  appearance: none;
 }
 
 .container {
@@ -75,37 +72,24 @@ select {
   display: none;
 }
 
-/*  */
-.filepond--image-preview-wrapper {
+/* File Uploader */
+.file-uploader .filepond--image-preview-wrapper {
   width: 150px !important;
   height: 150px !important;
   top: -17px !important;
   left: -17px !important;
 }
 
-.filepond--action-remove-item {
+.file-uploader .filepond--action-remove-item {
   position: absolute;
   left: 102% !important;
   top: -30px;
 }
 
-.filepond--item-panel {
+.file-uploader .filepond--item-panel {
   display: none;
 }
 
-.filepond--image-preview-overlay-idle {
+.file-uploader .filepond--image-preview-overlay-idle {
   color: transparent;
-}
-
-/* Scroll */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #9db2bf;
-}
-
-::-webkit-scrollbar-track {
-  background: #dde6ed;
 }

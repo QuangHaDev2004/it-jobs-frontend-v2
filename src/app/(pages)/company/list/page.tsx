@@ -1,6 +1,6 @@
 import { CardCompanyItem } from "@/app/components/card/CardCompanyItem";
 import { Pagination } from "@/app/components/pagination/Pagination";
-import { Title } from "@/app/components/title/Title";
+import { Title } from "@/components/title/Title";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
