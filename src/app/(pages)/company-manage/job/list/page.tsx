@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import JobList from "./JobList";
-import { Pagination } from "@/components/pagination/Pagination";
+import { FaPlus } from "react-icons/fa6";
 
 export const metadata: Metadata = {
   title: "Quản lý công việc",
@@ -19,17 +19,15 @@ export default function CompanyManageJobListPage() {
             </h1>
             <Link
               href="/company-manage/job/create"
-              className="bg-job-blue rounded-sm px-5 py-2 text-sm font-normal text-white hover:brightness-95"
+              className="bg-job-blue flex items-center gap-2 rounded-sm px-5 py-2 text-sm font-normal text-white hover:brightness-95"
             >
+              <FaPlus className="text-sm" />
               Thêm mới
             </Link>
           </div>
 
           {/* Danh sách công việc */}
           <JobList />
-
-          {/* Phân trang */}
-          <Pagination />
         </div>
       </div>
     </>
