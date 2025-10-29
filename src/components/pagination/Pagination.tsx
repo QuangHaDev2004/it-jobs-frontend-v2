@@ -1,29 +1,33 @@
-export const Pagination = () => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const Pagination = ({
+  page,
+  handlePagination,
+  totalPage,
+}: {
+  page: number;
+  handlePagination: (event: any) => void;
+  totalPage: number;
+}) => {
   return (
     <>
       <div className="mt-[30px]">
         <select
-          id=""
+          value={page}
+          onChange={handlePagination}
+          id="pagination"
           className="select border-job-gray text-job-gray-3 w-32 rounded-lg border px-5 text-sm font-medium"
         >
-          <option
-            value=""
-            className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
-          >
-            Trang 1
-          </option>
-          <option
-            value=""
-            className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
-          >
-            Trang 2
-          </option>
-          <option
-            value=""
-            className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
-          >
-            Trang 3
-          </option>
+          {Array(totalPage)
+            .fill("")
+            .map((_, index) => (
+              <option
+                key={index}
+                value={index + 1}
+                className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
+              >
+                Trang {index + 1}
+              </option>
+            ))}
         </select>
       </div>
     </>

@@ -10,7 +10,7 @@ export const createJob = async (dataFinal: FormData) => {
   return res.data;
 };
 
-export const getJobList = async () => {
-  const res = await api.get("/company/job/list");
+export const getJobList = async (page: number) => {
+  const res = await api.get(`/company/job/list?page=${page}`);
   return res.data;
 };
