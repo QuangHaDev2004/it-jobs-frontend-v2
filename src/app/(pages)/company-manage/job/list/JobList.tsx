@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { Spinner } from "@/components/loading/Spinner";
+import { LoadingWrapper } from "@/components/common/LoadingWrapper";
 import { Pagination } from "@/components/pagination/Pagination";
 import { positionList, workingFormList } from "@/constants/options";
 import { getJobList } from "@/services/company";
@@ -36,9 +36,7 @@ export default function JobList() {
 
   return (
     <>
-      {isLoading ? (
-        <Spinner />
-      ) : (
+      <LoadingWrapper isLoading={isLoading}>
         <>
           <div className="grid grid-cols-1 gap-x-2.5 gap-y-5 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-3">
             {jobList.map((item: JobItem) => {
@@ -106,9 +104,6 @@ export default function JobList() {
                           {itemTech}
                         </div>
                       ))}
-                      <div className="border-job-gray text-job-gray-3 rounded-[20px] border px-4 py-1.5 text-xs font-normal">
-                        NextJS
-                      </div>
                     </div>
                   </div>
 
@@ -141,7 +136,7 @@ export default function JobList() {
             totalPage={totalPage}
           />
         </>
-      )}
+      </LoadingWrapper>
     </>
   );
 }

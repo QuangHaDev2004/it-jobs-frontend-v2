@@ -4,6 +4,7 @@ import { QueryProvider } from "@/providers/QueryProvider";
 import { Toaster } from "sonner";
 import { Header } from "@/components/header/Header";
 import { Footer } from "@/components/footer/Footer";
+import { ProgressBar } from "@/components/common/ProgressBar";
 
 export const metadata: Metadata = {
   title: "IT Jobs",
@@ -19,10 +20,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
         <QueryProvider>
+          <ProgressBar />
+
           <Header />
-
           {children}
-
           <Footer />
 
           <Toaster

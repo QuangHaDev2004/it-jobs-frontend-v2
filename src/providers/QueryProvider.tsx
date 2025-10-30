@@ -9,6 +9,7 @@ export const QueryProvider = ({ children }: { children: ReactNode }) => {
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false,
+            refetchOnMount: false,
             retry: false,
           },
         },

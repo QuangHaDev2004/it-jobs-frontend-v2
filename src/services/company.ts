@@ -14,3 +14,13 @@ export const getJobList = async (page: number) => {
   const res = await api.get(`/company/job/list?page=${page}`);
   return res.data;
 };
+
+export const getJobEditData = async (id: string) => {
+  const res = await api.get(`/company/job/edit/${id}`);
+  return res.data;
+};
+
+export const editJob = async (id: string, dataFinal: FormData) => {
+  const res = await api.patch(`/company/job/edit/${id}`, dataFinal);
+  return res.data;
+};

@@ -2,7 +2,6 @@ import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import { api } from "@/libs/axios";
 import { useRouter } from "next/navigation";
-import { Spinner } from "../loading/Spinner";
 import { toast } from "sonner";
 import {
   FaArrowRightFromBracket,
@@ -13,10 +12,8 @@ import {
 } from "react-icons/fa6";
 
 export const HeaderAccount = () => {
-  const { isLogin, infoUser, infoCompany, isLoading } = useAuth();
+  const { isLogin, infoUser, infoCompany } = useAuth();
   const router = useRouter();
-
-  if (isLoading) return <Spinner />;
 
   const handleLogout = async (url: string) => {
     const res = await api.get("/auth/logout");
