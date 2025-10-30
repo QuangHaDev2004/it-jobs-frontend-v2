@@ -35,7 +35,6 @@ export const FormCreate = () => {
     mutationFn: createJob,
     onSuccess: (data) => {
       if (data.code === "error") toast.error(data.message);
-
       if (data.code === "success") {
         toast.success(data.message);
         reset();
@@ -43,7 +42,6 @@ export const FormCreate = () => {
         if (tagifyRef.current) tagifyRef.current.removeAllTags();
         if (editorRef.current) editorRef.current.setContent("");
       }
-      console.log(data);
     },
     onError: (errors) => {
       console.log(errors.message);
@@ -135,7 +133,7 @@ export const FormCreate = () => {
             settings={settingTechnologies}
             id="technologies"
             name="technologies"
-            className="border-job-gray h-[46px] w-full rounded-sm border px-5 text-sm font-medium text-black"
+            className="border-job-gray h-auto w-full rounded-sm border px-5 text-sm font-medium text-black"
           />
         </div>
 
