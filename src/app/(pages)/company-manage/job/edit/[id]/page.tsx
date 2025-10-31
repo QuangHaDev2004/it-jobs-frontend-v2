@@ -15,7 +15,7 @@ export default async function CompanyManageJobEditPage({
   };
 }) {
   const { id } = await params;
-  
+
   return (
     <>
       <div className="py-[60px]">
