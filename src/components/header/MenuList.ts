@@ -16,33 +16,47 @@ export const menuList: MenuItem[] = [
         children: [
           {
             name: "ReactJS",
-            link: "#",
+            link: "/search?language=ReactJS",
           },
           {
             name: "NodeJS",
-            link: "#",
+            link: "/search?language=NodeJS",
           },
           {
             name: "Javascript",
-            link: "#",
+            link: "/search?language=Javascript",
           },
           {
             name: "HTML5",
-            link: "#",
+            link: "/search?language=HTML5",
           },
           {
             name: "CSS3",
-            link: "#",
+            link: "/search?language=CSS3",
           },
         ],
       },
       {
-        name: "Việc làm IT theo công ty",
+        name: "Việc làm IT theo chuyên môn",
         link: "#",
       },
       {
         name: "Việc làm IT theo thành phố",
         link: "#",
+        children: [
+          {
+            name: "Hà Nội",
+            link: "/search?city=Hà Nội"
+          },
+          {
+            name: "Đà Nẵng",
+            link: "/search?city=Đà Nẵng"
+          },
+          {
+            name: "Hồ Chí Minh",
+            link: "/search?city=Hồ Chí Minh"
+          }
+        ]
       },
     ],
   },
@@ -52,15 +66,15 @@ export const menuList: MenuItem[] = [
     children: [
       {
         name: "FPT Software",
-        link: "#",
+        link: "/search?company=FPT Software",
       },
       {
         name: "Techcombank",
-        link: "#",
+        link: "/search?company=Techcombank",
       },
       {
         name: "MB Bank",
-        link: "#",
+        link: "/search?company=MB Bank",
       },
     ],
   },
