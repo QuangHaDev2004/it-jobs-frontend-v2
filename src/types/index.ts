@@ -9,3 +9,11 @@ export type JobItem = {
   companyCity: string;
   technologies: string[];
 };
+
+export type CompanyItem = {
+  id: string;
+  logo: string;
+  companyName: string;
+  cityName: string;
+  totalJob: number;
+};

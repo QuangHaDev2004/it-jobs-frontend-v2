@@ -29,3 +29,8 @@ export const deleteJob = async (id: string) => {
   const res = await api.delete(`/company/job/delete/${id}`);
   return res.data;
 };
+
+export const getCompanyList = async () => {
+  const res = await api.get("/company/list?limitItems=9");
+  return res.data;
+};
