@@ -24,3 +24,8 @@ export const editJob = async (id: string, dataFinal: FormData) => {
   const res = await api.patch(`/company/job/edit/${id}`, dataFinal);
   return res.data;
 };
+
+export const deleteJob = async (id: string) => {
+  const res = await api.delete(`/company/job/delete/${id}`);
+  return res.data;
+};

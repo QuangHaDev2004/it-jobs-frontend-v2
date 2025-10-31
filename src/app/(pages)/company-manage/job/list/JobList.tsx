@@ -4,9 +4,9 @@
 import { LoadingWrapper } from "@/components/common/LoadingWrapper";
 import { Pagination } from "@/components/pagination/Pagination";
 import { positionList, workingFormList } from "@/constants/options";
-import { getJobList } from "@/services/company";
+import { deleteJob, getJobList } from "@/services/company";
 import { JobItem } from "@/types";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useState } from "react";
 import {
@@ -16,12 +16,17 @@ import {
   FaRegTrashCan,
   FaUserTie,
 } from "react-icons/fa6";
+import { toast } from "sonner";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+const MySwal = withReactContent(Swal);
 
 export default function JobList() {
   const [page, setPage] = useState(1);
+  const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["job-list", page],
+    queryKey: ["jobList", page],
     queryFn: () => getJobList(page),
     placeholderData: (prev) => prev, // giữ lại data cũ trong lúc đang fetch cái mới
   });
@@ -32,6 +37,41 @@ export default function JobList() {
   const handlePagination = (event: any) => {
     const value = event.target.value;
     setPage(parseInt(value));
+  };
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: deleteJob,
+    onSuccess: (data) => {
+      if (data.code === "error") toast.error(data.message);
+      if (data.code === "success") {
+        toast.success(data.message);
+        queryClient.invalidateQueries({ queryKey: ["jobList"], exact: false });
+      }
+    },
+    onError: (errors) => {
+      console.log(errors.message);
+    },
+  });
+
+  const handleDelete = (id: string) => {
+    MySwal.fire({
+      title: <p className="text-lg font-semibold">Bạn có chắc muốn xóa?</p>,
+      html: (
+        <p className="text-gray-600">
+          Hành đông này của bạn <b>không thể hoàn tác</b>.
+        </p>
+      ),
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Xóa",
+      cancelButtonText: "Hủy",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        mutate(id);
+      }
+    });
   };
 
   return (
@@ -80,7 +120,7 @@ export default function JobList() {
                       {item.title}
                     </h3>
                     <div className="text-job-blue mb-1.5 text-[16px] font-semibold">
-                      {item.salaryMin.toLocaleString()}$ -{" "}
+                      {item.salaryMin.toLocaleString()}$ -
                       {item.salaryMax.toLocaleString()}$
                     </div>
                     <div className="text-job-secondary mb-1.5 flex items-center justify-center gap-2 text-sm font-normal">
@@ -116,13 +156,14 @@ export default function JobList() {
                       <FaRegPenToSquare />
                       Sửa
                     </Link>
-                    <Link
-                      href="#"
-                      className="bg-job-red inline-flex items-center gap-2 rounded-sm px-5 py-2 text-sm font-normal text-white transition-all duration-300 hover:brightness-95"
+                    <button
+                      disabled={isPending}
+                      onClick={() => handleDelete(item.id)}
+                      className="bg-job-red inline-flex cursor-pointer items-center gap-2 rounded-sm px-5 py-2 text-sm font-normal text-white transition-all duration-300 hover:brightness-95"
                     >
                       <FaRegTrashCan />
                       Xóa
-                    </Link>
+                    </button>
                   </div>
                 </div>
               );

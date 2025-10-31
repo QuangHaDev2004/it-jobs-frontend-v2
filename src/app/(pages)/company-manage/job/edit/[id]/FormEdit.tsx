@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Tags from "@yaireo/tagify/dist/react.tagify";
 import "@yaireo/tagify/dist/tagify.css";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { editJob, getJobEditData } from "@/services/company";
 import { toast } from "sonner";
 import { LoadingWrapper } from "@/components/common/LoadingWrapper";
@@ -22,13 +22,15 @@ export const FormEdit = ({ id }: { id: string }) => {
   const editorRef = useRef<any>(null);
   const tagifyRef = useRef<any>(null);
   const [images, setImages] = useState<any[]>([]);
+  const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery({
     queryKey: ["jobEdit", id],
     queryFn: () => getJobEditData(id),
+    enabled: !!id,
   });
 
-  const jobDetail = data?.jobDetail;
+  const jobDetail = data?.code === "success" ? data.jobDetail : null;
 
   // Hiển thị ảnh mặc định
   useEffect(() => {
@@ -52,7 +54,10 @@ export const FormEdit = ({ id }: { id: string }) => {
     mutationFn: (formData: FormData) => editJob(id, formData),
     onSuccess: (data) => {
       if (data.code === "error") toast.error(data.message);
-      if (data.code === "success") toast.success(data.message);
+      if (data.code === "success") {
+        toast.success(data.message);
+        queryClient.invalidateQueries({ queryKey: ["jobList"], exact: false });
+      }
     },
     onError: (errors) => {
       console.log(errors.message);
