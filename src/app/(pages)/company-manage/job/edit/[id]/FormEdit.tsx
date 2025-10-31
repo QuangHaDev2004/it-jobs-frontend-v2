@@ -51,8 +51,6 @@ export const FormEdit = ({ id }: { id: string }) => {
   const { mutate, isPending } = useMutation({
     mutationFn: (formData: FormData) => editJob(id, formData),
     onSuccess: (data) => {
-      console.log(data);
-
       if (data.code === "error") toast.error(data.message);
       if (data.code === "success") toast.success(data.message);
     },

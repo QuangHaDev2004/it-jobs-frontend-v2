@@ -17,6 +17,7 @@ import {
   CompanyProfileInputs,
   companyProfileSchema,
 } from "@/validates/company";
+import { QUERY_KEY } from "@/constants/queryKey";
 
 export const FormProfile = () => {
   const { infoCompany } = useAuth();
@@ -59,10 +60,7 @@ export const FormProfile = () => {
 
       if (data.code === "success") {
         toast.success(data.message);
-
-        queryClient.invalidateQueries({
-          predicate: (query) => query.queryKey[0] === "check-auth",
-        });
+        queryClient.invalidateQueries({ queryKey: QUERY_KEY.CHECK_AUTH });
       }
     },
     onError: (errors) => {
