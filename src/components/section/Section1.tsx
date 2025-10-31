@@ -1,23 +1,28 @@
 "use client";
+import { useCityList } from "@/hooks/useCityList";
+import { SearchInputs, searchSchema } from "@/validates/search";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
-const cityList = [
-  {
-    id: 2,
-    name: "Hà Nội",
-  },
-  {
-    id: 3,
-    name: "Đà Nẵng",
-  },
-  {
-    id: 4,
-    name: "Hồ Chí Minh",
-  },
-];
-
 export const Section1 = () => {
+  const { cityList } = useCityList();
+  const router = useRouter();
+
+  const { register, handleSubmit } = useForm<SearchInputs>({
+    resolver: zodResolver(searchSchema),
+  });
+
+  const handleSearchForm: SubmitHandler<SearchInputs> = (data) => {
+    const city = data.city ?? "";
+    const keyword = data.keyword ?? "";
+    const query = `?city=${encodeURIComponent(city)}&keyword=${encodeURIComponent(keyword)}`;
+
+    router.push(`/search${query}`);
+  };
+
   return (
     <>
       <div className="bg-job-primary py-[60px]">
@@ -26,16 +31,23 @@ export const Section1 = () => {
             887 Việc làm IT cho Developer &quot;Chất&quot;
           </h1>
           <form
-            action=""
+            onSubmit={handleSubmit(handleSearchForm)}
             className="mb-[30px] flex flex-wrap gap-x-[15px] gap-y-[12px] md:flex-nowrap"
           >
-            <select className="select text-job-secondary h-[56px] w-full rounded-sm bg-white px-5 text-[16px] font-medium md:w-[240px]">
-              <option className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white">
+            <select
+              {...register("city")}
+              className="select text-job-secondary h-[56px] w-full rounded-sm bg-white px-5 text-[16px] font-medium md:w-[240px]"
+            >
+              <option
+                value=""
+                className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
+              >
                 Tất cả thành phố
               </option>
-              {cityList.map((city) => (
+              {cityList.map((city: { _id: string; name: string }) => (
                 <option
-                  key={city.id}
+                  key={city._id}
+                  value={city._id}
                   className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
                 >
                   {city.name}
@@ -43,6 +55,7 @@ export const Section1 = () => {
               ))}
             </select>
             <input
+              {...register("keyword")}
               type="text"
               className="text-job-secondary h-[56px] w-full rounded-sm bg-white px-5 text-[16px] font-medium md:flex-1"
               placeholder="Nhập từ khoá theo kỹ năng, chức vụ, công ty..."
@@ -58,19 +71,19 @@ export const Section1 = () => {
             </div>
             <div className="inline-flex flex-wrap gap-[10px]">
               <Link
-                href="#"
+                href="/search?language=ReactJS"
                 className="border-job-gray-3 bg-job-secondary text-job-gray hover:bg-job-gray-3 rounded-[20px] border px-[22px] py-[8px] text-[16px] font-medium hover:text-white"
               >
                 ReactJS
               </Link>
               <Link
-                href="#"
+                href="/search?language=Javascript"
                 className="border-job-gray-3 bg-job-secondary text-job-gray hover:bg-job-gray-3 rounded-[20px] border px-[22px] py-[8px] text-[16px] font-medium hover:text-white"
               >
                 Javascript
               </Link>
               <Link
-                href="#"
+                href="/search?language=NodeJS"
                 className="border-job-gray-3 bg-job-secondary text-job-gray hover:bg-job-gray-3 rounded-[20px] border px-[22px] py-[8px] text-[16px] font-medium hover:text-white"
               >
                 NodeJS
