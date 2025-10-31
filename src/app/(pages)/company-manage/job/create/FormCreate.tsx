@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Tags from "@yaireo/tagify/dist/react.tagify";
 import "@yaireo/tagify/dist/tagify.css";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createJob } from "@/services/company";
 import { toast } from "sonner";
 
@@ -21,6 +21,7 @@ export const FormCreate = () => {
   const editorRef = useRef<any>(null);
   const tagifyRef = useRef<any>(null);
   const [images, setImages] = useState<any[]>([]);
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -41,6 +42,7 @@ export const FormCreate = () => {
         setImages([]);
         if (tagifyRef.current) tagifyRef.current.removeAllTags();
         if (editorRef.current) editorRef.current.setContent("");
+        queryClient.invalidateQueries({ queryKey: ["jobList"], exact: false });
       }
     },
     onError: (errors) => {
