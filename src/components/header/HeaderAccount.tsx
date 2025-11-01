@@ -1,3 +1,4 @@
+"use client"
 import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import { api } from "@/libs/axios";
@@ -10,16 +11,19 @@ import {
   FaRegCircleUser,
   FaRegFileLines,
 } from "react-icons/fa6";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const HeaderAccount = () => {
   const { isLogin, infoUser, infoCompany } = useAuth();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const handleLogout = async (url: string) => {
     const res = await api.get("/auth/logout");
     if (res.data.code === "success") {
       toast.error(res.data.message);
       localStorage.removeItem("accessToken");
+      queryClient.setQueryData(["checkAuth"], { code: "error" });
       router.push(url);
     }
   };

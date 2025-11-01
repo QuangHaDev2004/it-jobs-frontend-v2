@@ -6,13 +6,14 @@ import { PasswordField } from "@/components/form/auth/PasswordField";
 import { loginUser } from "@/services/auth";
 import { LoginUserInputs, loginUserSchema } from "@/validates/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 export const FormLogin = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -24,10 +25,11 @@ export const FormLogin = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: loginUser,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       if (data.code === "error") toast.error(data.message);
       if (data.code === "success") {
         localStorage.setItem("accessToken", data.accessToken);
+        await queryClient.invalidateQueries({ queryKey: ["checkAuth"] });
         toast.success(data.message);
         router.push("/");
       }
