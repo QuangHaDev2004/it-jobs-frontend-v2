@@ -1,6 +1,7 @@
 import { CardJobItem } from "@/app/components/card/CardJobItem";
 import { Pagination } from "@/app/components/pagination/Pagination";
 import { Section1 } from "@/components/section/Section1";
+import { positionList, workingFormList } from "@/constants/options";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -18,48 +19,58 @@ export default function SearchPage() {
       {/* Kết quả tìm kiếm */}
       <div className="py-[60px]">
         <div className="container">
-          <h2 className="font-bold text-[28px] text-[#121212] mb-[30px]">
-            76 việc làm <span className="text-[#0088FF]">reactjs</span>
+          <h2 className="text-job-secondary mb-[30px] text-[28px] font-bold">
+            76 việc làm <span className="text-job-blue">reactjs</span>
           </h2>
 
           {/* Bộ lọc */}
           <div
-            className="rounded-[8px] px-[20px] py-[10px] flex flex-wrap items-center gap-[12px] mb-[30px]"
+            className="mb-[30px] flex flex-wrap items-center gap-3 rounded-lg px-5 py-2.5"
             style={{
-              boxShadow: "0px 4px 20px 0px #0000000F"
+              boxShadow: "0px 4px 20px 0px #0000000F",
             }}
           >
-            <div className="custom-select">
-              <select
-                name=""
-                id=""
-                className="bg-white border border-[#DEDEDE] rounded-[20px] w-[148px] h-[36px] px-[18px] font-normal text-[16px] text-[#414042]"
+            <select
+              name="position"
+              id="position"
+              className="select border-job-gray text-job-gray-3 h-9 w-[148px] rounded-[20px] border bg-white px-[18px] text-[16px] font-normal"
+            >
+              <option
+                value=""
+                className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
               >
-                <option value="">Cấp bậc</option>
-                <option value="">Intern</option>
-                <option value="">Fresher</option>
-                <option value="">Junior</option>
-                <option value="">Middle</option>
-                <option value="">Senior</option>
-                <option value="">Manager</option>
-              </select>
-            </div>
-            <div className="custom-select">
-              <select
-                name=""
-                id=""
-                className="bg-white border border-[#DEDEDE] rounded-[20px] w-[206px] h-[36px] px-[18px] font-normal text-[16px] text-[#414042]"
-              >
-                <option value="">Hình thức làm việc</option>
-                <option value="">Tại văn phòng</option>
-                <option value="">Làm từ xa</option>
-                <option value="">Linh hoạt</option>
-              </select>
-            </div>
+                Cấp bậc
+              </option>
+              {positionList.map((item) => (
+                <option
+                  key={item.value}
+                  value={item.value}
+                  className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
+                >
+                  {item.label}
+                </option>
+              ))}
+            </select>
+            <select
+              name="workingForm"
+              id="workingForm"
+              className="select border-job-gray text-job-gray-3 h-9 w-[206px] rounded-[20px] border bg-white px-[18px] text-[16px] font-normal"
+            >
+              <option value="">Hình thức làm việc</option>
+              {workingFormList.map((item) => (
+                <option
+                  key={item.value}
+                  value={item.value}
+                  className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
+                >
+                  {item.label}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Danh sách công việc */}
-          <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 sm:gap-x-[20px] gap-x-[10px] gap-y-[20px]">
+          <div className="grid grid-cols-1 gap-x-[10px] gap-y-[20px] sm:grid-cols-2 sm:gap-x-[20px] lg:grid-cols-3">
             <CardJobItem />
           </div>
 
@@ -69,5 +80,5 @@ export default function SearchPage() {
       </div>
       {/* Hết Kết quả tìm kiếm */}
     </>
-  )
+  );
 }

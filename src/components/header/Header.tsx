@@ -25,16 +25,18 @@ export const Header = () => {
               <FaBars className="text-[22px] text-white" />
             </button>
 
-            {/* Logo */}
-            <Link
-              href="/"
-              className="text-xl font-extrabold text-white sm:text-[28px]"
-            >
-              ITJobs
-            </Link>
+            <div className="flex items-center gap-10">
+              {/* Logo */}
+              <Link
+                href="/"
+                className="text-xl font-extrabold text-white sm:text-[28px]"
+              >
+                ITJobs
+              </Link>
 
-            {/* Menu */}
-            <HeaderMenu showMenu={showMenu} setShowMenu={setShowMenu} />
+              {/* Menu */}
+              <HeaderMenu showMenu={showMenu} setShowMenu={setShowMenu} />
+            </div>
 
             {/* Account */}
             <HeaderAccount />

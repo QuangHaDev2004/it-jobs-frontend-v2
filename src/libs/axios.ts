@@ -17,7 +17,6 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    // console.log(error.response);
 
     if (error?.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -32,7 +31,6 @@ api.interceptors.response.use(
 
         localStorage.setItem("accessToken", newToken);
         originalRequest.headers.Authorization = `Bearer ${newToken}`;
-
         return api(originalRequest);
       } catch (err) {
         localStorage.removeItem("accessToken");

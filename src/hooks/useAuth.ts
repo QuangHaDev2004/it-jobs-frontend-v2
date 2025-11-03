@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { checkAuth } from "@/services/auth";
-import { QUERY_KEY } from "@/constants/queryKey";
 
 export const useAuth = () => {
   const { data, isLoading } = useQuery({
-    queryKey: QUERY_KEY.CHECK_AUTH,
+    queryKey: ["checkAuth"],
     queryFn: checkAuth,
   });
 
