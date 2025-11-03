@@ -58,7 +58,7 @@ export default function JobList() {
       title: <p className="text-lg font-semibold">Bạn có chắc muốn xóa?</p>,
       html: (
         <p className="text-gray-600">
-          Hành đông này của bạn <b>không thể hoàn tác</b>.
+          Hành động này của bạn <b>không thể hoàn tác</b>.
         </p>
       ),
       icon: "warning",

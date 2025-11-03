@@ -10,11 +10,13 @@ export const HeaderMenu = ({
   showMenu: boolean;
   setShowMenu: (value: boolean) => void;
 }) => {
-  const { isLogin } = useAuth();
+  const { isLogin, isLoading } = useAuth();
 
   const handleCloseMenu = () => {
     setShowMenu(false);
   };
+
+  if (isLoading) return null;
 
   return (
     <>

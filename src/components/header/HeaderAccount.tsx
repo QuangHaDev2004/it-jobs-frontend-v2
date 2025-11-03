@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import { api } from "@/libs/axios";
@@ -14,7 +14,7 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 
 export const HeaderAccount = () => {
-  const { isLogin, infoUser, infoCompany } = useAuth();
+  const { isLogin, infoUser, infoCompany, isLoading } = useAuth();
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -27,6 +27,8 @@ export const HeaderAccount = () => {
       router.push(url);
     }
   };
+
+  if (isLoading) return null;
 
   return (
     <>
