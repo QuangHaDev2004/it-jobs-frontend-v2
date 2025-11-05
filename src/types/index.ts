@@ -8,6 +8,8 @@ export type JobItem = {
   workingForm: string;
   companyCity: string;
   technologies: string[];
+  companyName?: string;
+  cityName?: string;
 };
 
 export type CompanyItem = {
