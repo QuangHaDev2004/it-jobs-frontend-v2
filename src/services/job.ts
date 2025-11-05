@@ -3,6 +3,7 @@ import { api } from "@/libs/axios";
 type SearchParams = {
   language: string;
   city: string;
+  company: string;
 };
 
 export const searchJob = async (params: SearchParams) => {

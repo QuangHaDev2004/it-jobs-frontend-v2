@@ -11,10 +11,11 @@ export const SearchContainer = () => {
   const searchParams = useSearchParams();
   const language = searchParams.get("language") || "";
   const city = searchParams.get("city") || "";
+  const company = searchParams.get("company") || "";
 
   const { data } = useQuery({
-    queryKey: ["searchJob", {language, city}],
-    queryFn: () => searchJob({language, city}),
+    queryKey: ["searchJob", { language, city, company }],
+    queryFn: () => searchJob({ language, city, company }),
   });
 
   const jobList = data?.jobs || [];
@@ -24,8 +25,10 @@ export const SearchContainer = () => {
     <>
       <h2 className="text-job-secondary mb-[30px] text-[28px] font-bold">
         {jobList.length} việc làm{" "}
-        <span className="text-job-blue">{language ? language : "IT"} </span> tại{" "}
-        <span>{city ? city : "Việt Nam"}</span>
+        <span className="text-job-blue">
+          {language && language} {company && "đang tuyển dụng"}
+        </span>{" "}
+        tại <span>{city ? city : company ? company : "Việt Nam"}</span>
       </h2>
 
       {/* Bộ lọc */}
