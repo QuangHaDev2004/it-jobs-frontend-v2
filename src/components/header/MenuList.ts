@@ -1,3 +1,6 @@
+import { COMPANIES } from "@/constants/companies";
+import { SKILLS } from "@/constants/skills";
+
 type MenuItem = {
   name: string;
   link: string;
@@ -13,28 +16,10 @@ export const menuList: MenuItem[] = [
       {
         name: "Việc làm IT theo kỹ năng",
         link: "#",
-        children: [
-          {
-            name: "ReactJS",
-            link: "/search?language=ReactJS",
-          },
-          {
-            name: "NodeJS",
-            link: "/search?language=NodeJS",
-          },
-          {
-            name: "Javascript",
-            link: "/search?language=Javascript",
-          },
-          {
-            name: "HTML5",
-            link: "/search?language=HTML5",
-          },
-          {
-            name: "CSS3",
-            link: "/search?language=CSS3",
-          },
-        ],
+        children: SKILLS.map((skill) => ({
+          name: skill,
+          link: `/search?language=${skill}`,
+        })),
       },
       {
         name: "Việc làm IT theo chuyên môn",
@@ -46,37 +31,27 @@ export const menuList: MenuItem[] = [
         children: [
           {
             name: "Hà Nội",
-            link: "/search?city=Hà Nội"
+            link: "/search?city=Hà Nội",
           },
           {
             name: "Đà Nẵng",
-            link: "/search?city=Đà Nẵng"
+            link: "/search?city=Đà Nẵng",
           },
           {
             name: "Hồ Chí Minh",
-            link: "/search?city=Hồ Chí Minh"
-          }
-        ]
+            link: "/search?city=Hồ Chí Minh",
+          },
+        ],
       },
     ],
   },
   {
     name: "Top Công Ty IT",
     link: "#",
-    children: [
-      {
-        name: "FPT Software",
-        link: "/search?company=FPT Software",
-      },
-      {
-        name: "Techcombank",
-        link: "/search?company=Techcombank",
-      },
-      {
-        name: "MB Bank",
-        link: "/search?company=MB Bank",
-      },
-    ],
+    children: COMPANIES.map((company) => ({
+      name: company,
+      link: `/search?company=${company}`,
+    })),
   },
   {
     name: "Blog",
