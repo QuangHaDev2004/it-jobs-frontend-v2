@@ -10,10 +10,11 @@ import { useSearchParams } from "next/navigation";
 export const SearchContainer = () => {
   const searchParams = useSearchParams();
   const language = searchParams.get("language") || "";
+  const city = searchParams.get("city") || "";
 
   const { data } = useQuery({
-    queryKey: ["searchJob", language],
-    queryFn: () => searchJob(language),
+    queryKey: ["searchJob", {language, city}],
+    queryFn: () => searchJob({language, city}),
   });
 
   const jobList = data?.jobs || [];
@@ -22,8 +23,9 @@ export const SearchContainer = () => {
   return (
     <>
       <h2 className="text-job-secondary mb-[30px] text-[28px] font-bold">
-        76 việc làm <span className="text-job-blue">{language} </span> tại Việt
-        Nam
+        {jobList.length} việc làm{" "}
+        <span className="text-job-blue">{language ? language : "IT"} </span> tại{" "}
+        <span>{city ? city : "Việt Nam"}</span>
       </h2>
 
       {/* Bộ lọc */}

@@ -1,7 +1,12 @@
 import { api } from "@/libs/axios";
 
-export const searchJob = async (language: string) => {
-  const res = await api.get(`/search?language=${language}`);
+type SearchParams = {
+  language: string;
+  city: string;
+};
+
+export const searchJob = async (params: SearchParams) => {
+  const res = await api.get("/search", { params });
   if (res.data.code !== "success") throw new Error(res.data.message);
   return res.data;
 };
