@@ -4,6 +4,9 @@ type SearchParams = {
   language: string;
   city: string;
   company: string;
+  keyword: string;
+  position: string;
+  workingForm: string;
 };
 
 export const searchJob = async (params: SearchParams) => {
