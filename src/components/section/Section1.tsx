@@ -3,13 +3,15 @@ import { useCityList } from "@/hooks/useCityList";
 import { SearchInputs, searchSchema } from "@/validates/search";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 export const Section1 = () => {
   const { cityList } = useCityList();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const city = searchParams.get("city") || "";
 
   const { register, handleSubmit } = useForm<SearchInputs>({
     resolver: zodResolver(searchSchema),
@@ -35,6 +37,7 @@ export const Section1 = () => {
             className="mb-[30px] flex flex-wrap gap-x-[15px] gap-y-[12px] md:flex-nowrap"
           >
             <select
+              defaultValue={city}
               {...register("city")}
               className="select text-job-secondary h-[56px] w-full rounded-sm bg-white px-5 text-[16px] font-medium md:w-[240px]"
             >
@@ -47,7 +50,7 @@ export const Section1 = () => {
               {cityList.map((city: { _id: string; name: string }) => (
                 <option
                   key={city._id}
-                  value={city._id}
+                  value={city.name}
                   className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
                 >
                   {city.name}
