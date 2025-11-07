@@ -1,4 +1,5 @@
 "use client";
+import { SKILLS } from "@/constants/skills";
 import { useCityList } from "@/hooks/useCityList";
 import { SearchInputs, searchSchema } from "@/validates/search";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -44,7 +45,7 @@ export const Section1 = () => {
       <div className="bg-job-primary py-[60px]">
         <div className="container">
           <h1 className="mb-[30px] text-center text-[28px] font-bold text-white">
-            887 Việc làm IT cho Developer &quot;Chất&quot;
+            988 Việc làm IT cho Developer &quot;Chất&quot;
           </h1>
           <form
             onSubmit={handleSubmit(handleSearchForm)}
@@ -73,8 +74,9 @@ export const Section1 = () => {
             <input
               {...register("keyword")}
               type="text"
-              className="text-job-secondary h-[56px] w-full rounded-sm bg-white px-5 text-[16px] font-medium md:flex-1"
-              placeholder="Nhập từ khoá theo kỹ năng, chức vụ, công ty..."
+              className="text-job-secondary focus:border-job-secondary h-[56px] w-full rounded-sm border border-white bg-white px-5 text-[16px] font-medium transition-all duration-300 focus:ring-2 focus:ring-yellow-50 md:flex-1"
+              placeholder="Nhập từ khoá theo kỹ năng, chức vụ, vị trí..."
+              autoComplete="off"
             />
             <button
               disabled={isSubmitting}
@@ -87,7 +89,7 @@ export const Section1 = () => {
                 </>
               ) : (
                 <>
-                  <FaMagnifyingGlass className="text-[20px]" />
+                  <FaMagnifyingGlass className="text-[18px]" />
                   Tìm Kiếm
                 </>
               )}
@@ -95,27 +97,18 @@ export const Section1 = () => {
           </form>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-[15px]">
             <div className="text-job-gray text-[16px] font-medium">
-              Mọi người đang tìm kiếm:
+              Gợi ý cho bạn:
             </div>
             <div className="inline-flex flex-wrap gap-2.5">
-              <Link
-                href="/search?language=ReactJS"
-                className="border-job-gray-3 bg-job-secondary text-job-gray hover:bg-job-gray-3 rounded-[20px] border px-[22px] py-2 text-[16px] font-medium hover:text-white"
-              >
-                ReactJS
-              </Link>
-              <Link
-                href="/search?language=Javascript"
-                className="border-job-gray-3 bg-job-secondary text-job-gray hover:bg-job-gray-3 rounded-[20px] border px-[22px] py-2 text-[16px] font-medium hover:text-white"
-              >
-                Javascript
-              </Link>
-              <Link
-                href="/search?language=NodeJS"
-                className="border-job-gray-3 bg-job-secondary text-job-gray hover:bg-job-gray-3 rounded-[20px] border px-[22px] py-2 text-[16px] font-medium hover:text-white"
-              >
-                NodeJS
-              </Link>
+              {SKILLS.slice(0, 6).map((lang, index) => (
+                <Link
+                  key={index}
+                  href={`/search?language=${lang}`}
+                  className="border-job-gray-3 bg-job-secondary text-job-gray hover:bg-job-gray-3 rounded-[20px] border px-[22px] py-2 text-[16px] font-medium hover:text-white"
+                >
+                  {lang}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
