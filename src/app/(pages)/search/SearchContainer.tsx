@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { CardJobItem } from "@/app/components/card/CardJobItem";
-import { Pagination } from "@/app/components/pagination/Pagination";
+import { Pagination } from "@/components/pagination/Pagination";
 import { positionList, workingFormList } from "@/constants/options";
 import { searchJob } from "@/services/job";
 import { JobItem } from "@/types";
@@ -28,7 +28,6 @@ export const SearchContainer = () => {
   });
 
   const jobList = data?.jobs || [];
-  console.log(jobList);
 
   const handleJobFilter = (key: string, event: any) => {
     const params = new URLSearchParams(searchParams);
@@ -43,14 +42,19 @@ export const SearchContainer = () => {
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
+  const jobCountText = `${jobList.length} việc làm`;
+  const locationText = city || company || "Việt Nam";
+  let highlightText = "";
+  if (language) highlightText += language + " ";
+  if (company) highlightText += "đang tuyển dụng";
+  if (keyword) highlightText += keyword;
+
   return (
     <>
       <h2 className="text-job-secondary mb-[30px] text-[28px] font-bold">
-        {jobList.length} việc làm{" "}
-        <span className="text-job-blue">
-          {language} {company && "đang tuyển dụng"} {keyword}
-        </span>{" "}
-        tại <span>{city ? city : company ? company : "Việt Nam"}</span>
+        {jobCountText}{" "}
+        <span className="text-job-blue">{highlightText.trim()}</span> tại{" "}
+        <span>{locationText}</span>
       </h2>
 
       {/* Bộ lọc */}
@@ -116,7 +120,7 @@ export const SearchContainer = () => {
       </div>
 
       {/* Phân trang */}
-      <Pagination />
+      {/* <Pagination /> */}
     </>
   );
 };
