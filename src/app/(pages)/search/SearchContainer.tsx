@@ -1,11 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { CardJobItem } from "@/app/components/card/CardJobItem";
+import { SearchSkeleton } from "@/app/components/card/SearchSkeleton";
+import { EmptyState } from "@/components/common/EmptyState";
 import { Pagination } from "@/components/pagination/Pagination";
 import { positionList, workingFormList } from "@/constants/options";
 import { searchJob } from "@/services/job";
 import { JobItem } from "@/types";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export const SearchContainer = () => {
@@ -18,18 +19,22 @@ export const SearchContainer = () => {
   const position = searchParams.get("position") || "";
   const workingForm = searchParams.get("workingForm") || "";
 
-  const { data } = useQuery({
+  const { data, isLoading, isFetching } = useQuery({
     queryKey: [
       "searchJob",
       { language, city, company, keyword, position, workingForm },
     ],
     queryFn: () =>
       searchJob({ language, city, company, keyword, position, workingForm }),
+    placeholderData: keepPreviousData,
   });
 
   const jobList = data?.jobs || [];
 
-  const handleJobFilter = (key: string, event: any) => {
+  const handleJobFilter = (
+    key: string,
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     const params = new URLSearchParams(searchParams);
     const value = event.target.value;
 
@@ -48,6 +53,11 @@ export const SearchContainer = () => {
   if (language) highlightText += language + " ";
   if (company) highlightText += "đang tuyển dụng";
   if (keyword) highlightText += keyword;
+
+  const isEmpty = !isLoading && !isFetching && jobList.length === 0;
+
+  if (isLoading) return <SearchSkeleton />;
+  if (isEmpty) return <EmptyState />;
 
   return (
     <>
