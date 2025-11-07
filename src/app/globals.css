@@ -20,10 +20,16 @@
   --color-job-red: #ff0000;
   --color-job-yellow: #ffb200;
   --color-job-hover: #000096;
+  
+  --shadow-md: 0px 6px 32px rgba(0, 0, 0, 0.08);
 }
 
 * {
   font-family: "Lexend", sans-serif;
+}
+
+body {
+  background-color: #f7f7f7;
 }
 
 select,

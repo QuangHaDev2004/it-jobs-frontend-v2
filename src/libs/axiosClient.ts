@@ -1,19 +1,19 @@
 import axios from "axios";
 
-export const api = axios.create({
+export const axiosClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true, // quan trọng: giữ cookie backend trả về
 });
 
 // Gắn access token vào header trước mỗi request
-api.interceptors.request.use((config) => {
+axiosClient.interceptors.request.use((config) => {
   const token = localStorage.getItem("accessToken");
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
 // Tự động refresh token khi access token hết hạn
-api.interceptors.response.use(
+axiosClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
@@ -31,7 +31,7 @@ api.interceptors.response.use(
 
         localStorage.setItem("accessToken", newToken);
         originalRequest.headers.Authorization = `Bearer ${newToken}`;
-        return api(originalRequest);
+        return axiosClient(originalRequest);
       } catch (err) {
         localStorage.removeItem("accessToken");
         return Promise.reject(err);
