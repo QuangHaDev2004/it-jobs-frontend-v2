@@ -1,6 +1,6 @@
-import { api } from "@/libs/axios";
+import { axiosClient } from "@/libs/axiosClient";
 
 export const userProfile = async (dataFinal: FormData) => {
-  const res = await api.patch("/user/profile", dataFinal);
+  const res = await axiosClient.patch("/user/profile", dataFinal);
   return res.data;
 };

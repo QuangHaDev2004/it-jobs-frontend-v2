@@ -1,7 +1,7 @@
 "use client";
 import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
-import { api } from "@/libs/axios";
+import { axiosClient } from "@/libs/axiosClient";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
@@ -19,7 +19,7 @@ export const HeaderAccount = () => {
   const queryClient = useQueryClient();
 
   const handleLogout = async (url: string) => {
-    const res = await api.get("/auth/logout");
+    const res = await axiosClient.get("/auth/logout");
     if (res.data.code === "success") {
       toast.error(res.data.message);
       localStorage.removeItem("accessToken");
