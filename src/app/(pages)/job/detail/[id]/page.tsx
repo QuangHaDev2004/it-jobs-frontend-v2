@@ -46,7 +46,6 @@ export default async function JobDetailPage({
   }
 
   const time = dayjs.utc(jobDetail?.createdAt).tz("Asia/Ho_Chi_Minh").fromNow();
-  console.log(data);
 
   return (
     <>
@@ -153,7 +152,7 @@ export default async function JobDetailPage({
                 <h2 className="mb-5 text-[20px] font-bold text-black">
                   Ứng tuyển ngay
                 </h2>
-                <FormApply />
+                {jobDetail && <FormApply jobId={jobDetail.id} />}
               </div>
             </div>
 
