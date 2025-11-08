@@ -14,3 +14,9 @@ export const searchJob = async (params: SearchParams) => {
   if (res.data.code !== "success") throw new Error(res.data.message);
   return res.data;
 };
+
+export const applyJob = async (dataFinal: FormData) => {
+  const res = await axiosClient.post("/job/apply", dataFinal);
+  if(res.data.code !== "success") throw new Error(res.data.message);
+  return res.data;
+}
