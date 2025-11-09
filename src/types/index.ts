@@ -39,4 +39,17 @@ export type JobDetail = {
   companyEmployees: string;
   workingTime: string;
   workOverTime: string;
+  cityName: string;
+};
+
+export type CompanyDetail = {
+  id: string;
+  logo: string;
+  companyName: string;
+  address: string;
+  companyModel: string;
+  companyEmployees: string;
+  workingTime: string;
+  workOverTime: string;
+  description: string;
 };

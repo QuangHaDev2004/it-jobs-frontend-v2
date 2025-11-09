@@ -1,92 +1,186 @@
 /* eslint-disable @next/next/no-img-element */
 import { CardJobItem } from "@/app/components/card/CardJobItem";
 import { Metadata } from "next";
-import { FaLocationDot } from "react-icons/fa6";
+import Link from "next/link";
+import { GrMapLocation } from "react-icons/gr";
+import { GoGlobe } from "react-icons/go";
+import { FiFacebook } from "react-icons/fi";
+import { axiosServer } from "@/libs/axiosServer";
+import { CompanyDetail, JobDetail } from "@/types";
 
-export const metadata: Metadata = {
-  title: "Chi tiết công ty",
-  description: "Mô tả trang chi tiết công ty...",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const { id } = await params;
+  const res = await axiosServer.get(`/company/detail/${id}`);
+  const company = res.data.companyDetail;
+  return {
+    title: `Công ty ${company?.companyName}` || "Chi tiết công ty",
+    description: company?.description?.slice(0, 150) || "Thông tin công ty.",
+  };
+}
 
-export default function CompanyDetailPage() {
+export default async function CompanyDetailPage({
+  params,
+}: {
+  params: {
+    id: string;
+  };
+}) {
+  const { id } = await params;
+  const res = await axiosServer.get(`/company/detail/${id}`);
+  const data = res.data;
+
+  let companyDetail: CompanyDetail | null = null;
+  let jobList: JobDetail[] = [];
+  if (data.code === "success") {
+    companyDetail = data.companyDetail;
+    jobList = data.jobs;
+  }
+
   return (
     <>
-      <div className="pt-[30px] pb-[60px]">
+      {/* Company Header */}
+      <div className="bg-job-primary py-[30px]">
         <div className="container">
-          {/* Thông tin công ty */}
-          <div className="bg-white border border-[#DEDEDE] rounded-[8px] p-[20px]">
-            <div className="flex flex-wrap items-center gap-[16px] mb-[20px]">
-              <div className="w-[100px] aspect-square rounded-[4px] truncate">
-                <img
-                  src="/assets/images/demo-logo-1.jpg"
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="sm:flex-1 w-full">
-                <div className="font-[700] text-[28px] text-[#121212] mb-[10px]">
-                  LG CNS Việt Nam
-                </div>
-                <div className="flex items-center gap-[8px] font-[400] text-[14px] text-[#121212]">
-                  <FaLocationDot className="text-[16px]" />
-                  Tầng 15, tòa Keangnam Landmark 72, Mễ Trì, Nam Tu Liem, Ha Noi
-                </div>
-              </div>
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="border-job-gray aspect-square w-40 overflow-hidden rounded-sm border bg-white">
+              <img
+                src={companyDetail?.logo || "/assets/images/logo-default.png"}
+                alt={companyDetail?.companyName}
+                className="h-full w-full object-contain"
+              />
             </div>
-            <div className="flex flex-col gap-[10px]">
-              <div className="flex items-center gap-[5px]">
-                <div className="font-[400] text-[16px] text-[#A6A6A6]">
-                  Mô hình công ty:
-                </div>
-                <div className="font-[400] text-[16px] text-[#121212]">
-                  Sản phẩm
-                </div>
+            <div className="w-full sm:flex-1">
+              <div className="mb-2.5 text-[28px] font-bold text-white">
+                {companyDetail?.companyName}
               </div>
-              <div className="flex items-center gap-[5px]">
-                <div className="font-[400] text-[16px] text-[#A6A6A6]">
-                  Quy mô công ty:
-                </div>
-                <div className="font-[400] text-[16px] text-[#121212]">
-                  151 - 300 nhân viên
-                </div>
+              <div className="mb-6 flex items-center gap-2 text-sm font-normal text-white">
+                <GrMapLocation className="text-[16px]" />
+                {companyDetail?.address}
               </div>
-              <div className="flex items-center gap-[5px]">
-                <div className="font-[400] text-[16px] text-[#A6A6A6]">
-                  Thời gian làm việc:
-                </div>
-                <div className="font-[400] text-[16px] text-[#121212]">
-                  Thứ 2 - Thứ 6
-                </div>
-              </div>
-              <div className="flex items-center gap-[5px]">
-                <div className="font-[400] text-[16px] text-[#A6A6A6]">
-                  Làm việc ngoài giờ:
-                </div>
-                <div className="font-[400] text-[16px] text-[#121212]">
-                  Không có OT
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Mô tả chi tiết */}
-          <div className="bg-white border border-[#DEDEDE] rounded-[8px] p-[20px] mt-[20px]">
-            Mô tả chi tiết
-          </div>
-
-          {/* Việc làm */}
-          <div className="mt-[30px]">
-            <h2 className="font-[700] text-[28px] text-[#121212] mb-[20px]">
-              Công ty có 6 việc làm
-            </h2>
-            <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 sm:gap-x-[20px] gap-x-[10px] gap-y-[20px]">
-              <CardJobItem />
-              <CardJobItem />
-              <CardJobItem />
+              <Link
+                href={`/company/review/${companyDetail?.id}`}
+                className="bg-job-blue inline-flex h-12 w-44 items-center justify-center rounded-md text-[16px] font-semibold text-white transition-all duration-300 hover:brightness-90"
+              >
+                Viết đánh giá
+              </Link>
             </div>
           </div>
         </div>
       </div>
+
+      <div className="pt-[30px] pb-[60px]">
+        <div className="container">
+          {/* Company Tabs */}
+          <nav className="mb-5 rounded-lg bg-white p-5 shadow-md">
+            <ul className="text-job-secondary flex items-center gap-12 text-[16px] font-bold">
+              <li>
+                <Link
+                  href={""}
+                  className="text-job-blue border-job-blue border-b-2 pb-5"
+                >
+                  Giới thiệu
+                </Link>
+              </li>
+              <li>
+                <Link href={""} className="pb-5">
+                  Đánh giá{" "}
+                  <span className="bg-job-gray ml-2 rounded-4xl px-4 py-1 text-xs font-normal">
+                    123
+                  </span>
+                </Link>
+              </li>
+            </ul>
+          </nav>
+
+          {/* Company Info */}
+          <div className="mb-5 rounded-lg bg-white p-5 shadow-md">
+            <h2 className="text-job-secondary border-job-gray mb-4 border-b border-dashed pb-4 text-[22px] font-bold">
+              Thông tin chung
+            </h2>
+            <div className="grid grid-cols-2 gap-[10px]">
+              <div className="">
+                <div className="text-job-gray-2 mb-1 text-sm font-normal">
+                  Mô hình công ty:
+                </div>
+                <div className="text-job-secondary text-[16px] font-normal">
+                  {companyDetail?.companyModel}
+                </div>
+              </div>
+              <div className="">
+                <div className="text-job-gray-2 mb-1 text-sm font-normal">
+                  Quy mô công ty:
+                </div>
+                <div className="text-job-secondary text-[16px] font-normal">
+                  {companyDetail?.companyEmployees}
+                </div>
+              </div>
+              <div className="">
+                <div className="text-job-gray-2 mb-1 text-sm font-normal">
+                  Thời gian làm việc:
+                </div>
+                <div className="text-job-secondary text-[16px] font-normal">
+                  {companyDetail?.workingTime}
+                </div>
+              </div>
+              <div className="">
+                <div className="text-job-gray-2 mb-1 text-sm font-normal">
+                  Làm việc ngoài giờ:
+                </div>
+                <div className="text-job-secondary text-[16px] font-normal">
+                  {companyDetail?.workOverTime}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Company Introduction */}
+          <div className="mb-6 rounded-lg bg-white p-5 shadow-md">
+            <h2 className="text-job-secondary border-job-gray mb-4 border-b border-dashed pb-4 text-[22px] font-bold">
+              Giới thiệu công ty
+            </h2>
+            <div className="border-job-gray mb-4 border-b border-dashed pb-4">
+              <div
+                className="text-justify [&>p]:mb-4 [&>p:last-child]:mb-0"
+                dangerouslySetInnerHTML={{
+                  __html: companyDetail?.description || "",
+                }}
+              ></div>
+            </div>
+            <div className="text-job-blue flex items-center gap-6 text-[16px] font-normal">
+              <Link href={""} className="flex items-center gap-2">
+                <GoGlobe className="text-[20px]" />
+                Website công ty
+              </Link>
+              <Link href={""} className="flex items-center gap-2">
+                <FiFacebook className="text-[20px]" /> Facebook Page
+              </Link>
+            </div>
+          </div>
+
+          {/* Job List */}
+          <div>
+            {jobList && jobList.length > 0 ? (
+              <>
+                <h2 className="text-job-secondary mb-5 text-2xl font-bold">
+                  {jobList.length} việc làm đang tuyển dụng
+                </h2>
+
+                <div className="grid grid-cols-1 gap-x-[10px] gap-y-[20px] sm:grid-cols-2 sm:gap-x-[20px] lg:grid-cols-3">
+                  {jobList.map((item: JobDetail) => (
+                    <CardJobItem key={item.id} item={item} />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div>Hiện tại công ty chưa có vị trí tuyển dụng nào.</div>
+            )}
+          </div>
+        </div>
+      </div>
     </>
-  )
+  );
 }

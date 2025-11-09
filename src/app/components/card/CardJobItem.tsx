@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { positionList, workingFormList } from "@/constants/options";
-import { JobItem } from "@/types";
+import { JobDetail } from "@/types";
 import Link from "next/link";
 import { FaBriefcase, FaLocationDot, FaUserTie } from "react-icons/fa6";
 
-export const CardJobItem = ({ item }: { item: JobItem }) => {
+export const CardJobItem = ({ item }: { item: JobDetail }) => {
   const position = positionList.find((pos) => pos.value === item.position);
   const workingForm = workingFormList.find(
     (work) => work.value === item.workingForm,
@@ -14,7 +14,7 @@ export const CardJobItem = ({ item }: { item: JobItem }) => {
     <>
       <Link
         href={`/job/detail/${item.id}`}
-        className="border-job-gray relative overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-xl"
+        className="border-job-gray relative overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-md"
         style={{
           background: "linear-gradient(180deg, #F6F6F6 2.38%, #FFFFFF 70.43%)",
         }}
