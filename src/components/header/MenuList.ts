@@ -47,7 +47,7 @@ export const menuList: MenuItem[] = [
   },
   {
     name: "Top Công Ty IT",
-    link: "#",
+    link: "/company/list",
     children: COMPANIES.map((company) => ({
       name: company,
       link: `/search?company=${company}`,

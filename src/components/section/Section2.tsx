@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { CardCompanyItem } from "../card/CardCompanyItem";
 import { Title } from "../title/Title";
 import { getCompanyList } from "@/services/company";
-import { CompanyItem } from "@/types";
+import { CompanyDetail } from "@/types";
 import { CardCompanySkeleton } from "../skeleton/CardCompanySkeleton";
 
 export const Section2 = () => {
@@ -23,7 +23,7 @@ export const Section2 = () => {
             ? Array(3)
                 .fill("")
                 .map((_, index) => <CardCompanySkeleton key={index} />)
-            : companyList.map((item: CompanyItem) => (
+            : companyList.map((item: CompanyDetail) => (
                 <CardCompanyItem key={item.id} item={item} />
               ))}
         </div>

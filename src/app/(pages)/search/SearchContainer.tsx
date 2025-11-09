@@ -1,11 +1,11 @@
 "use client";
-import { CardJobItem } from "@/app/components/card/CardJobItem";
-import { SearchSkeleton } from "@/app/components/card/SearchSkeleton";
+import { CardJobItem } from "@/components/card/CardJobItem";
+import { SearchSkeleton } from "@/components/skeleton/SearchSkeleton";
 import { EmptyState } from "@/components/common/EmptyState";
 import { Pagination } from "@/components/pagination/Pagination";
 import { positionList, workingFormList } from "@/constants/options";
 import { searchJob } from "@/services/job";
-import { JobItem } from "@/types";
+import { JobDetail } from "@/types";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -124,7 +124,7 @@ export const SearchContainer = () => {
 
       {/* Danh sách công việc */}
       <div className="grid grid-cols-1 gap-x-2.5 gap-y-[20px] sm:grid-cols-2 sm:gap-x-[20px] lg:grid-cols-3">
-        {jobList.map((item: JobItem) => (
+        {jobList.map((item: JobDetail) => (
           <CardJobItem key={item.id} item={item} />
         ))}
       </div>

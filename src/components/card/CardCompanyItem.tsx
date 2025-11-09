@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-import { CompanyItem } from "@/types";
+import { PLACEHOLDER_IMG } from "@/constants";
+import { CompanyDetail } from "@/types";
 import Link from "next/link";
 
-export const CardCompanyItem = ({ item }: { item: CompanyItem }) => {
+export const CardCompanyItem = ({ item }: { item: CompanyDetail }) => {
   return (
     <>
       <Link
-        href={""}
+        href={`/company/detail/${item.id}`}
         className="border-job-gray relative overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-xl"
         style={{
           background: "linear-gradient(180deg, #F6F6F6 2.38%, #FFFFFF 70.43%)",
@@ -25,7 +26,7 @@ export const CardCompanyItem = ({ item }: { item: CompanyItem }) => {
             }}
           >
             <img
-              src={item.logo}
+              src={item.logo || PLACEHOLDER_IMG}
               alt={item.companyName}
               className="h-full w-full object-contain p-2.5"
             />
@@ -35,7 +36,7 @@ export const CardCompanyItem = ({ item }: { item: CompanyItem }) => {
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-3 bg-[#F7F7F7] px-[15px] py-3 sm:justify-between">
             <div className="text-job-gray-3 text-xs font-normal sm:text-sm">
-              {item.cityName}
+              {item.cityName || "Không xác định"}
             </div>
             <div className="text-job-secondary inline-flex items-center gap-1.5 text-xs font-normal sm:text-sm">
               <span className="relative flex size-3">

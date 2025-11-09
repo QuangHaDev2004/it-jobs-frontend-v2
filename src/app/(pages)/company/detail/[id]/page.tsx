@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { CardJobItem } from "@/app/components/card/CardJobItem";
+import { CardJobItem } from "@/components/card/CardJobItem";
 import { Metadata } from "next";
 import Link from "next/link";
 import { GrMapLocation } from "react-icons/gr";
@@ -7,6 +7,7 @@ import { GoGlobe } from "react-icons/go";
 import { FiFacebook } from "react-icons/fi";
 import { axiosServer } from "@/libs/axiosServer";
 import { CompanyDetail, JobDetail } from "@/types";
+import { PLACEHOLDER_IMG } from "@/constants";
 
 export async function generateMetadata({
   params,
@@ -48,7 +49,7 @@ export default async function CompanyDetailPage({
           <div className="flex flex-wrap items-center gap-4">
             <div className="border-job-gray aspect-square w-40 overflow-hidden rounded-sm border bg-white">
               <img
-                src={companyDetail?.logo || "/assets/images/logo-default.png"}
+                src={companyDetail?.logo || PLACEHOLDER_IMG}
                 alt={companyDetail?.companyName}
                 className="h-full w-full object-contain"
               />
@@ -59,7 +60,7 @@ export default async function CompanyDetailPage({
               </div>
               <div className="mb-6 flex items-center gap-2 text-sm font-normal text-white">
                 <GrMapLocation className="text-[16px]" />
-                {companyDetail?.address}
+                {companyDetail?.address || "Chưa xác định"}
               </div>
               <Link
                 href={`/company/review/${companyDetail?.id}`}
@@ -107,7 +108,7 @@ export default async function CompanyDetailPage({
                   Mô hình công ty:
                 </div>
                 <div className="text-job-secondary text-[16px] font-normal">
-                  {companyDetail?.companyModel}
+                  {companyDetail?.companyModel || "Chưa xác định"}
                 </div>
               </div>
               <div className="">
@@ -115,7 +116,7 @@ export default async function CompanyDetailPage({
                   Quy mô công ty:
                 </div>
                 <div className="text-job-secondary text-[16px] font-normal">
-                  {companyDetail?.companyEmployees}
+                  {companyDetail?.companyEmployees || "Chưa xác định"}
                 </div>
               </div>
               <div className="">
@@ -123,7 +124,7 @@ export default async function CompanyDetailPage({
                   Thời gian làm việc:
                 </div>
                 <div className="text-job-secondary text-[16px] font-normal">
-                  {companyDetail?.workingTime}
+                  {companyDetail?.workingTime || "Chưa xác định"}
                 </div>
               </div>
               <div className="">
@@ -131,7 +132,7 @@ export default async function CompanyDetailPage({
                   Làm việc ngoài giờ:
                 </div>
                 <div className="text-job-secondary text-[16px] font-normal">
-                  {companyDetail?.workOverTime}
+                  {companyDetail?.workOverTime || "Chưa xác định"}
                 </div>
               </div>
             </div>
@@ -146,7 +147,7 @@ export default async function CompanyDetailPage({
               <div
                 className="text-justify [&>p]:mb-4 [&>p:last-child]:mb-0"
                 dangerouslySetInnerHTML={{
-                  __html: companyDetail?.description || "",
+                  __html: companyDetail?.description || "Chưa có thông tin giới thiệu về công ty",
                 }}
               ></div>
             </div>
@@ -169,14 +170,14 @@ export default async function CompanyDetailPage({
                   {jobList.length} việc làm đang tuyển dụng
                 </h2>
 
-                <div className="grid grid-cols-1 gap-x-[10px] gap-y-[20px] sm:grid-cols-2 sm:gap-x-[20px] lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-x-2.5 gap-y-5 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-3">
                   {jobList.map((item: JobDetail) => (
                     <CardJobItem key={item.id} item={item} />
                   ))}
                 </div>
               </>
             ) : (
-              <div>Hiện tại công ty chưa có vị trí tuyển dụng nào.</div>
+              <div className="font-bold text-lg">Hiện tại công ty chưa có vị trí tuyển dụng nào.</div>
             )}
           </div>
         </div>
