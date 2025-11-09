@@ -12,14 +12,6 @@ export type JobItem = {
   cityName?: string;
 };
 
-export type CompanyItem = {
-  id: string;
-  logo: string;
-  companyName: string;
-  cityName: string;
-  totalJob: number;
-};
-
 export type JobDetail = {
   id: string;
   title: string;
@@ -52,4 +44,6 @@ export type CompanyDetail = {
   workingTime: string;
   workOverTime: string;
   description: string;
+  cityName: string;
+  totalJob: number;
 };

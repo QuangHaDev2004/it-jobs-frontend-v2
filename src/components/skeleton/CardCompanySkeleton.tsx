@@ -25,7 +25,7 @@ export const CardCompanySkeleton = () => {
             <Skeleton width="60%" height={24} className="mt-1" />
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-3 bg-[#F7F7F7] px-[15px] py-3 sm:justify-between">
-            <Skeleton height={20} width={60} />
+            <Skeleton height={20} width={80} />
             <Skeleton height={20} width={80} />
           </div>
         </div>

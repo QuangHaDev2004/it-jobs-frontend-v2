@@ -1,0 +1,1 @@
+export const PLACEHOLDER_IMG = "https://placehold.co/125x125/white/black?text=No+Image"
