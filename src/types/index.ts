@@ -60,4 +60,5 @@ export type CVDetail = {
   workingForm: string;
   viewed: string;
   status: string;
+  fileCV: string;
 };

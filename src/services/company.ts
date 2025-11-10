@@ -41,3 +41,9 @@ export const getCVList = async () => {
   if (res.data.code !== "success") throw new Error(res.data.message);
   return res.data;
 };
+
+export const getCVDetail = async (id: string) => {
+  const res = await axiosClient.get(`/company/cv/detail/${id}`);
+  if (res.data.code !== "success") throw new Error(res.data.message);
+  return res.data;
+};
