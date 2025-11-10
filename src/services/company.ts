@@ -47,3 +47,14 @@ export const getCVDetail = async (id: string) => {
   if (res.data.code !== "success") throw new Error(res.data.message);
   return res.data;
 };
+
+export const changeStatusCV = async (
+  id: string,
+  dataFinal: { status: string },
+) => {
+  const res = await axiosClient.patch(
+    `/company/cv/change-status/${id}`,
+    dataFinal,
+  );
+  return res.data;
+};

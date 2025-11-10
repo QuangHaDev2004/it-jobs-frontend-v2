@@ -2,23 +2,53 @@
 "use client";
 import { CVSkeleton } from "@/components/skeleton/CVSkeleton";
 import { cvStatusList } from "@/constants/cvStatus";
-import { getCVList } from "@/services/company";
+import { changeStatusCV, getCVList } from "@/services/company";
 import { CVDetail } from "@/types";
 import { getJobInfo } from "@/utils/jobHelper";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { FaRegUser } from "react-icons/fa";
 import { FaCircleCheck, FaEye, FaRegEnvelope } from "react-icons/fa6";
 import { FiPhoneCall } from "react-icons/fi";
 import { IoBriefcaseOutline } from "react-icons/io5";
+import { toast } from "sonner";
 
 export const CVList = () => {
+  const queryClient = useQueryClient();
   const { data, isPending } = useQuery({
     queryKey: ["cvList"],
     queryFn: getCVList,
   });
 
   const cvList = data?.cvs ?? [];
+
+  const { mutate } = useMutation({
+    mutationFn: ({
+      id,
+      dataFinal,
+    }: {
+      id: string;
+      dataFinal: { status: string };
+    }) => changeStatusCV(id, dataFinal),
+    onSuccess: (data) => {
+      if (data.code === "error") toast.error(data.message);
+      if (data.code === "success") {
+        toast.success(data.message);
+        queryClient.invalidateQueries({ queryKey: ["cvList"] });
+      }
+    },
+    onError: (errors) => {
+      console.log(errors.message);
+    },
+  });
+
+  const handleChangeStatus = (id: string, status: string) => {
+    const dataFinal = {
+      status: status,
+    };
+
+    mutate({ id, dataFinal });
+  };
 
   if (cvList.length === 0 && !isPending)
     return (
@@ -103,24 +133,29 @@ export const CVList = () => {
                       >
                         Xem
                       </Link>
-                      <Link
-                        href="#"
-                        className="bg-job-green-2 inline-block rounded-sm px-3 py-2 text-sm font-normal sm:px-5"
-                      >
-                        Duyệt
-                      </Link>
-                      <Link
-                        href="#"
-                        className="bg-job-orange inline-block rounded-sm px-3 py-2 text-sm font-normal text-white sm:px-5"
-                      >
-                        Từ chối
-                      </Link>
-                      <Link
-                        href="#"
-                        className="bg-job-red inline-block rounded-sm px-3 py-2 text-sm font-normal text-white sm:px-5"
-                      >
+                      {item.status !== "approved" && (
+                        <button
+                          className="bg-job-green-2 inline-block cursor-pointer rounded-sm px-3 py-2 text-sm font-normal sm:px-5"
+                          onClick={() =>
+                            handleChangeStatus(item.id, "approved")
+                          }
+                        >
+                          Duyệt
+                        </button>
+                      )}
+                      {item.status !== "rejected" && (
+                        <button
+                          className="bg-job-orange inline-block cursor-pointer rounded-sm px-3 py-2 text-sm font-normal text-white sm:px-5"
+                          onClick={() =>
+                            handleChangeStatus(item.id, "rejected")
+                          }
+                        >
+                          Từ chối
+                        </button>
+                      )}
+                      <button className="bg-job-red inline-block cursor-pointer rounded-sm px-3 py-2 text-sm font-normal text-white sm:px-5">
                         Xóa
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </div>
