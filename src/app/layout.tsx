@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import { Header } from "@/components/header/Header";
 import { Footer } from "@/components/footer/Footer";
 import { ProgressBar } from "@/components/common/ProgressBar";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export const metadata: Metadata = {
   title: "IT Jobs",

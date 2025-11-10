@@ -19,8 +19,10 @@
   --color-job-green: #47be02;
   --color-job-red: #ff0000;
   --color-job-yellow: #ffb200;
+  --color-job-orange: #ff5100;
+  --color-job-green-2: #9fdb7c;
   --color-job-hover: #000096;
-  
+
   --shadow-md: 0px 6px 32px rgba(0, 0, 0, 0.08);
 }
 
