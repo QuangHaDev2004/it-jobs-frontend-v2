@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
 
 export const CardCompanySkeleton = () => {

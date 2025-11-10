@@ -32,6 +32,12 @@ export const deleteJob = async (id: string) => {
 
 export const getCompanyList = async () => {
   const res = await axiosClient.get("/company/list?limitItems=9");
-  if (res.status !== 200) throw new Error(res.data.message);
+  if (res.data.code !== "success") throw new Error(res.data.message);
+  return res.data;
+};
+
+export const getCVList = async () => {
+  const res = await axiosClient.get(`/company/cv/list`);
+  if (res.data.code !== "success") throw new Error(res.data.message);
   return res.data;
 };

@@ -47,3 +47,17 @@ export type CompanyDetail = {
   cityName: string;
   totalJob: number;
 };
+
+export type CVDetail = {
+  id: string;
+  title: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  salaryMin: string;
+  salaryMax: string;
+  position: string;
+  workingForm: string;
+  viewed: string;
+  status: string;
+};
