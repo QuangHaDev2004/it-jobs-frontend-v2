@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import { ButtonDelete } from "@/components/button/ButtonDelete";
 import { CVSkeleton } from "@/components/skeleton/CVSkeleton";
 import { cvStatusList } from "@/constants/cvStatus";
-import { changeStatusCV, getCVList } from "@/services/company";
+import { changeStatusCV, deleteCV, getCVList } from "@/services/company";
 import { CVDetail } from "@/types";
 import { getJobInfo } from "@/utils/jobHelper";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -15,21 +16,15 @@ import { toast } from "sonner";
 
 export const CVList = () => {
   const queryClient = useQueryClient();
-  const { data, isPending } = useQuery({
+  const { data, isPending: isPendingCVs } = useQuery({
     queryKey: ["cvList"],
     queryFn: getCVList,
   });
 
   const cvList = data?.cvs ?? [];
 
-  const { mutate } = useMutation({
-    mutationFn: ({
-      id,
-      dataFinal,
-    }: {
-      id: string;
-      dataFinal: { status: string };
-    }) => changeStatusCV(id, dataFinal),
+  const { mutate: mutateStatusCV } = useMutation({
+    mutationFn: changeStatusCV,
     onSuccess: (data) => {
       if (data.code === "error") toast.error(data.message);
       if (data.code === "success") {
@@ -44,13 +39,28 @@ export const CVList = () => {
 
   const handleChangeStatus = (id: string, status: string) => {
     const dataFinal = {
+      id: id,
       status: status,
     };
 
-    mutate({ id, dataFinal });
+    mutateStatusCV(dataFinal);
   };
 
-  if (cvList.length === 0 && !isPending)
+  const { mutate: mutateDeleteCV, isPending: isPendingDelCV } = useMutation({
+    mutationFn: deleteCV,
+    onSuccess: (data) => {
+      if (data.code === "error") toast.error(data.message);
+      if (data.code === "success") {
+        toast.success(data.message);
+        queryClient.invalidateQueries({ queryKey: ["cvList"] });
+      }
+    },
+    onError: (errors) => {
+      console.log(errors.message);
+    },
+  });
+
+  if (cvList.length === 0 && !isPendingCVs)
     return (
       <div className="text-lg font-bold">Chưa có ứng viên nào ứng tuyển</div>
     );
@@ -58,7 +68,7 @@ export const CVList = () => {
   return (
     <>
       <div className="grid grid-cols-1 gap-x-2.5 gap-y-5 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-3">
-        {isPending ? (
+        {isPendingCVs ? (
           Array(6)
             .fill("")
             .map((_, index) => <CVSkeleton key={index} />)
@@ -153,9 +163,11 @@ export const CVList = () => {
                           Từ chối
                         </button>
                       )}
-                      <button className="bg-job-red inline-block cursor-pointer rounded-sm px-3 py-2 text-sm font-normal text-white sm:px-5">
-                        Xóa
-                      </button>
+                      <ButtonDelete
+                        id={item.id}
+                        isPending={isPendingDelCV}
+                        onDelete={(id) => mutateDeleteCV(id)}
+                      />
                     </div>
                   </div>
                 </div>

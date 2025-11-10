@@ -9,13 +9,7 @@ import { JobItem } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useState } from "react";
-import {
-  FaBriefcase,
-  FaLocationDot,
-  FaRegPenToSquare,
-  FaRegTrashCan,
-  FaUserTie,
-} from "react-icons/fa6";
+import { FaBriefcase, FaLocationDot, FaUserTie } from "react-icons/fa6";
 import { toast } from "sonner";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -151,17 +145,15 @@ export default function JobList() {
                   <div className="mb-5 flex flex-wrap items-center justify-center gap-3">
                     <Link
                       href={`/company-manage/job/edit/${item.id}`}
-                      className="bg-job-yellow inline-flex items-center gap-2 rounded-sm px-5 py-2 text-sm font-normal transition-all duration-300 hover:brightness-95"
+                      className="bg-job-yellow rounded-sm px-5 py-2 text-sm font-normal transition-all duration-300 hover:brightness-95"
                     >
-                      <FaRegPenToSquare />
                       Sửa
                     </Link>
                     <button
                       disabled={isPending}
                       onClick={() => handleDelete(item.id)}
-                      className="bg-job-red inline-flex cursor-pointer items-center gap-2 rounded-sm px-5 py-2 text-sm font-normal text-white transition-all duration-300 hover:brightness-95"
+                      className="bg-job-red cursor-pointer rounded-sm px-5 py-2 text-sm font-normal text-white transition-all duration-300 hover:brightness-95"
                     >
-                      <FaRegTrashCan />
                       Xóa
                     </button>
                   </div>

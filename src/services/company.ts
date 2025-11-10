@@ -48,13 +48,18 @@ export const getCVDetail = async (id: string) => {
   return res.data;
 };
 
-export const changeStatusCV = async (
-  id: string,
-  dataFinal: { status: string },
-) => {
+export const changeStatusCV = async (dataFinal: {
+  id: string;
+  status: string;
+}) => {
   const res = await axiosClient.patch(
-    `/company/cv/change-status/${id}`,
-    dataFinal,
+    `/company/cv/change-status/${dataFinal.id}`,
+    { status: dataFinal.status },
   );
+  return res.data;
+};
+
+export const deleteCV = async (id: string) => {
+  const res = await axiosClient.delete(`/company/cv/delete/${id}`);
   return res.data;
 };
