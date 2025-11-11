@@ -61,4 +61,5 @@ export type CVDetail = {
   viewed: string;
   status: string;
   fileCV: string;
+  companyName: string
 };
