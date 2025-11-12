@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { FaBars } from "react-icons/fa6";
+import { FaBars, FaRegBell, FaRegMessage } from "react-icons/fa6";
 import { HeaderMenu } from "./HeaderMenu";
 import { useState } from "react";
 import { HeaderAccount } from "./HeaderAccount";
@@ -38,7 +38,11 @@ export const Header = () => {
             </div>
 
             {/* Account */}
-            <HeaderAccount />
+            <div className="flex items-center gap-10">
+              <FaRegMessage size={20} className="text-white cursor-pointer" />
+              <FaRegBell size={20} className="text-white cursor-pointer" />
+              <HeaderAccount />
+            </div>
           </div>
         </div>
       </header>

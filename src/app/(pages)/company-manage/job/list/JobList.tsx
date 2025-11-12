@@ -66,7 +66,7 @@ export default function JobList() {
                 return (
                   <div
                     key={item.id}
-                    className="border-job-gray relative flex flex-col justify-between overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-2xl"
+                    className="border-job-gray-100 relative flex flex-col justify-between overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-2xl"
                     style={{
                       background:
                         "linear-gradient(180deg, #F6F6F6 2.38%, #FFFFFF 70.43%)",
@@ -115,7 +115,7 @@ export default function JobList() {
                         {item.technologies.map((itemTech, indexTech) => (
                           <div
                             key={indexTech}
-                            className="border-job-gray text-job-gray-3 rounded-[20px] border px-4 py-1.5 text-xs font-normal"
+                            className="border-job-gray-100 text-job-gray-900 rounded-[20px] border px-4 py-1.5 text-xs font-normal"
                           >
                             {itemTech}
                           </div>

@@ -80,7 +80,7 @@ export const Section1 = () => {
             />
             <button
               disabled={isSubmitting}
-              className={`bg-job-blue flex h-[56px] w-full items-center justify-center gap-2.5 rounded-sm text-[18px] font-medium text-white shadow transition-all duration-300 md:w-[240px] ${isSubmitting ? "cursor-not-allowed opacity-70" : "cursor-pointer hover:shadow-md hover:brightness-95"}`}
+              className={`bg-job-red-500 flex h-[56px] w-full items-center justify-center gap-2.5 rounded-sm text-[18px] font-medium text-white shadow transition-all duration-300 md:w-[240px] ${isSubmitting ? "cursor-not-allowed opacity-70" : "cursor-pointer hover:shadow-md hover:brightness-95"}`}
             >
               {isSubmitting ? (
                 <>
@@ -96,7 +96,7 @@ export const Section1 = () => {
             </button>
           </form>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-[15px]">
-            <div className="text-job-gray text-[16px] font-medium">
+            <div className="text-job-gray-100 text-[16px] font-medium">
               Gợi ý cho bạn:
             </div>
             <div className="inline-flex flex-wrap gap-2.5">
@@ -104,7 +104,7 @@ export const Section1 = () => {
                 <Link
                   key={index}
                   href={`/search?language=${lang}`}
-                  className="border-job-gray-3 bg-job-secondary text-job-gray hover:bg-job-gray-3 rounded-[20px] border px-[22px] py-2 text-[16px] font-medium hover:text-white"
+                  className="border-job-gray-900 bg-job-secondary text-job-gray-100 hover:bg-job-gray-900 rounded-[20px] border px-[22px] py-2 text-[16px] font-medium hover:text-white"
                 >
                   {lang}
                 </Link>

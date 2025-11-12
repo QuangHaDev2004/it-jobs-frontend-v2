@@ -1,6 +1,6 @@
+import { menuList } from "@/constants/menuList";
 import Link from "next/link";
 import { FaAngleDown, FaAngleRight } from "react-icons/fa6";
-import { menuList } from "./MenuList";
 
 export const HeaderMenu = ({
   showMenu,

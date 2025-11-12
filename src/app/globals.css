@@ -9,19 +9,20 @@
   --breakpoint-xl: 1216px;
   --breakpoint-2xl: 1216px;
 
-  --color-job-header: #000071;
-  --color-job-primary: #000065;
+  /* --color-job-header: #000071; */
+  /* --color-job-primary: #000065; */
   --color-job-secondary: #121212;
   --color-job-blue-500: #0088ff;
   --color-job-gray-100: #dedede;
   --color-job-gray-500: #a6a6a6;
   --color-job-gray-900: #414042;
-  --color-job-green: #47be02;
+  --color-job-green-100: #9fdb7c;
+  --color-job-green-500: #47be02;
   --color-job-red-500: #ed1b2f;
-  --color-job-yellow: #ffb200;
-  --color-job-orange: #ff5100;
-  --color-job-green-2: #9fdb7c;
-  --color-job-hover: #000096;
+  --color-job-yellow-500: #ffb200;
+  --color-job-orange-500: #ff5100;
+  
+  /* --color-job-hover: #000096; */
 
   --shadow-md: 0px 6px 32px rgba(0, 0, 0, 0.08);
 
