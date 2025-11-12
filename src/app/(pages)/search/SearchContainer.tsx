@@ -19,7 +19,7 @@ export const SearchContainer = () => {
   const position = searchParams.get("position") || "";
   const workingForm = searchParams.get("workingForm") || "";
 
-  const { data, isLoading, isFetching } = useQuery({
+  const { data, isPending, isFetching } = useQuery({
     queryKey: [
       "searchJob",
       { language, city, company, keyword, position, workingForm },
@@ -29,7 +29,7 @@ export const SearchContainer = () => {
     placeholderData: keepPreviousData,
   });
 
-  const jobList = data?.jobs || [];
+  const jobList = data?.jobs ?? [];
 
   const handleJobFilter = (
     key: string,
@@ -54,83 +54,84 @@ export const SearchContainer = () => {
   if (company) highlightText += "đang tuyển dụng";
   if (keyword) highlightText += keyword;
 
-  const isEmpty = !isLoading && !isFetching && jobList.length === 0;
+  const isEmpty = !isPending && !isFetching && jobList.length === 0;
 
-  if (isLoading) return <SearchSkeleton />;
+  if (isPending) return <SearchSkeleton />;
   if (isEmpty) return <EmptyState />;
 
   return (
     <>
-      <h2 className="text-job-secondary mb-[30px] text-[28px] font-bold">
-        {jobCountText}{" "}
-        <span className="text-job-blue">{highlightText.trim()}</span> tại{" "}
-        <span>{locationText}</span>
-      </h2>
+      {jobList.length > 0 && (
+        <>
+          <h2 className="text-job-secondary mb-[30px] text-[28px] font-bold">
+            {jobCountText}{" "}
+            <span className="text-job-blue">{highlightText.trim()}</span> tại{" "}
+            <span>{locationText}</span>
+          </h2>
 
-      {/* Bộ lọc */}
-      <div
-        className="mb-[30px] flex flex-wrap items-center gap-3 rounded-lg px-5 py-2.5"
-        style={{
-          boxShadow: "0px 4px 20px 0px #0000000F",
-        }}
-      >
-        <select
-          onChange={(event) => handleJobFilter("position", event)}
-          defaultValue={position}
-          name="position"
-          id="position"
-          className="select border-job-gray text-job-gray-3 h-9 w-[148px] rounded-[20px] border bg-white px-[18px] text-[16px] font-normal"
-        >
-          <option
-            value=""
-            className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
+          <div
+            className="mb-[30px] flex flex-wrap items-center gap-3 rounded-lg px-5 py-2.5"
+            style={{
+              boxShadow: "0px 4px 20px 0px #0000000F",
+            }}
           >
-            Cấp bậc
-          </option>
-          {positionList.map((item) => (
-            <option
-              key={item.value}
-              value={item.value}
-              className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
+            <select
+              onChange={(event) => handleJobFilter("position", event)}
+              defaultValue={position}
+              name="position"
+              id="position"
+              className="select border-job-gray text-job-gray-3 h-9 w-[148px] rounded-[20px] border bg-white px-[18px] text-[16px] font-normal"
             >
-              {item.label}
-            </option>
-          ))}
-        </select>
-        <select
-          onChange={(event) => handleJobFilter("workingForm", event)}
-          defaultValue={workingForm}
-          name="workingForm"
-          id="workingForm"
-          className="select border-job-gray text-job-gray-3 h-9 w-[206px] rounded-[20px] border bg-white px-[18px] text-[16px] font-normal"
-        >
-          <option
-            value=""
-            className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
-          >
-            Hình thức làm việc
-          </option>
-          {workingFormList.map((item) => (
-            <option
-              key={item.value}
-              value={item.value}
-              className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
+              <option
+                value=""
+                className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
+              >
+                Cấp bậc
+              </option>
+              {positionList.map((item) => (
+                <option
+                  key={item.value}
+                  value={item.value}
+                  className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
+                >
+                  {item.label}
+                </option>
+              ))}
+            </select>
+            <select
+              onChange={(event) => handleJobFilter("workingForm", event)}
+              defaultValue={workingForm}
+              name="workingForm"
+              id="workingForm"
+              className="select border-job-gray text-job-gray-3 h-9 w-[206px] rounded-[20px] border bg-white px-[18px] text-[16px] font-normal"
             >
-              {item.label}
-            </option>
-          ))}
-        </select>
-      </div>
+              <option
+                value=""
+                className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
+              >
+                Hình thức làm việc
+              </option>
+              {workingFormList.map((item) => (
+                <option
+                  key={item.value}
+                  value={item.value}
+                  className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
+                >
+                  {item.label}
+                </option>
+              ))}
+            </select>
+          </div>
 
-      {/* Danh sách công việc */}
-      <div className="grid grid-cols-1 gap-x-2.5 gap-y-[20px] sm:grid-cols-2 sm:gap-x-[20px] lg:grid-cols-3">
-        {jobList.map((item: JobDetail) => (
-          <CardJobItem key={item.id} item={item} />
-        ))}
-      </div>
+          <div className="grid grid-cols-1 gap-x-2.5 gap-y-[20px] sm:grid-cols-2 sm:gap-x-[20px] lg:grid-cols-3">
+            {jobList.map((item: JobDetail) => (
+              <CardJobItem key={item.id} item={item} />
+            ))}
+          </div>
 
-      {/* Phân trang */}
-      {/* <Pagination /> */}
+          {/* <Pagination /> */}
+        </>
+      )}
     </>
   );
 };

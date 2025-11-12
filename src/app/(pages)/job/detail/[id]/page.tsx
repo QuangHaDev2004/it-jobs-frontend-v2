@@ -12,10 +12,10 @@ import { AiOutlineDollar } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
 import { GrMapLocation } from "react-icons/gr";
 import { FormApply } from "./FormApply";
-import { axiosServer } from "@/libs/axiosServer";
 import { JobDetail } from "@/types";
-import { positionList, workingFormList } from "@/constants/options";
 import dayjs from "@/libs/dayjs";
+import { api } from "@/libs/axios";
+import { getJobInfo } from "@/utils/jobHelper";
 
 export const metadata: Metadata = {
   title: "Chi tiết công việc",
@@ -30,22 +30,26 @@ export default async function JobDetailPage({
   };
 }) {
   const { id } = await params;
-  const res = await axiosServer.get(`/job/detail/${id}`);
-  const data = res.data;
-
   let jobDetail: JobDetail | null = null;
-  let position = null;
-  let workingForm = null;
 
-  if (data.code === "success") {
-    jobDetail = data.jobDetail;
-    position = positionList.find((pos) => pos.value === jobDetail?.position);
-    workingForm = workingFormList.find(
-      (work) => work.value === jobDetail?.workingForm,
-    );
+  try {
+    const res = await api.get(`/job/detail/${id}`);
+    jobDetail = res.data.jobDetail;
+  } catch (error) {
+    console.log(error);
+  }
+
+  let positionLabel = "";
+  let workingFormLabel = "";
+  if (jobDetail) {
+    const result = getJobInfo(jobDetail);
+    positionLabel = result.positionLabel;
+    workingFormLabel = result.workingFormLabel;
   }
 
   const time = dayjs.utc(jobDetail?.createdAt).tz("Asia/Ho_Chi_Minh").fromNow();
+
+  if (!jobDetail) return <div className="">Không thể tải dữ liệu</div>;
 
   return (
     <>
@@ -96,11 +100,11 @@ export default async function JobDetailPage({
                 <div className="text-job-secondary flex flex-col gap-2.5 text-sm font-normal">
                   <div className="flex items-center gap-2">
                     <FaRegUser className="text-[16px]" />
-                    {position?.label}
+                    {positionLabel}
                   </div>
                   <div className="flex items-center gap-2">
                     <FaRegBuilding className="text-[16px]" />
-                    {workingForm?.label}
+                    {workingFormLabel}
                   </div>
                   {jobDetail?.address && (
                     <div className="flex items-center gap-2">
@@ -139,6 +143,7 @@ export default async function JobDetailPage({
 
               <div className="mt-5 rounded-lg bg-white p-5 shadow-md">
                 <div
+                  className="tinymce-content"
                   dangerouslySetInnerHTML={{
                     __html: jobDetail?.description || "",
                   }}

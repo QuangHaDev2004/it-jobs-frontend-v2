@@ -14,7 +14,7 @@ export const Header = () => {
 
   return (
     <>
-      <header className="bg-job-header border-job-gray/20 sticky top-0 left-0 z-[997] border-b py-[15px] shadow-md">
+      <header className="bg-job-primary border-job-gray-100/20 sticky top-0 left-0 z-[997] border-b py-[15px] shadow-md">
         <div className="container">
           <div className="flex items-center justify-between">
             {/* Button Menu Mobile */}
@@ -26,7 +26,6 @@ export const Header = () => {
             </button>
 
             <div className="flex items-center gap-10">
-              {/* Logo */}
               <Link
                 href="/"
                 className="text-xl font-extrabold text-white sm:text-[28px]"

@@ -6,14 +6,13 @@ import { InputField } from "@/components/form/auth/InputField";
 import { PasswordField } from "@/components/form/auth/PasswordField";
 import { ButtonSubmit } from "@/components/form/auth/ButtonSubmit";
 import { AuthRedirect } from "@/components/form/auth/AuthRedirect";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { loginCompany } from "@/services/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 export const FormLogin = () => {
   const router = useRouter();
-  const queryClient = useQueryClient();
 
   const {
     register,
@@ -28,8 +27,6 @@ export const FormLogin = () => {
     onSuccess: async (data) => {
       if (data.code === "error") toast.error(data.message);
       if (data.code === "success") {
-        localStorage.setItem("accessToken", data.accessToken);
-        await queryClient.invalidateQueries({ queryKey: ["checkAuth"] });
         toast.success(data.message);
         router.push("/");
       }

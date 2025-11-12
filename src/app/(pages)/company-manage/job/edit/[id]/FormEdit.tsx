@@ -16,21 +16,20 @@ import "@yaireo/tagify/dist/tagify.css";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { editJob, getJobEditData } from "@/services/company";
 import { toast } from "sonner";
-import { LoadingWrapper } from "@/components/common/LoadingWrapper";
+import { EditJobSkeleton } from "@/components/skeleton/EditJobSkeleton";
 
 export const FormEdit = ({ id }: { id: string }) => {
+  const queryClient = useQueryClient();
   const editorRef = useRef<any>(null);
   const tagifyRef = useRef<any>(null);
   const [images, setImages] = useState<any[]>([]);
-  const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery({
     queryKey: ["jobEdit", id],
     queryFn: () => getJobEditData(id),
-    enabled: !!id,
   });
 
-  const jobDetail = data?.code === "success" ? data.jobDetail : null;
+  const jobDetail = data?.jobDetail ?? null;
 
   // Hiển thị ảnh mặc định
   useEffect(() => {
@@ -98,98 +97,98 @@ export const FormEdit = ({ id }: { id: string }) => {
 
   return (
     <>
-      <LoadingWrapper isLoading={isLoading}>
-        {jobDetail && (
-          <form
-            onSubmit={handleSubmit(handleEditJobForm)}
-            className="grid grid-cols-1 gap-x-[20px] gap-y-[15px] sm:grid-cols-2"
-          >
-            <InputField
-              id="title"
-              label="Tên công việc"
-              register={register("title")}
-              className="sm:col-span-2"
-              error={errors.title}
-              required
-              defaultValue={jobDetail.title}
+      {jobDetail ? (
+        <form
+          onSubmit={handleSubmit(handleEditJobForm)}
+          className="grid grid-cols-1 gap-x-[20px] gap-y-[15px] sm:grid-cols-2"
+        >
+          <InputField
+            id="title"
+            label="Tên công việc"
+            register={register("title")}
+            className="sm:col-span-2"
+            error={errors.title}
+            required
+            defaultValue={jobDetail.title}
+          />
+
+          <InputField
+            id="salaryMin"
+            label="Mức lương tối thiểu ($)"
+            register={register("salaryMin")}
+            error={errors.salaryMin}
+            type="number"
+            defaultValue={jobDetail.salaryMin}
+          />
+
+          <InputField
+            id="salaryMax"
+            label="Mức lương tối đa ($)"
+            register={register("salaryMax")}
+            error={errors.salaryMax}
+            type="number"
+            defaultValue={jobDetail.salaryMax}
+          />
+
+          <SelectField
+            id="position"
+            label="Cấp bậc"
+            options={positionList}
+            register={register("position")}
+            defaultValue={jobDetail.position}
+          />
+
+          <SelectField
+            id="workingForm"
+            label="Hình thức làm việc"
+            options={workingFormList}
+            register={register("workingForm")}
+            defaultValue={jobDetail.workingForm}
+          />
+
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="technologies"
+              className="mb-[5px] block text-sm font-medium text-black"
+            >
+              Các công nghệ
+            </label>
+            <Tags
+              tagifyRef={tagifyRef}
+              settings={settingTechnologies}
+              value={jobDetail.technologies.join(",")}
+              id="technologies"
+              name="technologies"
+              className="border-job-gray h-auto w-full rounded-sm border px-5 text-sm font-medium text-black"
             />
+          </div>
 
-            <InputField
-              id="salaryMin"
-              label="Mức lương tối thiểu ($)"
-              register={register("salaryMin")}
-              error={errors.salaryMin}
-              type="number"
-              defaultValue={jobDetail.salaryMin}
+          <FileMultiUploader
+            id="images"
+            files={images}
+            setFiles={setImages}
+            label="Danh sách ảnh"
+          />
+
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="description"
+              className="mb-[5px] block text-sm font-medium text-black"
+            >
+              Mô tả chi tiết
+            </label>
+            <EditorMCE
+              editorRef={editorRef}
+              value={jobDetail.description}
+              id="description"
             />
+          </div>
 
-            <InputField
-              id="salaryMax"
-              label="Mức lương tối đa ($)"
-              register={register("salaryMax")}
-              error={errors.salaryMax}
-              type="number"
-              defaultValue={jobDetail.salaryMax}
-            />
-
-            <SelectField
-              id="position"
-              label="Cấp bậc"
-              options={positionList}
-              register={register("position")}
-              defaultValue={jobDetail.position}
-            />
-
-            <SelectField
-              id="workingForm"
-              label="Hình thức làm việc"
-              options={workingFormList}
-              register={register("workingForm")}
-              defaultValue={jobDetail.workingForm}
-            />
-
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="technologies"
-                className="mb-[5px] block text-sm font-medium text-black"
-              >
-                Các công nghệ
-              </label>
-              <Tags
-                tagifyRef={tagifyRef}
-                settings={settingTechnologies}
-                value={jobDetail.technologies.join(",")}
-                id="technologies"
-                name="technologies"
-                className="border-job-gray h-auto w-full rounded-sm border px-5 text-sm font-medium text-black"
-              />
-            </div>
-
-            <FileMultiUploader
-              id="images"
-              files={images}
-              setFiles={setImages}
-              label="Danh sách ảnh"
-            />
-
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="description"
-                className="mb-[5px] block text-sm font-medium text-black"
-              >
-                Mô tả chi tiết
-              </label>
-              <EditorMCE
-                editorRef={editorRef}
-                value={jobDetail.description}
-                id="description"
-              />
-            </div>
-
-            <ButtonSubmit text="Cập nhật" isPending={isPending} />
-          </form>
-        )}
-      </LoadingWrapper>
+          <ButtonSubmit text="Cập nhật" isPending={isPending} />
+        </form>
+      ) : (
+        <EditJobSkeleton />
+      )}
     </>
   );
 };

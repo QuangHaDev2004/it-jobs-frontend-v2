@@ -1,9 +1,10 @@
-export const Spinner = () => {
+export const Spinner = ({ height }: { height?: string }) => {
   return (
-
-    <div className=""></div>
-    // <div className="bg-job-primary fixed inset-0 flex items-center justify-center">
-    //   <div className="border-job-gray border-t-job-blue h-10 w-10 animate-spin rounded-full border-4"></div>
-    // </div>
+    <div
+      className="flex items-center justify-center"
+      style={{ height: height }}
+    >
+      <div className="border-job-primary border-t-job-gray h-10 w-10 animate-spin rounded-full border-4"></div>
+    </div>
   );
 };

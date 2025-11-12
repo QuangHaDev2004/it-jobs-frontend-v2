@@ -18,13 +18,13 @@ import {
   companyProfileSchema,
 } from "@/validates/company";
 import { QUERY_KEY } from "@/constants/queryKey";
+import { CompanyProfileSkeleton } from "@/components/skeleton/CompanyProfileSkeleton";
 
 export const FormProfile = () => {
+  const queryClient = useQueryClient();
   const { infoCompany } = useAuth();
   const [logos, setLogos] = useState<any[]>([]);
   const editorRef = useRef<any>(null);
-
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (infoCompany && infoCompany.logo) {
@@ -99,7 +99,7 @@ export const FormProfile = () => {
 
   return (
     <>
-      {infoCompany && (
+      {infoCompany ? (
         <form
           onSubmit={handleSubmit(handleCompanyProfileForm)}
           className="grid grid-cols-1 gap-x-[20px] gap-y-[15px] sm:grid-cols-2"
@@ -201,6 +201,8 @@ export const FormProfile = () => {
 
           <ButtonSubmit isPending={isPending} text="Cập nhật" />
         </form>
+      ) : (
+        <CompanyProfileSkeleton />
       )}
     </>
   );

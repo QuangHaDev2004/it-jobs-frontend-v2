@@ -25,11 +25,8 @@ export const FormRegister = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: registerUser,
     onSuccess: (data) => {
-      if (data.code === "error") toast.error(data.message);
-      if (data.code === "success") {
-        toast.success(data.message);
-        router.push("/user/login");
-      }
+      toast.success(data.message);
+      router.push("/user/login");
     },
     onError: (errors) => {
       console.log(errors.message);

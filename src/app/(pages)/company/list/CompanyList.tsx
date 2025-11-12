@@ -11,7 +11,10 @@ export const CompanyList = () => {
     queryFn: getCompanyList,
   });
 
-  const companyList = data?.code === "success" ? data.companyList : [];
+  console.log(data);
+  
+
+  const companyList = data?.companyList ?? [];
 
   return (
     <>

@@ -12,6 +12,7 @@ import { InputField } from "@/components/form/general/InputField";
 import { FileUploader } from "@/components/form/general/FileUploader";
 import { ButtonSubmit } from "@/components/form/general/ButtonSubmit";
 import { QUERY_KEY } from "@/constants/queryKey";
+import { UserProfileSkeleton } from "@/components/skeleton/UserProfileSkeleton";
 
 export const FormProfile = () => {
   const { infoUser } = useAuth();
@@ -39,14 +40,8 @@ export const FormProfile = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: userProfile,
     onSuccess: (data) => {
-      if (data.code === "error") {
-        toast.error(data.message);
-      }
-
-      if (data.code === "success") {
-        toast.success(data.message);
-        queryClient.invalidateQueries({ queryKey: QUERY_KEY.CHECK_AUTH });
-      }
+      toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY.CHECK_AUTH });
     },
     onError: (errors) => {
       console.log(errors.message);
@@ -70,7 +65,7 @@ export const FormProfile = () => {
 
   return (
     <>
-      {infoUser && (
+      {infoUser ? (
         <form
           onSubmit={handleSubmit(handleUserProfileForm)}
           className="grid grid-cols-1 gap-x-5 gap-y-[15px] sm:grid-cols-2"
@@ -111,6 +106,8 @@ export const FormProfile = () => {
 
           <ButtonSubmit isPending={isPending} text="Cập nhật" />
         </form>
+      ) : (
+        <UserProfileSkeleton />
       )}
     </>
   );

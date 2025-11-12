@@ -53,23 +53,19 @@ export const menuList: MenuItem[] = [
       link: `/search?company=${company}`,
     })),
   },
-  {
-    name: "Blog",
-    link: "#",
-  },
-  {
-    name: "Nhà Tuyển Dụng",
-    link: "#",
-    isLogin: false,
-    children: [
-      {
-        name: "Đăng Nhập",
-        link: "/company/login",
-      },
-      {
-        name: "Đăng Ký",
-        link: "/company/register",
-      },
-    ],
-  },
+  // {
+  //   name: "Nhà Tuyển Dụng",
+  //   link: "#",
+  //   isLogin: false,
+  //   children: [
+  //     {
+  //       name: "Đăng Nhập",
+  //       link: "/company/login",
+  //     },
+  //     {
+  //       name: "Đăng Ký",
+  //       link: "/company/register",
+  //     },
+  //   ],
+  // },
 ];

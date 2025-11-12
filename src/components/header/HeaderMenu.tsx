@@ -1,4 +1,3 @@
-import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import { FaAngleDown, FaAngleRight } from "react-icons/fa6";
 import { menuList } from "./MenuList";
@@ -10,13 +9,9 @@ export const HeaderMenu = ({
   showMenu: boolean;
   setShowMenu: (value: boolean) => void;
 }) => {
-  const { isLogin, isLoading } = useAuth();
-
   const handleCloseMenu = () => {
     setShowMenu(false);
   };
-
-  if (isLoading) return null;
 
   return (
     <>
@@ -32,7 +27,7 @@ export const HeaderMenu = ({
           {menuList.map((menu, index) => (
             <li
               key={index}
-              className={`group/sub-1 relative flex w-full flex-wrap items-center justify-between gap-x-2 p-[10px] lg:w-auto lg:justify-start lg:p-0 ${menu.isLogin !== undefined && menu.isLogin !== isLogin ? "hidden" : ""}`}
+              className={`group/sub-1 relative flex w-full flex-wrap items-center justify-between gap-x-2 p-[10px] lg:w-auto lg:justify-start lg:p-0`}
             >
               <Link
                 href={menu.link}
@@ -47,7 +42,7 @@ export const HeaderMenu = ({
                     {menu.children.map((menuSub1, indexSub1) => (
                       <li
                         key={indexSub1}
-                        className="group/sub-2 hover:bg-job-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px]"
+                        className="group/sub-2 hover:bg-job-gray-900 flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px]"
                       >
                         <Link
                           href={menuSub1.link}
@@ -62,7 +57,7 @@ export const HeaderMenu = ({
                               {menuSub1.children.map((menuSub2, indexSub2) => (
                                 <li
                                   key={indexSub2}
-                                  className="hover:bg-job-hover flex items-center justify-between rounded-sm px-4 py-[10px]"
+                                  className="hover:bg-job-gray-900 flex items-center justify-between rounded-sm px-4 py-[10px]"
                                 >
                                   <Link
                                     href={menuSub2.link}
