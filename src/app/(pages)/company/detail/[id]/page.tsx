@@ -5,9 +5,9 @@ import Link from "next/link";
 import { GrMapLocation } from "react-icons/gr";
 import { GoGlobe } from "react-icons/go";
 import { FiFacebook } from "react-icons/fi";
-import { axiosServer } from "@/libs/axiosServer";
 import { CompanyDetail, JobDetail } from "@/types";
 import { PLACEHOLDER_IMG } from "@/constants";
+import { api } from "@/libs/axios";
 
 export async function generateMetadata({
   params,
@@ -15,7 +15,7 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   const { id } = await params;
-  const res = await axiosServer.get(`/company/detail/${id}`);
+  const res = await api.get(`/company/detail/${id}`);
   const company = res.data.companyDetail;
   return {
     title: `Công ty ${company?.companyName}` || "Chi tiết công ty",
@@ -31,14 +31,15 @@ export default async function CompanyDetailPage({
   };
 }) {
   const { id } = await params;
-  const res = await axiosServer.get(`/company/detail/${id}`);
-  const data = res.data;
-
   let companyDetail: CompanyDetail | null = null;
   let jobList: JobDetail[] = [];
-  if (data.code === "success") {
-    companyDetail = data.companyDetail;
-    jobList = data.jobs;
+
+  try {
+    const res = await api.get(`/company/detail/${id}`);
+    companyDetail = res.data.companyDetail;
+    jobList = res.data.jobs;
+  } catch (error) {
+    console.log(error);
   }
 
   return (
@@ -145,9 +146,11 @@ export default async function CompanyDetailPage({
             </h2>
             <div className="border-job-gray mb-4 border-b border-dashed pb-4">
               <div
-                className="text-justify [&>p]:mb-4 [&>p:last-child]:mb-0"
+                className="tinymce-content"
                 dangerouslySetInnerHTML={{
-                  __html: companyDetail?.description || "Chưa có thông tin giới thiệu về công ty",
+                  __html:
+                    companyDetail?.description ||
+                    "Chưa có thông tin giới thiệu về công ty",
                 }}
               ></div>
             </div>
@@ -177,7 +180,9 @@ export default async function CompanyDetailPage({
                 </div>
               </>
             ) : (
-              <div className="font-bold text-lg">Hiện tại công ty chưa có vị trí tuyển dụng nào.</div>
+              <div className="text-lg font-bold">
+                Hiện tại công ty chưa có vị trí tuyển dụng nào.
+              </div>
             )}
           </div>
         </div>

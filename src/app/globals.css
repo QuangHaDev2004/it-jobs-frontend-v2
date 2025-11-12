@@ -12,18 +12,26 @@
   --color-job-header: #000071;
   --color-job-primary: #000065;
   --color-job-secondary: #121212;
-  --color-job-blue: #0088ff;
-  --color-job-gray: #dedede;
-  --color-job-gray-2: #a6a6a6;
-  --color-job-gray-3: #414042;
+  --color-job-blue-500: #0088ff;
+  --color-job-gray-100: #dedede;
+  --color-job-gray-500: #a6a6a6;
+  --color-job-gray-900: #414042;
   --color-job-green: #47be02;
-  --color-job-red: #ff0000;
+  --color-job-red-500: #ed1b2f;
   --color-job-yellow: #ffb200;
   --color-job-orange: #ff5100;
   --color-job-green-2: #9fdb7c;
   --color-job-hover: #000096;
 
   --shadow-md: 0px 6px 32px rgba(0, 0, 0, 0.08);
+
+  --font-lexend: "Lexend", sans-serif;
+}
+
+@layer utilities {
+  .bg-job-primary {
+    @apply bg-gradient-to-r from-[#090203] via-[#090203] to-[#620404];
+  }
 }
 
 * {
@@ -128,4 +136,34 @@ textarea {
   margin: 0 !important;
   height: 100% !important;
   padding: 10px 20px !important;
+}
+
+/* Tinymce Content */
+.tinymce-content {
+  text-align: justify;
+}
+
+.tinymce-content h2 {
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.tinymce-content hr {
+  border: 1px dashed rgba(128, 128, 128, 0.247);
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.tinymce-content ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+.tinymce-content ul li::marker {
+  color: red;
+}
+
+.tinymce-content ul > li > ul {
+  list-style: circle;
 }

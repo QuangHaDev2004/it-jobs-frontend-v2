@@ -15,7 +15,6 @@ export const CVList = () => {
   });
 
   const cvList = data?.cvs ?? [];
-  console.log(cvList);
 
   if (cvList.length === 0 && !isPendingCVs)
     return (

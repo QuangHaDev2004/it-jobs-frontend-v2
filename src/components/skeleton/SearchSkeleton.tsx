@@ -1,4 +1,4 @@
-import { CardJobSkeleton } from "@/components/skeleton/CardJobSkeleton";
+import { CardJobSkeleton } from "@/components/CardJobSkeleton";
 import Skeleton from "react-loading-skeleton";
 
 export const SearchSkeleton = () => {

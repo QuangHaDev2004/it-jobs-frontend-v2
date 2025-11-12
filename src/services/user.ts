@@ -1,12 +1,11 @@
-import { axiosClient } from "@/libs/axiosClient";
+import { api } from "@/libs/axios";
 
 export const userProfile = async (dataFinal: FormData) => {
-  const res = await axiosClient.patch("/user/profile", dataFinal);
+  const res = await api.patch("/user/profile", dataFinal);
   return res.data;
 };
 
 export const getCVList = async () => {
-  const res = await axiosClient.get(`/user/cv/list`);
-  if (res.data.code !== "success") throw new Error(res.data.message);
+  const res = await api.get(`/user/cv/list`);
   return res.data;
 };

@@ -8,10 +8,14 @@ import { CVDetail } from "@/types";
 import { getJobInfo } from "@/utils/jobHelper";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
-import { FaRegUser } from "react-icons/fa";
-import { FaCircleCheck, FaEye, FaRegEnvelope } from "react-icons/fa6";
-import { FiPhoneCall } from "react-icons/fi";
-import { IoBriefcaseOutline } from "react-icons/io5";
+import {
+  FaBriefcase,
+  FaCircleCheck,
+  FaEye,
+  FaPhone,
+  FaRegEnvelope,
+  FaUserTie,
+} from "react-icons/fa6";
 import { toast } from "sonner";
 
 export const CVList = () => {
@@ -26,11 +30,8 @@ export const CVList = () => {
   const { mutate: mutateStatusCV } = useMutation({
     mutationFn: changeStatusCV,
     onSuccess: (data) => {
-      if (data.code === "error") toast.error(data.message);
-      if (data.code === "success") {
-        toast.success(data.message);
-        queryClient.invalidateQueries({ queryKey: ["cvList"] });
-      }
+      toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: ["cvList"] });
     },
     onError: (errors) => {
       console.log(errors.message);
@@ -49,11 +50,8 @@ export const CVList = () => {
   const { mutate: mutateDeleteCV, isPending: isPendingDelCV } = useMutation({
     mutationFn: deleteCV,
     onSuccess: (data) => {
-      if (data.code === "error") toast.error(data.message);
-      if (data.code === "success") {
-        toast.success(data.message);
-        queryClient.invalidateQueries({ queryKey: ["cvList"] });
-      }
+      toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: ["cvList"] });
     },
     onError: (errors) => {
       console.log(errors.message);
@@ -106,18 +104,23 @@ export const CVList = () => {
                       <FaRegEnvelope className="text-[16px]" /> {item.email}
                     </div>
                     <div className="text-job-secondary mb-3 flex items-center justify-center gap-2 text-sm font-normal">
-                      <FiPhoneCall className="text-[16px]" /> {item.phone}
+                      <FaPhone className="text-[16px]" /> {item.phone}
                     </div>
                     <div className="text-job-blue mb-1.5 text-[16px] font-semibold">
-                      {item.salaryMin.toLocaleString()}$ -{" "}
-                      {item.salaryMax.toLocaleString()}$
+                      {item.salaryMin && item.salaryMax ? (
+                        <>
+                          {item.salaryMin.toLocaleString()}$ -{" "}
+                          {item.salaryMax.toLocaleString()}$
+                        </>
+                      ) : (
+                        "Thỏa thuận"
+                      )}
                     </div>
                     <div className="text-job-secondary mb-1.5 flex items-center justify-center gap-2 text-sm font-normal">
-                      <FaRegUser className="text-[16px]" /> {positionLabel}
+                      <FaUserTie className="text-[16px]" /> {positionLabel}
                     </div>
                     <div className="text-job-secondary mb-1.5 flex items-center justify-center gap-2 text-sm font-normal">
-                      <IoBriefcaseOutline className="text-[16px]" />{" "}
-                      {workingFormLabel}
+                      <FaBriefcase className="text-[16px]" /> {workingFormLabel}
                     </div>
                     <div className="mb-1.5">
                       <div

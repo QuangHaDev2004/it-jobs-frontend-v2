@@ -1,32 +1,45 @@
-import { axiosClient } from "@/libs/axiosClient";
-import {
-  LoginCompanyRequest,
-  LoginUserRequest,
-  RegisterCompanyRequest,
-  RegisterUserRequest,
-} from "@/types/api";
+import { api } from "@/libs/axios";
 
-export const registerUser = async (dataFinal: RegisterUserRequest) => {
-  const res = await axiosClient.post("/user/register", dataFinal);
+export const registerUser = async (dataFinal: {
+  fullName: string;
+  email: string;
+  password: string;
+}) => {
+  const res = await api.post("/user/register", dataFinal);
   return res.data;
 };
 
-export const loginUser = async (dataFinal: LoginUserRequest) => {
-  const res = await axiosClient.post("/user/login", dataFinal);
+export const loginUser = async (dataFinal: {
+  email: string;
+  password: string;
+}) => {
+  const res = await api.post("/user/login", dataFinal);
   return res.data;
 };
 
-export const registerCompany = async (dataFinal: RegisterCompanyRequest) => {
-  const res = await axiosClient.post("/company/register", dataFinal);
+export const registerCompany = async (dataFinal: {
+  companyName: string;
+  email: string;
+  password: string;
+}) => {
+  const res = await api.post("/company/register", dataFinal);
   return res.data;
 };
 
-export const loginCompany = async (dataFinal: LoginCompanyRequest) => {
-  const res = await axiosClient.post("/company/login", dataFinal);
+export const loginCompany = async (dataFinal: {
+  email: string;
+  password: string;
+}) => {
+  const res = await api.post("/company/login", dataFinal);
+  return res.data;
+};
+
+export const logout = async () => {
+  const res = await api.get("/auth/logout");
   return res.data;
 };
 
 export const checkAuth = async () => {
-  const res = await axiosClient.get("/auth/check");
+  const res = await api.get("/auth/check");
   return res.data;
 };

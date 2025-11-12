@@ -7,7 +7,7 @@ export const useCityList = () => {
     queryFn: getCityList,
   });
 
-  const cityList = data?.code === "success" ? data.cityList : [];
+  const cityList = data?.cityList ?? [];
 
   return { cityList };
 };

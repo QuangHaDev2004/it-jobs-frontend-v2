@@ -12,7 +12,7 @@ export const Section2 = () => {
     queryFn: getCompanyList,
   });
 
-  const companyList = data?.code === "success" ? data.companyList : [];
+  const companyList = data?.companyList ?? [];
 
   return (
     <div className="py-[60px]">

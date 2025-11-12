@@ -1,4 +1,4 @@
-import { axiosClient } from "@/libs/axiosClient";
+import { api } from "@/libs/axios";
 
 type SearchParams = {
   language: string;
@@ -10,13 +10,11 @@ type SearchParams = {
 };
 
 export const searchJob = async (params: SearchParams) => {
-  const res = await axiosClient.get("/search", { params });
-  if (res.data.code !== "success") throw new Error(res.data.message);
+  const res = await api.get("/search", { params });
   return res.data;
 };
 
 export const applyJob = async (dataFinal: FormData) => {
-  const res = await axiosClient.post("/job/apply", dataFinal);
-  if(res.data.code !== "success") throw new Error(res.data.message);
+  const res = await api.post("/job/apply", dataFinal);
   return res.data;
 }

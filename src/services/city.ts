@@ -1,6 +1,6 @@
-import { axiosClient } from "@/libs/axiosClient";
+import { api } from "@/libs/axios";
 
 export const getCityList = async () => {
-  const res = await axiosClient.get("/city/list");
+  const res = await api.get("/city/list");
   return res.data;
 };

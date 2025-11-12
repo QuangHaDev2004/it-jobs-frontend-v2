@@ -20,8 +20,7 @@ export const FormApply = ({ jobId }: { jobId: string }) => {
   const { mutate, isPending } = useMutation({
     mutationFn: applyJob,
     onSuccess: (data) => {
-      if (data.code === "error") toast.error(data.message);
-      if (data.code === "success") toast.success(data.message);
+      toast.success(data.message);
       reset();
     },
     onError: (errors) => {

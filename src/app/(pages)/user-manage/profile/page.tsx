@@ -11,7 +11,7 @@ export default function UserManageProfilePage() {
     <>
       <div className="py-[60px]">
         <div className="container">
-          <div className="border-job-gray rounded-lg border bg-white p-5">
+          <div className="rounded-lg bg-white p-5 shadow-md">
             <h1 className="mb-5 text-[20px] font-bold">Thông tin cá nhân</h1>
             <FormProfile />
           </div>

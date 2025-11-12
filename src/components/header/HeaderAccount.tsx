@@ -1,7 +1,6 @@
 "use client";
 import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
-import { axiosClient } from "@/libs/axiosClient";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
@@ -11,24 +10,24 @@ import {
   FaRegCircleUser,
   FaRegFileLines,
 } from "react-icons/fa6";
-import { useQueryClient } from "@tanstack/react-query";
+import { logout } from "@/services/auth";
 
 export const HeaderAccount = () => {
   const { isLogin, infoUser, infoCompany, isLoading } = useAuth();
   const router = useRouter();
-  const queryClient = useQueryClient();
 
   const handleLogout = async (url: string) => {
-    const res = await axiosClient.get("/auth/logout");
-    if (res.data.code === "success") {
-      toast.error(res.data.message);
-      localStorage.removeItem("accessToken");
-      queryClient.setQueryData(["checkAuth"], { code: "error" });
+    const data = await logout();
+    if (data.code === "success") {
+      toast.error(data.message);
       router.push(url);
     }
   };
 
-  if (isLoading) return null;
+  if (isLoading)
+    return (
+      <div className="h-8 w-8 animate-pulse rounded-full bg-gray-200"></div>
+    );
 
   return (
     <>
@@ -38,8 +37,11 @@ export const HeaderAccount = () => {
             {/* Đã đăng nhập */}
             {infoUser && (
               <>
-                <Link href="/user-manage/profile">{infoUser?.fullName}</Link>
-                <ul className="bg-job-primary invisible absolute top-full right-0 w-[220px] translate-y-2 rounded-sm opacity-0 shadow-2xl transition-all duration-300 group-hover/sub-1:visible group-hover/sub-1:translate-y-0 group-hover/sub-1:opacity-100">
+                <div className="border-job-gray relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border bg-amber-700">
+                  {infoUser?.fullName?.[0]}
+                  <div className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400"></div>
+                </div>
+                <ul className="bg-job-primary invisible absolute top-full right-0 w-[220px] translate-y-2 rounded-sm opacity-0 shadow-2xl transition-all duration-150 group-hover/sub-1:visible group-hover/sub-1:translate-y-0 group-hover/sub-1:opacity-100">
                   <li className="hover:bg-job-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
                     <Link
                       href="/user-manage/profile"
@@ -71,9 +73,10 @@ export const HeaderAccount = () => {
 
             {infoCompany && (
               <>
-                <Link href="/company-manage/profile">
-                  {infoCompany?.companyName}
-                </Link>
+                <div className="border-job-gray relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border bg-amber-700">
+                  {infoCompany?.companyName?.[0]}
+                  <div className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400"></div>
+                </div>
                 <ul className="bg-job-primary invisible absolute top-full right-0 w-[220px] translate-y-2 rounded-sm opacity-0 shadow-2xl transition-all duration-300 group-hover/sub-1:visible group-hover/sub-1:translate-y-0 group-hover/sub-1:opacity-100">
                   <li className="hover:bg-job-hover flex flex-wrap items-center justify-between rounded-sm px-4 py-[10px] transition-all duration-300">
                     <Link
@@ -114,14 +117,23 @@ export const HeaderAccount = () => {
             )}
           </>
         ) : (
-          <>
+          <div className="flex items-center gap-6">
             {/* Chưa đăng nhập */}
-            <Link href="/user/login">Đăng Nhập</Link>
-            <div className="hidden lg:block">
-              <span className="">/ </span>
-              <Link href="/user/register">Đăng Ký</Link>
+            <Link
+              href="/company/login"
+              className="transition-all duration-200 hover:underline"
+            >
+              Nhà Tuyển Dụng
+            </Link>
+
+            <div className="flex items-center transition-all duration-200 hover:underline">
+              <Link href="/user/login">Đăng Nhập</Link>
+              <div className="hidden lg:block">
+                <span className="">/</span>
+                <Link href="/user/register">Đăng Ký</Link>
+              </div>
             </div>
-          </>
+          </div>
         )}
       </div>
     </>
