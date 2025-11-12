@@ -12,14 +12,14 @@ export default function CompanyManageJobCreatePage() {
     <>
       <div className="py-[60px]">
         <div className="container">
-          <div className="border-job-gray rounded-lg border bg-white p-5">
-            <div className="gap-5 mb-5 flex flex-wrap items-center justify-between">
+          <div className="rounded-lg bg-white p-5 shadow-md">
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-5">
               <h1 className="w-full text-[20px] font-bold sm:w-auto">
                 Thêm mới công việc
               </h1>
               <Link
                 href="/company-manage/job/list"
-                className="text-job-blue text-sm font-normal underline"
+                className="text-job-blue-500 text-sm font-normal underline"
               >
                 Quay lại danh sách
               </Link>

@@ -27,14 +27,10 @@ export const CitySelect = ({
           {...register}
           defaultValue={defaultValue}
           id="city"
-          className="select border-job-gray h-[46px] w-full rounded-sm border px-5 text-sm font-medium text-black"
+          className="select border-job-gray-100 h-[46px] w-full rounded-sm border px-5 text-sm font-medium text-black"
         >
           {cityList.map((item) => (
-            <option
-              key={item._id}
-              value={item._id}
-              className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
-            >
+            <option key={item._id} value={item._id} className="rounded-sm py-2">
               {item.name}
             </option>
           ))}

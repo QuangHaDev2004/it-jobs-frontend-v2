@@ -81,7 +81,7 @@ export const CVList = () => {
               return (
                 <div
                   key={item.id}
-                  className="border-job-gray relative overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-2xl"
+                  className="border-job-gray-100 relative overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-2xl"
                   style={{
                     background:
                       "linear-gradient(180deg, #F6F6F6 2.38%, #FFFFFF 70.43%)",
@@ -106,7 +106,7 @@ export const CVList = () => {
                     <div className="text-job-secondary mb-3 flex items-center justify-center gap-2 text-sm font-normal">
                       <FaPhone className="text-[16px]" /> {item.phone}
                     </div>
-                    <div className="text-job-blue mb-1.5 text-[16px] font-semibold">
+                    <div className="text-job-blue-500 mb-1.5 text-[16px] font-semibold">
                       {item.salaryMin && item.salaryMax ? (
                         <>
                           {item.salaryMin.toLocaleString()}$ -{" "}
@@ -124,7 +124,7 @@ export const CVList = () => {
                     </div>
                     <div className="mb-1.5">
                       <div
-                        className={`flex items-center justify-center gap-2 text-sm font-normal ${item.viewed ? "text-job-secondary" : "text-job-red"}`}
+                        className={`flex items-center justify-center gap-2 text-sm font-normal ${item.viewed ? "text-job-secondary" : "text-job-red-500"}`}
                       >
                         <FaEye className="text-[16px]" />
                         {item.viewed ? "Đã xem" : "Chưa xem"}
@@ -142,13 +142,13 @@ export const CVList = () => {
                     <div className="mx-2 mt-3 mb-5 flex flex-wrap items-center justify-center gap-2">
                       <Link
                         href={`/company-manage/cv/detail/${item.id}`}
-                        className="bg-job-blue inline-block rounded-sm px-3 py-2 text-sm font-normal text-white sm:px-5"
+                        className="bg-job-blue-500 inline-block rounded-sm px-3 py-2 text-sm font-normal text-white sm:px-5"
                       >
                         Xem
                       </Link>
                       {item.status !== "approved" && (
                         <button
-                          className="bg-job-green-2 inline-block cursor-pointer rounded-sm px-3 py-2 text-sm font-normal sm:px-5"
+                          className="bg-job-green-100 inline-block cursor-pointer rounded-sm px-3 py-2 text-sm font-normal sm:px-5"
                           onClick={() =>
                             handleChangeStatus(item.id, "approved")
                           }
@@ -158,7 +158,7 @@ export const CVList = () => {
                       )}
                       {item.status !== "rejected" && (
                         <button
-                          className="bg-job-orange inline-block cursor-pointer rounded-sm px-3 py-2 text-sm font-normal text-white sm:px-5"
+                          className="bg-job-orange-500 inline-block cursor-pointer rounded-sm px-3 py-2 text-sm font-normal text-white sm:px-5"
                           onClick={() =>
                             handleChangeStatus(item.id, "rejected")
                           }

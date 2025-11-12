@@ -19,7 +19,7 @@ export default function CompanyManageJobListPage() {
             </h1>
             <Link
               href="/company-manage/job/create"
-              className="bg-job-blue flex items-center gap-2 rounded-sm px-5 py-2 text-sm font-normal text-white hover:brightness-95"
+              className="bg-job-blue-500 flex items-center gap-2 rounded-sm px-5 py-2 text-sm font-normal text-white hover:brightness-95"
             >
               <FaPlus className="text-sm" />
               Thêm mới

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,6 +11,7 @@ import { useMutation } from "@tanstack/react-query";
 import { loginCompany } from "@/services/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { ResponseCode } from "@/constants/responseCode";
 
 export const FormLogin = () => {
   const router = useRouter();
@@ -25,14 +27,14 @@ export const FormLogin = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: loginCompany,
     onSuccess: async (data) => {
-      if (data.code === "error") toast.error(data.message);
-      if (data.code === "success") {
+      if (data.code === ResponseCode.ERROR) toast.error(data.message);
+      if (data.code === ResponseCode.SUCCESS) {
         toast.success(data.message);
         router.push("/");
       }
     },
     onError: (errors) => {
-      console.log(errors.message);
+      console.log(errors);
     },
   });
 

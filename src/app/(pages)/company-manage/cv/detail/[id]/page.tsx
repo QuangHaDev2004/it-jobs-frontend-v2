@@ -55,7 +55,7 @@ export default async function CompanyManageCVDetailPage({
               </h1>
               <Link
                 href="/company-manage/cv/list"
-                className="text-job-blue text-sm font-normal underline"
+                className="text-job-blue-500 text-sm font-normal underline"
               >
                 Quay lại danh sách
               </Link>
@@ -116,7 +116,7 @@ export default async function CompanyManageCVDetailPage({
             </div>
             <Link
               href={`/job/detail/${jobDetail?.id}`}
-              className="text-job-blue text-sm font-normal underline"
+              className="text-job-blue-500 text-sm font-normal underline"
             >
               Xem chi tiết công việc
             </Link>

@@ -2,7 +2,7 @@
 export const CardJobSkeleton = () => {
   return (
     <div
-      className="border-job-gray relative flex animate-pulse flex-col justify-between overflow-hidden rounded-lg border"
+      className="border-job-gray-100 relative flex animate-pulse flex-col justify-between overflow-hidden rounded-lg border"
       style={{
         background: "linear-gradient(180deg, #F6F6F6 2.38%, #FFFFFF 70.43%)",
       }}

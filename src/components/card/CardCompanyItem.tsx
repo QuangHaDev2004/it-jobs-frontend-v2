@@ -8,7 +8,7 @@ export const CardCompanyItem = ({ item }: { item: CompanyDetail }) => {
     <>
       <Link
         href={`/company/detail/${item.id}`}
-        className="border-job-gray relative overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-xl"
+        className="border-job-gray-100 relative overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-xl"
         style={{
           background: "linear-gradient(180deg, #F6F6F6 2.38%, #FFFFFF 70.43%)",
         }}
@@ -35,13 +35,13 @@ export const CardCompanyItem = ({ item }: { item: CompanyDetail }) => {
             {item.companyName}
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-3 bg-[#F7F7F7] px-[15px] py-3 sm:justify-between">
-            <div className="text-job-gray-3 text-xs font-normal sm:text-sm">
+            <div className="text-job-gray-900 text-xs font-normal sm:text-sm">
               {item.cityName || "Không xác định"}
             </div>
             <div className="text-job-secondary inline-flex items-center gap-1.5 text-xs font-normal sm:text-sm">
               <span className="relative flex size-3">
-                <span className="bg-job-green absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"></span>
-                <span className="bg-job-green/50 relative inline-flex size-3 rounded-full"></span>
+                <span className="bg-job-green-500 absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"></span>
+                <span className="bg-job-green-500/50 relative inline-flex size-3 rounded-full"></span>
               </span>
               {item.totalJob} Việc làm
             </div>

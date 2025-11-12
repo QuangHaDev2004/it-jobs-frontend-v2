@@ -19,7 +19,7 @@ export const PasswordField = ({
     <div>
       <label htmlFor="password" className="mb-[5px] block text-sm font-medium">
         <span>{label}</span>
-        <span className="text-job-red ml-1 inline-block">*</span>
+        <span className="text-job-red-500 ml-1 inline-block">*</span>
       </label>
       <div className="relative">
         <input
@@ -27,7 +27,7 @@ export const PasswordField = ({
           id="password"
           {...register}
           placeholder="Nhập mật khẩu"
-          className={`h-[46px] w-full rounded-sm border px-5 text-sm font-medium ${error ? "border-job-red" : "border-job-gray"}`}
+          className={`h-[46px] w-full rounded-sm border px-5 text-sm font-medium ${error ? "border-job-red-500" : "border-job-gray-100"}`}
         />
         <button
           type="button"
@@ -42,7 +42,9 @@ export const PasswordField = ({
         </button>
       </div>
       {error && (
-        <p className="text-job-red mt-1 text-sm font-medium">{error.message}</p>
+        <p className="text-job-red-500 mt-1 text-sm font-medium">
+          {error.message}
+        </p>
       )}
     </div>
   );

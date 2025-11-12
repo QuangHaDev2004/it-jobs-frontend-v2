@@ -159,7 +159,7 @@ export const FormEdit = ({ id }: { id: string }) => {
               value={jobDetail.technologies.join(",")}
               id="technologies"
               name="technologies"
-              className="border-job-gray h-auto w-full rounded-sm border px-5 text-sm font-medium text-black"
+              className="border-job-gray-100 h-auto w-full rounded-sm border px-5 text-sm font-medium text-black"
             />
           </div>
 

@@ -1,12 +1,6 @@
-import { COMPANIES } from "@/constants/companies";
-import { SKILLS } from "@/constants/skills";
-
-type MenuItem = {
-  name: string;
-  link: string;
-  children?: MenuItem[];
-  isLogin?: boolean;
-};
+import { MenuItem } from "@/types/menu";
+import { SKILLS } from "./skills";
+import { COMPANIES } from "./companies";
 
 export const menuList: MenuItem[] = [
   {
@@ -20,10 +14,6 @@ export const menuList: MenuItem[] = [
           name: skill,
           link: `/search?language=${skill}`,
         })),
-      },
-      {
-        name: "Việc làm IT theo chuyên môn",
-        link: "#",
       },
       {
         name: "Việc làm IT theo thành phố",
@@ -43,6 +33,15 @@ export const menuList: MenuItem[] = [
           },
         ],
       },
+      {
+        name: "Việc làm IT theo chuyên môn",
+        link: "#",
+      },
+      {
+        name: "Việc làm IT theo công ty",
+        link: "#",
+      },
+      
     ],
   },
   {
@@ -53,19 +52,4 @@ export const menuList: MenuItem[] = [
       link: `/search?company=${company}`,
     })),
   },
-  // {
-  //   name: "Nhà Tuyển Dụng",
-  //   link: "#",
-  //   isLogin: false,
-  //   children: [
-  //     {
-  //       name: "Đăng Nhập",
-  //       link: "/company/login",
-  //     },
-  //     {
-  //       name: "Đăng Ký",
-  //       link: "/company/register",
-  //     },
-  //   ],
-  // },
 ];

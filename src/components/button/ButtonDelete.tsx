@@ -36,7 +36,7 @@ export const ButtonDelete = ({
     <button
       disabled={isPending}
       onClick={handleDelete}
-      className="bg-job-red cursor-pointer rounded-sm px-5 py-2 text-sm font-normal text-white transition-all duration-300 hover:brightness-95"
+      className="bg-job-red-500 cursor-pointer rounded-sm px-5 py-2 text-sm font-normal text-white transition-all duration-300 hover:brightness-95"
     >
       Xóa
     </button>

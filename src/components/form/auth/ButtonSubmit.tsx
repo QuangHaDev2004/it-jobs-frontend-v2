@@ -11,7 +11,7 @@ export const ButtonSubmit = ({
     <button
       disabled={isPending}
       type="submit"
-      className="bg-job-blue h-[46px] cursor-pointer rounded-sm text-[16px] font-bold text-white shadow transition-all duration-300 hover:shadow-md hover:brightness-95 disabled:cursor-not-allowed"
+      className="bg-job-red-500 h-[46px] cursor-pointer rounded-sm text-[16px] font-bold text-white shadow transition-all duration-300 hover:shadow-md hover:brightness-95 disabled:cursor-not-allowed"
     >
       {isPending ? "Đang xử lý..." : text}
     </button>

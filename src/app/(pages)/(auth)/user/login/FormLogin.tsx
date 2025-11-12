@@ -3,6 +3,7 @@ import { AuthRedirect } from "@/components/form/auth/AuthRedirect";
 import { ButtonSubmit } from "@/components/form/auth/ButtonSubmit";
 import { InputField } from "@/components/form/auth/InputField";
 import { PasswordField } from "@/components/form/auth/PasswordField";
+import { ResponseCode } from "@/constants/responseCode";
 import { loginUser } from "@/services/auth";
 import { LoginUserInputs, loginUserSchema } from "@/validates/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,11 +26,14 @@ export const FormLogin = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: loginUser,
     onSuccess: async (data) => {
-      toast.success(data.message);
-      router.push("/");
+      if (data.code === ResponseCode.ERROR) toast.error(data.message);
+      if (data.code === ResponseCode.SUCCESS) {
+        toast.success(data.message);
+        router.push("/");
+      }
     },
     onError: (errors) => {
-      console.log(errors.message);
+      console.log(errors);
     },
   });
 
