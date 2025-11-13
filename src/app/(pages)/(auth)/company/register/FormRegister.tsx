@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { AuthRedirect } from "@/components/form/auth/AuthRedirect";
 import { ButtonSubmit } from "@/components/form/auth/ButtonSubmit";
@@ -25,14 +26,11 @@ export const FormRegister = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: registerCompany,
     onSuccess: (data) => {
-      if (data.code === "error") toast.error(data.message);
-      if (data.code === "success") {
-        toast.success(data.message);
-        router.push("/company/login");
-      }
+      toast.success(data.message);
+      router.push("/company/login");
     },
-    onError: (errors) => {
-      console.log(errors.message);
+    onError: (errors: any) => {
+      toast.error(errors?.response?.data?.message);
     },
   });
 
