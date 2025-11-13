@@ -55,17 +55,14 @@ export const Section1 = () => {
               {...register("city")}
               className="select text-job-secondary h-[56px] w-full rounded-sm bg-white px-5 text-[16px] font-medium md:w-[240px]"
             >
-              <option
-                value=""
-                className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
-              >
+              <option value="" className="rounded-sm py-2">
                 Tất cả thành phố
               </option>
               {cityList.map((city: { _id: string; name: string }) => (
                 <option
                   key={city._id}
                   value={city.name}
-                  className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
+                  className="rounded-sm py-2"
                 >
                   {city.name}
                 </option>

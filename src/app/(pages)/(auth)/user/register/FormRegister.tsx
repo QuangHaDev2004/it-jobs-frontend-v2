@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { registerUser } from "@/services/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,8 +29,8 @@ export const FormRegister = () => {
       toast.success(data.message);
       router.push("/user/login");
     },
-    onError: (errors) => {
-      console.log(errors.message);
+    onError: (errors: any) => {
+      toast.error(errors?.response?.data?.message);
     },
   });
 
