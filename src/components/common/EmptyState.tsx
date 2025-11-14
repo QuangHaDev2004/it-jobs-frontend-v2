@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 export const EmptyState = () => {
   return (
-    <div className="border-job-gray overflow-hidden rounded-md border p-5 text-center shadow-md sm:p-10">
+    <div className="border-job-gray-100 bg-white overflow-hidden rounded-md border p-5 text-center shadow-md sm:p-10">
       <div className="mx-auto aspect-square w-[120px] sm:w-40">
         <img
           src="/assets/images/not-found.jpg"

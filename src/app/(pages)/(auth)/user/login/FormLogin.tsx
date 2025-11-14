@@ -5,6 +5,7 @@ import { ButtonSubmit } from "@/components/form/auth/ButtonSubmit";
 import { InputField } from "@/components/form/auth/InputField";
 import { PasswordField } from "@/components/form/auth/PasswordField";
 import { loginUser } from "@/services/auth";
+import { useAuthStore } from "@/store/useAuthStore";
 import { LoginUserInputs, loginUserSchema } from "@/validates/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -14,6 +15,7 @@ import { toast } from "sonner";
 
 export const FormLogin = () => {
   const router = useRouter();
+  const {fetchMe} = useAuthStore();
 
   const {
     register,
@@ -27,6 +29,7 @@ export const FormLogin = () => {
     mutationFn: loginUser,
     onSuccess: async (data) => {
       toast.success(data.message);
+      await fetchMe();
       router.push("/");
     },
     onError: (errors: any) => {

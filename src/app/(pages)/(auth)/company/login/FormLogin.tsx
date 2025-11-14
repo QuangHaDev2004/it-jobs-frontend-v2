@@ -11,9 +11,11 @@ import { useMutation } from "@tanstack/react-query";
 import { loginCompany } from "@/services/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export const FormLogin = () => {
   const router = useRouter();
+  const { fetchMe } = useAuthStore();
 
   const {
     register,
@@ -27,6 +29,7 @@ export const FormLogin = () => {
     mutationFn: loginCompany,
     onSuccess: async (data) => {
       toast.success(data.message);
+      await fetchMe();
       router.push("/");
     },
     onError: (errors: any) => {

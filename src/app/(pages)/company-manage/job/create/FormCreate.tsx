@@ -35,18 +35,15 @@ export const FormCreate = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: createJob,
     onSuccess: (data) => {
-      if (data.code === "error") toast.error(data.message);
-      if (data.code === "success") {
-        toast.success(data.message);
-        reset();
-        setImages([]);
-        if (tagifyRef.current) tagifyRef.current.removeAllTags();
-        if (editorRef.current) editorRef.current.setContent("");
-        queryClient.invalidateQueries({ queryKey: ["jobList"], exact: false });
-      }
+      toast.success(data.message);
+      reset();
+      setImages([]);
+      if (tagifyRef.current) tagifyRef.current.removeAllTags();
+      if (editorRef.current) editorRef.current.setContent("");
+      queryClient.invalidateQueries({ queryKey: ["jobList"], exact: false });
     },
-    onError: (errors) => {
-      console.log(errors.message);
+    onError: (errors: any) => {
+      toast.error(errors?.response?.data?.message);
     },
   });
 

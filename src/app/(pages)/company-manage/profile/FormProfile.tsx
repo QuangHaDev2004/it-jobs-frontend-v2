@@ -54,17 +54,11 @@ export const FormProfile = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: companyProfile,
     onSuccess: (data) => {
-      if (data.code === "error") {
-        toast.error(data.message);
-      }
-
-      if (data.code === "success") {
-        toast.success(data.message);
-        queryClient.invalidateQueries({ queryKey: QUERY_KEY.CHECK_AUTH });
-      }
+      toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.CHECK_AUTH] });
     },
-    onError: (errors) => {
-      console.log(errors.message);
+    onError: (errors: any) => {
+      toast.error(errors?.response?.data?.message);
     },
   });
 

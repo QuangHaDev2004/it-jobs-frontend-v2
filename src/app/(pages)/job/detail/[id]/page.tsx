@@ -61,10 +61,10 @@ export default async function JobDetailPage({
                 <h1 className="text-job-secondary mb-2.5 text-2xl font-bold sm:text-[28px]">
                   {jobDetail?.title}
                 </h1>
-                <div className="text-job-gray-3 mb-2.5 text-[16px] font-normal">
+                <div className="text-job-gray-900 mb-2.5 text-[16px] font-normal">
                   {jobDetail?.companyName}
                 </div>
-                <div className="text-job-blue mb-2.5 flex items-center gap-2 text-[20px] font-bold sm:mb-5">
+                <div className="text-job-blue-500 mb-2.5 flex items-center gap-2 text-[20px] font-bold sm:mb-5">
                   <AiOutlineDollar className="text-2xl" />
                   {jobDetail?.salaryMin.toLocaleString()}$ -{" "}
                   {jobDetail?.salaryMax.toLocaleString()}$
@@ -72,7 +72,7 @@ export default async function JobDetailPage({
                 <div className="mb-5 flex items-center gap-5">
                   <Link
                     href="#form-apply"
-                    className="bg-job-blue block h-12 flex-1 cursor-pointer rounded-sm p-[14px] text-center text-[16px] font-bold text-white transition-all duration-300 hover:brightness-90"
+                    className="bg-job-red-500 block h-12 flex-1 cursor-pointer rounded-sm p-[14px] text-center text-[16px] font-bold text-white transition-all duration-300 hover:brightness-90"
                   >
                     Ứng tuyển
                   </Link>
@@ -80,7 +80,7 @@ export default async function JobDetailPage({
                     <div className="tooltip-content">
                       <div className="text-sm">Lưu việc này</div>
                     </div>
-                    <FaRegHeart className="text-job-red cursor-pointer text-[30px]" />
+                    <FaRegHeart className="text-job-red-500 cursor-pointer text-[30px]" />
                   </div>
 
                   {/* <FaHeart /> */}
@@ -92,7 +92,7 @@ export default async function JobDetailPage({
                         key={index}
                         src={img}
                         alt={img}
-                        className="border-job-gray aspect-[232/145] w-full rounded-sm border object-cover"
+                        className="border-job-gray-100 aspect-[232/145] w-full rounded-sm border object-cover"
                       />
                     ))}
                   </div>
@@ -114,7 +114,7 @@ export default async function JobDetailPage({
                         href={`${process.env.NEXT_PUBLIC_API_GG_MAP}&query=${encodeURIComponent(jobDetail.address)}`}
                         target="_blank"
                       >
-                        <FaArrowUpRightFromSquare className="text-job-blue" />
+                        <FaArrowUpRightFromSquare className="text-job-blue-500" />
                       </Link>
                     </div>
                   )}
@@ -123,7 +123,7 @@ export default async function JobDetailPage({
                     Đăng {time}
                   </div>
                 </div>
-                <div className="border-job-gray my-4 border-b border-dashed"></div>
+                <div className="border-job-gray-100 my-4 border-b border-dashed"></div>
                 {jobDetail?.technologies &&
                   jobDetail.technologies.length > 0 && (
                     <div className="flex flex-wrap items-center gap-2">
@@ -132,7 +132,7 @@ export default async function JobDetailPage({
                         <Link
                           key={index}
                           href={`/search?language=${tech}`}
-                          className="text-job-gray-3 hover:border-job-primary border-job-gray rounded-[20px] border px-4 py-1.5 text-xs font-normal transition-all duration-300"
+                          className="text-job-gray-900 hover:border-job-gray-500 border-job-gray-100 rounded-[20px] border px-4 py-1.5 text-xs font-normal transition-all duration-300"
                         >
                           {tech}
                         </Link>
@@ -164,7 +164,7 @@ export default async function JobDetailPage({
             <div className="flex-1">
               <div className="rounded-lg bg-white p-5 shadow-md">
                 <div className="mb-5 flex gap-3">
-                  <div className="border-job-gray aspect-square w-[100px] overflow-hidden rounded-sm border">
+                  <div className="border-job-gray-100 aspect-square w-[100px] overflow-hidden rounded-sm border">
                     <img
                       src={jobDetail?.companyLogo}
                       alt={jobDetail?.companyName}
@@ -177,33 +177,33 @@ export default async function JobDetailPage({
                     </div>
                     <Link
                       href={`/company/detail/${jobDetail?.companyId}`}
-                      className="text-job-blue flex items-center gap-2 text-[16px] font-normal"
+                      className="text-job-blue-500 flex items-center gap-2 text-[16px] font-normal"
                     >
                       Xem công ty <FaArrowRightLong className="text-[16px]" />
                     </Link>
                   </div>
                 </div>
                 <div className="flex flex-col gap-2.5">
-                  <div className="border-job-gray flex items-center justify-between gap-2.5 border-b border-dashed pb-2 text-[16px] font-normal">
-                    <div className="text-job-gray-2">Mô hình công ty</div>
+                  <div className="border-job-gray-100 flex items-center justify-between gap-2.5 border-b border-dashed pb-2 text-[16px] font-normal">
+                    <div className="text-job-gray-500">Mô hình công ty</div>
                     <div className="text-job-secondary text-right">
                       {jobDetail?.companyModel}
                     </div>
                   </div>
-                  <div className="border-job-gray flex items-center justify-between gap-2.5 border-b border-dashed pb-2 text-[16px] font-normal">
-                    <div className="text-job-gray-2">Quy mô công ty</div>
+                  <div className="border-job-gray-100 flex items-center justify-between gap-2.5 border-b border-dashed pb-2 text-[16px] font-normal">
+                    <div className="text-job-gray-500">Quy mô công ty</div>
                     <div className="text-job-secondary text-right">
                       {jobDetail?.companyEmployees}
                     </div>
                   </div>
-                  <div className="border-job-gray flex items-center justify-between gap-2.5 border-b border-dashed pb-2 text-[16px] font-normal">
-                    <div className="text-job-gray-2">Thời gian làm việc</div>
+                  <div className="border-job-gray-100 flex items-center justify-between gap-2.5 border-b border-dashed pb-2 text-[16px] font-normal">
+                    <div className="text-job-gray-500">Thời gian làm việc</div>
                     <div className="text-job-secondary text-right">
                       {jobDetail?.workingTime}
                     </div>
                   </div>
                   <div className="flex items-center justify-between gap-2.5 pb-2 text-[16px] font-normal">
-                    <div className="text-job-gray-2">Làm việc ngoài giờ</div>
+                    <div className="text-job-gray-500">Làm việc ngoài giờ</div>
                     <div className="text-job-secondary text-right">
                       {jobDetail?.workOverTime}
                     </div>

@@ -70,7 +70,7 @@ export const SearchContainer = () => {
           </h2>
 
           <div
-            className="mb-[30px] flex flex-wrap items-center gap-3 rounded-lg px-5 py-2.5"
+            className="mb-[30px] flex flex-wrap items-center bg-white gap-3 rounded-lg px-5 py-2.5"
             style={{
               boxShadow: "0px 4px 20px 0px #0000000F",
             }}
@@ -80,19 +80,16 @@ export const SearchContainer = () => {
               defaultValue={position}
               name="position"
               id="position"
-              className="select border-job-gray text-job-gray-3 h-9 w-[148px] rounded-[20px] border bg-white px-[18px] text-[16px] font-normal"
+              className="select border-job-gray-100 text-job-gray-900 h-9 w-[148px] rounded-[20px] border bg-white px-[18px] text-[16px] font-normal"
             >
-              <option
-                value=""
-                className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
-              >
+              <option value="" className="rounded-sm py-2">
                 Cấp bậc
               </option>
               {positionList.map((item) => (
                 <option
                   key={item.value}
                   value={item.value}
-                  className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
+                  className="rounded-sm py-2"
                 >
                   {item.label}
                 </option>
@@ -103,19 +100,16 @@ export const SearchContainer = () => {
               defaultValue={workingForm}
               name="workingForm"
               id="workingForm"
-              className="select border-job-gray text-job-gray-3 h-9 w-[206px] rounded-[20px] border bg-white px-[18px] text-[16px] font-normal"
+              className="select border-job-gray-100 text-job-gray-900 h-9 w-[206px] rounded-[20px] border bg-white px-[18px] text-[16px] font-normal"
             >
-              <option
-                value=""
-                className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
-              >
+              <option value="" className="rounded-sm py-2">
                 Hình thức làm việc
               </option>
               {workingFormList.map((item) => (
                 <option
                   key={item.value}
                   value={item.value}
-                  className="hover:bg-job-primary/80 rounded-sm py-2 hover:text-white"
+                  className="rounded-sm py-2"
                 >
                   {item.label}
                 </option>
