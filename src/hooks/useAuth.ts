@@ -4,19 +4,19 @@ import { usePathname } from "next/navigation";
 
 export const useAuth = () => {
   const pathname = usePathname();
-  const { data, isLoading } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["checkAuth", pathname],
     queryFn: checkAuth,
   });
 
-  const isLogin = data?.code === "success";
   const infoUser = data?.infoUser || null;
   const infoCompany = data?.infoCompany || null;
+  const isLogin = !!infoUser || !!infoCompany;
 
   return {
     isLogin,
     infoUser,
     infoCompany,
-    isLoading,
+    isPending,
   };
 };

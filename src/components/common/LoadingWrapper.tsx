@@ -12,7 +12,7 @@ export const LoadingWrapper = ({
   if (isLoading) {
     return (
       <div
-        className="text-job-gray-3 flex items-center justify-center text-sm font-bold"
+        className="text-job-gray-900 flex items-center justify-center text-sm font-bold"
         style={{ minHeight }}
       >
         Đang tải dữ liệu...

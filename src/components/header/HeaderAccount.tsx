@@ -1,8 +1,6 @@
 "use client";
-import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import {
   FaArrowRightFromBracket,
   FaBriefcase,
@@ -10,32 +8,25 @@ import {
   FaRegCircleUser,
   FaRegFileLines,
 } from "react-icons/fa6";
-import { logout } from "@/services/auth";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export const HeaderAccount = () => {
-  const { isLogin, infoUser, infoCompany, isLoading } = useAuth();
   const router = useRouter();
+  const { infoUser, infoCompany, isLogin, logout } = useAuthStore();
 
   const handleLogout = async (url: string) => {
-    const data = await logout();
-    toast.error(data.message);
+    await logout();
     router.push(url);
   };
-
-  if (isLogin && isLoading)
-    return (
-      <div className="h-8 w-8 animate-pulse rounded-full bg-gray-200"></div>
-    );
 
   return (
     <>
       <div className="group/sub-1 relative flex items-center gap-x-[5px] text-sm font-semibold text-white sm:text-[16px]">
         {isLogin ? (
           <>
-            {/* Đã đăng nhập */}
             {infoUser && (
               <>
-                <div className="border-job-gray relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border bg-amber-700">
+                <div className="border-job-gray-100 bg-job-brown relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border uppercase">
                   {infoUser?.fullName?.[0]}
                   <div className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400"></div>
                 </div>
@@ -71,7 +62,7 @@ export const HeaderAccount = () => {
 
             {infoCompany && (
               <>
-                <div className="border-job-gray relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border bg-amber-700">
+                <div className="border-job-gray-100 bg-job-brown relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border uppercase">
                   {infoCompany?.companyName?.[0]}
                   <div className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400"></div>
                 </div>

@@ -52,14 +52,12 @@ export const FormEdit = ({ id }: { id: string }) => {
   const { mutate, isPending } = useMutation({
     mutationFn: (formData: FormData) => editJob(id, formData),
     onSuccess: (data) => {
-      if (data.code === "error") toast.error(data.message);
-      if (data.code === "success") {
-        toast.success(data.message);
-        queryClient.invalidateQueries({ queryKey: ["jobList"], exact: false });
-      }
+      toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: ["jobList"], exact: false });
+      queryClient.invalidateQueries({ queryKey: ["jobEdit"], exact: false });
     },
-    onError: (errors) => {
-      console.log(errors.message);
+    onError: (errors: any) => {
+      toast.error(errors?.response?.data?.message);
     },
   });
 

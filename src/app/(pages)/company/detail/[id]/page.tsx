@@ -48,7 +48,7 @@ export default async function CompanyDetailPage({
       <div className="bg-job-primary py-[30px]">
         <div className="container">
           <div className="flex flex-wrap items-center gap-4">
-            <div className="border-job-gray aspect-square w-40 overflow-hidden rounded-sm border bg-white">
+            <div className="border-job-gray-100 aspect-square w-40 overflow-hidden rounded-sm border bg-white">
               <img
                 src={companyDetail?.logo || PLACEHOLDER_IMG}
                 alt={companyDetail?.companyName}
@@ -65,7 +65,7 @@ export default async function CompanyDetailPage({
               </div>
               <Link
                 href={`/company/review/${companyDetail?.id}`}
-                className="bg-job-blue inline-flex h-12 w-44 items-center justify-center rounded-md text-[16px] font-semibold text-white transition-all duration-300 hover:brightness-90"
+                className="bg-job-red-500 inline-flex h-12 w-44 items-center justify-center rounded-md text-[16px] font-semibold text-white transition-all duration-300 hover:brightness-90"
               >
                 Viết đánh giá
               </Link>
@@ -82,7 +82,7 @@ export default async function CompanyDetailPage({
               <li>
                 <Link
                   href={""}
-                  className="text-job-blue border-job-blue border-b-2 pb-5"
+                  className="text-job-red-500 border-job-blue border-b-2 pb-5"
                 >
                   Giới thiệu
                 </Link>
@@ -90,7 +90,7 @@ export default async function CompanyDetailPage({
               <li>
                 <Link href={""} className="pb-5">
                   Đánh giá{" "}
-                  <span className="bg-job-gray ml-2 rounded-4xl px-4 py-1 text-xs font-normal">
+                  <span className="bg-job-gray-100 ml-2 rounded-4xl px-4 py-1 text-xs font-normal">
                     123
                   </span>
                 </Link>
@@ -100,12 +100,12 @@ export default async function CompanyDetailPage({
 
           {/* Company Info */}
           <div className="mb-5 rounded-lg bg-white p-5 shadow-md">
-            <h2 className="text-job-secondary border-job-gray mb-4 border-b border-dashed pb-4 text-[22px] font-bold">
+            <h2 className="text-job-secondary border-job-gray-100 mb-4 border-b border-dashed pb-4 text-[22px] font-bold">
               Thông tin chung
             </h2>
             <div className="grid grid-cols-2 gap-[10px]">
               <div className="">
-                <div className="text-job-gray-2 mb-1 text-sm font-normal">
+                <div className="text-job-gray-500 mb-1 text-sm font-normal">
                   Mô hình công ty:
                 </div>
                 <div className="text-job-secondary text-[16px] font-normal">
@@ -113,7 +113,7 @@ export default async function CompanyDetailPage({
                 </div>
               </div>
               <div className="">
-                <div className="text-job-gray-2 mb-1 text-sm font-normal">
+                <div className="text-job-gray-500 mb-1 text-sm font-normal">
                   Quy mô công ty:
                 </div>
                 <div className="text-job-secondary text-[16px] font-normal">
@@ -121,7 +121,7 @@ export default async function CompanyDetailPage({
                 </div>
               </div>
               <div className="">
-                <div className="text-job-gray-2 mb-1 text-sm font-normal">
+                <div className="text-job-gray-500 mb-1 text-sm font-normal">
                   Thời gian làm việc:
                 </div>
                 <div className="text-job-secondary text-[16px] font-normal">
@@ -129,7 +129,7 @@ export default async function CompanyDetailPage({
                 </div>
               </div>
               <div className="">
-                <div className="text-job-gray-2 mb-1 text-sm font-normal">
+                <div className="text-job-gray-500 mb-1 text-sm font-normal">
                   Làm việc ngoài giờ:
                 </div>
                 <div className="text-job-secondary text-[16px] font-normal">
@@ -141,12 +141,11 @@ export default async function CompanyDetailPage({
 
           {/* Company Introduction */}
           <div className="mb-6 rounded-lg bg-white p-5 shadow-md">
-            <h2 className="text-job-secondary border-job-gray mb-4 border-b border-dashed pb-4 text-[22px] font-bold">
+            <h2 className="text-job-secondary border-job-gray-100 mb-4 border-b border-dashed pb-4 text-[22px] font-bold">
               Giới thiệu công ty
             </h2>
-            <div className="border-job-gray mb-4 border-b border-dashed pb-4">
+            <div className="border-job-gray-100 mb-4 border-b border-dashed pb-4">
               <div
-                className="tinymce-content"
                 dangerouslySetInnerHTML={{
                   __html:
                     companyDetail?.description ||
@@ -154,7 +153,7 @@ export default async function CompanyDetailPage({
                 }}
               ></div>
             </div>
-            <div className="text-job-blue flex items-center gap-6 text-[16px] font-normal">
+            <div className="text-job-blue-500 flex items-center gap-6 text-[16px] font-normal">
               <Link href={""} className="flex items-center gap-2">
                 <GoGlobe className="text-[20px]" />
                 Website công ty

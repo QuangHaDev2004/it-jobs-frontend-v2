@@ -14,7 +14,7 @@ export const CardJobItem = ({ item }: { item: JobDetail }) => {
     <>
       <Link
         href={`/job/detail/${item.id}`}
-        className="border-job-gray relative overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-md"
+        className="border-job-gray-100 relative overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-2xl"
         style={{
           background: "linear-gradient(180deg, #F6F6F6 2.38%, #FFFFFF 70.43%)",
         }}
@@ -43,7 +43,7 @@ export const CardJobItem = ({ item }: { item: JobDetail }) => {
           <div className="text-job-secondary mb-3 text-sm font-normal">
             {item.companyName}
           </div>
-          <div className="text-job-blue mb-1.5 text-[16px] font-semibold">
+          <div className="text-job-blue-500 mb-1.5 text-[16px] font-semibold">
             {item.salaryMin && item.salaryMax ? (
               <span>
                 {item.salaryMin.toLocaleString()}$ -{" "}
@@ -69,7 +69,7 @@ export const CardJobItem = ({ item }: { item: JobDetail }) => {
             {item.technologies.map((itemTech: string, indexTech: number) => (
               <div
                 key={indexTech}
-                className="border-job-gray text-job-gray-3 rounded-[20px] border px-[16px] py-1.5 text-sm font-normal"
+                className="border-job-gray-100 text-job-gray-900 rounded-[20px] border px-[16px] py-1.5 text-sm font-normal"
               >
                 {itemTech}
               </div>

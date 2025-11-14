@@ -8,7 +8,7 @@ export const CardCompanyItem = ({ item }: { item: CompanyDetail }) => {
     <>
       <Link
         href={`/company/detail/${item.id}`}
-        className="border-job-gray-100 relative overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-xl"
+        className="border-job-gray-100 relative overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-2xl"
         style={{
           background: "linear-gradient(180deg, #F6F6F6 2.38%, #FFFFFF 70.43%)",
         }}

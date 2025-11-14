@@ -41,10 +41,10 @@ export const FormProfile = () => {
     mutationFn: userProfile,
     onSuccess: (data) => {
       toast.success(data.message);
-      queryClient.invalidateQueries({ queryKey: QUERY_KEY.CHECK_AUTH });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.CHECK_AUTH] });
     },
-    onError: (errors) => {
-      console.log(errors.message);
+    onError: (errors: any) => {
+      toast.error(errors?.response?.data?.message);
     },
   });
 
