@@ -46,7 +46,7 @@ export const HeaderAccount = () => {
                       className="flex w-full items-center gap-3 text-sm font-semibold text-white sm:text-[16px]"
                     >
                       <FaRegFileLines />
-                      Quản lý CV đã gửi
+                      Việc làm của tôi
                     </Link>
                   </li>
                   <li

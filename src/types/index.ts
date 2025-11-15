@@ -1,16 +1,16 @@
-export type JobItem = {
-  id: string;
-  companyLogo: string;
-  title: string;
-  salaryMin: string;
-  salaryMax: string;
-  position: string;
-  workingForm: string;
-  companyCity: string;
-  technologies: string[];
-  companyName?: string;
-  cityName?: string;
-};
+// export type JobItem = {
+//   id: string;
+//   companyLogo: string;
+//   title: string;
+//   salaryMin: string;
+//   salaryMax: string;
+//   position: string;
+//   workingForm: string;
+//   companyCity: string;
+//   technologies: string[];
+//   companyName?: string;
+//   cityName?: string;
+// };
 
 export type JobDetail = {
   id: string;
@@ -50,6 +50,7 @@ export type CompanyDetail = {
 
 export type CVDetail = {
   id: string;
+  jobId: string;
   title: string;
   fullName: string;
   email: string;
@@ -61,5 +62,27 @@ export type CVDetail = {
   viewed: string;
   status: string;
   fileCV: string;
-  companyName: string
+  companyName: string;
+};
+
+export type SaveJobDetail = {
+  id: string;
+  userId: string;
+  jobId: string;
+  title: string;
+  companyName: string;
+  salaryMin: string;
+  salaryMax: string;
+  position: string;
+  workingForm: string;
+  cityName: string;
+};
+
+export type ReviewDetail = {
+  id: string,
+  createdAt: string;
+  title: string;
+  rating: number;
+  pros: string;
+  cons: string;
 };

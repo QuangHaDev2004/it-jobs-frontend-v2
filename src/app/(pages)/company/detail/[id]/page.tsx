@@ -8,6 +8,7 @@ import { FiFacebook } from "react-icons/fi";
 import { CompanyDetail, JobDetail } from "@/types";
 import { PLACEHOLDER_IMG } from "@/constants";
 import { api } from "@/libs/axios";
+import { ButtonReview } from "./ButtonReview";
 
 export async function generateMetadata({
   params,
@@ -63,12 +64,7 @@ export default async function CompanyDetailPage({
                 <GrMapLocation className="text-[16px]" />
                 {companyDetail?.address || "Chưa xác định"}
               </div>
-              <Link
-                href={`/company/review/${companyDetail?.id}`}
-                className="bg-job-red-500 inline-flex h-12 w-44 items-center justify-center rounded-md text-[16px] font-semibold text-white transition-all duration-300 hover:brightness-90"
-              >
-                Viết đánh giá
-              </Link>
+              <ButtonReview id={companyDetail?.id} />
             </div>
           </div>
         </div>
@@ -81,14 +77,17 @@ export default async function CompanyDetailPage({
             <ul className="text-job-secondary flex items-center gap-12 text-[16px] font-bold">
               <li>
                 <Link
-                  href={""}
+                  href={`/company/detail/${companyDetail?.id}`}
                   className="text-job-red-500 border-job-blue border-b-2 pb-5"
                 >
                   Giới thiệu
                 </Link>
               </li>
               <li>
-                <Link href={""} className="pb-5">
+                <Link
+                  href={`/company/detail/${companyDetail?.id}/review`}
+                  className="pb-5"
+                >
                   Đánh giá{" "}
                   <span className="bg-job-gray-100 ml-2 rounded-4xl px-4 py-1 text-xs font-normal">
                     123
