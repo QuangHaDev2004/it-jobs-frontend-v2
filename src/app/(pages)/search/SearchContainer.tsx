@@ -1,6 +1,5 @@
 "use client";
 import { CardJobItem } from "@/components/card/CardJobItem";
-import { SearchSkeleton } from "@/components/skeleton/SearchSkeleton";
 import { EmptyState } from "@/components/common/EmptyState";
 import { Pagination } from "@/components/pagination/Pagination";
 import { positionList, workingFormList } from "@/constants/options";
@@ -8,6 +7,7 @@ import { searchJob } from "@/services/job";
 import { JobDetail } from "@/types";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Spinner } from "@/components/loading/Spinner";
 
 export const SearchContainer = () => {
   const router = useRouter();
@@ -19,7 +19,7 @@ export const SearchContainer = () => {
   const position = searchParams.get("position") || "";
   const workingForm = searchParams.get("workingForm") || "";
 
-  const { data, isPending, isFetching } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: [
       "searchJob",
       { language, city, company, keyword, position, workingForm },
@@ -54,10 +54,9 @@ export const SearchContainer = () => {
   if (company) highlightText += "đang tuyển dụng";
   if (keyword) highlightText += keyword;
 
-  const isEmpty = !isPending && !isFetching && jobList.length === 0;
+  if (isPending) return <Spinner />;
 
-  if (isPending) return <SearchSkeleton />;
-  if (isEmpty) return <EmptyState />;
+  if (!jobList.length) return <EmptyState />;
 
   return (
     <>
@@ -65,12 +64,12 @@ export const SearchContainer = () => {
         <>
           <h2 className="text-job-secondary mb-[30px] text-[28px] font-bold">
             {jobCountText}{" "}
-            <span className="text-job-blue">{highlightText.trim()}</span> tại{" "}
+            <span className="text-job-blue-500">{highlightText.trim()}</span> tại{" "}
             <span>{locationText}</span>
           </h2>
 
           <div
-            className="mb-[30px] flex flex-wrap items-center bg-white gap-3 rounded-lg px-5 py-2.5"
+            className="mb-[30px] flex flex-wrap items-center gap-3 rounded-lg bg-white px-5 py-2.5"
             style={{
               boxShadow: "0px 4px 20px 0px #0000000F",
             }}

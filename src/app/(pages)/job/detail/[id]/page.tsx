@@ -6,7 +6,6 @@ import {
   FaArrowUpRightFromSquare,
   FaRegBuilding,
   FaRegClock,
-  FaRegHeart,
 } from "react-icons/fa6";
 import { AiOutlineDollar } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
@@ -16,6 +15,7 @@ import { JobDetail } from "@/types";
 import dayjs from "@/libs/dayjs";
 import { api } from "@/libs/axios";
 import { getJobInfo } from "@/utils/jobHelper";
+import { SaveJob } from "./SaveJob";
 
 export const metadata: Metadata = {
   title: "Chi tiết công việc",
@@ -76,14 +76,7 @@ export default async function JobDetailPage({
                   >
                     Ứng tuyển
                   </Link>
-                  <div className="tooltip">
-                    <div className="tooltip-content">
-                      <div className="text-sm">Lưu việc này</div>
-                    </div>
-                    <FaRegHeart className="text-job-red-500 cursor-pointer text-[30px]" />
-                  </div>
-
-                  {/* <FaHeart /> */}
+                  <SaveJob jobId={jobDetail.id} />
                 </div>
                 {jobDetail?.images && jobDetail.images.length > 0 && (
                   <div className="mb-5 grid grid-cols-3 gap-2 sm:gap-4">

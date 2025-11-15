@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { CVList } from "./CVList";
 
 export const metadata: Metadata = {
-  title: "Quản lý CV đã gửi",
-  description: "Mô tả trang quản lý CV đã gửi...",
+  title: "Việc làm của tôi",
+  description: "Mô tả trang Việc làm của tôi...",
 };
 
 export default function UserManageCVListPage() {
@@ -12,7 +12,7 @@ export default function UserManageCVListPage() {
       <div className="py-[60px]">
         <div className="container">
           <h1 className="text-job-secondary mb-5 text-2xl font-bold">
-            Quản lý CV đã gửi
+            Việc làm của tôi
           </h1>
           <CVList />
         </div>
