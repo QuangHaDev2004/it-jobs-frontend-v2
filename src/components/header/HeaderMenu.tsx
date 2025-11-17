@@ -19,7 +19,7 @@ export const HeaderMenu = ({
         className={
           "lg:block " +
           (showMenu
-            ? "fixed top-0 left-0 z-[999] h-[100vh] w-[280px] bg-blue-800"
+            ? "bg-job-secondary fixed top-0 left-0 z-[999] h-[100vh] w-[280px]"
             : "hidden")
         }
       >

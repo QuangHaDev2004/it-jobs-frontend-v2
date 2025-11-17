@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { Metadata } from "next";
-import Link from "next/link";
 import { GrMapLocation } from "react-icons/gr";
 import { CompanyDetail, ReviewDetail } from "@/types";
 import { PLACEHOLDER_IMG } from "@/constants";
@@ -9,6 +8,7 @@ import { ButtonReview } from "../ButtonReview";
 import { FaRegThumbsDown, FaRegThumbsUp, FaStar } from "react-icons/fa6";
 import dayjs from "@/libs/dayjs";
 import { CircleProgress } from "./CircleProgress";
+import { CompanyTab } from "@/components/common/CompanyTab";
 
 export async function generateMetadata({
   params,
@@ -93,27 +93,11 @@ export default async function CompanyDetailReviewPage({
       <div className="pt-[30px] pb-[60px]">
         <div className="container">
           {/* Company Tabs */}
-          <nav className="mb-5 rounded-lg bg-white p-5 shadow-md">
-            <ul className="text-job-secondary flex items-center gap-12 text-[16px] font-bold">
-              <li>
-                <Link
-                  href={""}
-                  className="text-job-red-500 border-job-blue border-b-2 pb-5"
-                >
-                  Giới thiệu
-                </Link>
-              </li>
-              <li>
-                <Link href={""} className="pb-5">
-                  Đánh giá{" "}
-                </Link>
-              </li>
-            </ul>
-          </nav>
+          <CompanyTab id={companyDetail?.id} />
 
           <div className="flex flex-wrap gap-5">
             {/* List Review */}
-            <div className="mb-5 rounded-lg bg-white p-5 shadow-md lg:w-[65%]">
+            <div className="rounded-lg bg-white p-5 shadow-md lg:w-[65%] order-1 lg:order-none">
               <h2 className="text-job-secondary border-job-gray-100 mb-4 border-b border-dashed pb-4 text-[22px] font-bold">
                 Đánh giá của mọi người
               </h2>
