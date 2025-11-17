@@ -28,11 +28,11 @@ export default async function CompanyReviewPage({
   return (
     <div className="py-[60px]">
       <div className="container">
-        <div className="rounded-lg bg-white p-10 shadow-md">
-          <h1 className="text-job-secondary mb-3 text-2xl font-bold">
+        <div className="rounded-lg bg-white p-5 sm:p-10 shadow-md">
+          <h1 className="text-job-secondary mb-3 text-lg sm:text-2xl font-bold">
             Đánh giá công ty {companyDetail?.companyName}
           </h1>
-          <p className="text-job-secondary mb-6 text-[16px]">
+          <p className="text-job-secondary mb-6 text-sm sm:text-[16px]">
             Bạn chỉ mất 1 phút để hoàn thành bảng đánh giá này. Ý kiến của bạn
             sẽ giúp ích rất nhiều cho cộng đồng Developer đang tìm việc.
           </p>

@@ -39,8 +39,8 @@ export const Header = () => {
 
             {/* Account */}
             <div className="flex items-center gap-10">
-              <FaRegMessage size={20} className="text-white cursor-pointer" />
-              <FaRegBell size={20} className="text-white cursor-pointer" />
+              <FaRegMessage size={20} className="text-white cursor-pointer hidden lg:block" />
+              <FaRegBell size={20} className="text-white cursor-pointer hidden lg:block" />
               <HeaderAccount />
             </div>
           </div>

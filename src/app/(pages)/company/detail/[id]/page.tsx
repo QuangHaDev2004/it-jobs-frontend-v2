@@ -9,6 +9,7 @@ import { CompanyDetail, JobDetail } from "@/types";
 import { PLACEHOLDER_IMG } from "@/constants";
 import { api } from "@/libs/axios";
 import { ButtonReview } from "./ButtonReview";
+import { CompanyTab } from "@/components/common/CompanyTab";
 
 export async function generateMetadata({
   params,
@@ -73,29 +74,7 @@ export default async function CompanyDetailPage({
       <div className="pt-[30px] pb-[60px]">
         <div className="container">
           {/* Company Tabs */}
-          <nav className="mb-5 rounded-lg bg-white p-5 shadow-md">
-            <ul className="text-job-secondary flex items-center gap-12 text-[16px] font-bold">
-              <li>
-                <Link
-                  href={`/company/detail/${companyDetail?.id}`}
-                  className="text-job-red-500 border-job-blue border-b-2 pb-5"
-                >
-                  Giới thiệu
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={`/company/detail/${companyDetail?.id}/review`}
-                  className="pb-5"
-                >
-                  Đánh giá{" "}
-                  <span className="bg-job-gray-100 ml-2 rounded-4xl px-4 py-1 text-xs font-normal">
-                    123
-                  </span>
-                </Link>
-              </li>
-            </ul>
-          </nav>
+          <CompanyTab id={companyDetail?.id} />
 
           {/* Company Info */}
           <div className="mb-5 rounded-lg bg-white p-5 shadow-md">
@@ -152,7 +131,7 @@ export default async function CompanyDetailPage({
                 }}
               ></div>
             </div>
-            <div className="text-job-blue-500 flex items-center gap-6 text-[16px] font-normal">
+            <div className="text-job-blue-500 flex flex-wrap items-center gap-6 text-[16px] font-normal">
               <Link href={""} className="flex items-center gap-2">
                 <GoGlobe className="text-[20px]" />
                 Website công ty

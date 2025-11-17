@@ -34,10 +34,10 @@ export const FormReview = ({ id }: { id: string }) => {
 
   return (
     <form onSubmit={handleSubmit(handleReviewForm)}>
-      <div className="flex gap-14">
+      <div className="flex gap-5 sm:gap-14">
         <label
           htmlFor="totalRating"
-          className="text-job-secondary inline-block text-lg font-bold"
+          className="text-job-secondary inline-block text-sm sm:text-lg font-bold"
         >
           Đánh giá chung <span className="text-job-red-500">*</span>
         </label>
@@ -53,7 +53,6 @@ export const FormReview = ({ id }: { id: string }) => {
             type="radio"
             value="2"
             className="mask mask-star-2 bg-orange-400"
-            // defaultChecked
           />
           <input
             {...register("rating")}
@@ -84,7 +83,7 @@ export const FormReview = ({ id }: { id: string }) => {
       <div className="mt-8 mb-4 flex flex-col">
         <label
           htmlFor="title"
-          className="text-job-secondary mb-4 inline-block text-lg font-bold"
+          className="text-job-secondary mb-1 sm:mb-4 inline-block text-sm sm:text-lg font-bold"
         >
           Tiêu đề <span className="text-job-red-500">*</span>
         </label>
@@ -105,7 +104,7 @@ export const FormReview = ({ id }: { id: string }) => {
       <div className="mb-4 flex flex-col">
         <label
           htmlFor="pros"
-          className="text-job-secondary mb-4 inline-block text-lg font-bold"
+          className="text-job-secondary mb-1 sm:mb-4 inline-block text-sm sm:text-lg font-bold"
         >
           Điều làm bạn thích làm việc tại đây{" "}
           <span className="text-job-red-500">*</span>
@@ -126,7 +125,7 @@ export const FormReview = ({ id }: { id: string }) => {
       <div className="mb-4 flex flex-col">
         <label
           htmlFor="cons"
-          className="text-job-secondary mb-4 inline-block text-lg font-bold"
+          className="text-job-secondary mb-1 sm:mb-4 inline-block text-sm sm:text-lg font-bold"
         >
           Đề nghị cải thiện <span className="text-job-red-500">*</span>
         </label>
